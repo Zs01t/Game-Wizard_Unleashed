@@ -22,7 +22,7 @@ namespace Wizard_Unleashed
     public partial class GameWindow : Window
     {
 
-        public IGameLogic logic;
+        //public IGameLogic logic;
         public Player player;
 
         public GameWindow()
@@ -34,16 +34,16 @@ namespace Wizard_Unleashed
             player = new Player();
             
 
-            logic = new GameLogic(player);
-            gameDisplay.SetupModel(logic);
+            //logic = new GameLogic(player);
+            gameDisplay.SetupModel(new GameLogic(player));
             gameDisplay.SetupSizes(new Size(gameGrid.ActualWidth, gameGrid.ActualHeight));
         }
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if (logic != null)
+            if (gameDisplay.logic != null)
             {
-                gameDisplay.SetupSizes(new System.Windows.Size(gameGrid.ActualWidth, gameGrid.ActualHeight));
+                gameDisplay.SetupSizes(new Size(gameGrid.ActualWidth, gameGrid.ActualHeight));
                 //logic.SetupSizes(new System.Windows.Size(grid.ActualWidth, grid.ActualHeight));
             }
         }
@@ -52,19 +52,19 @@ namespace Wizard_Unleashed
         {
             if (e.Key == Key.Left)
             {
-                logic.Control(Direction.Left);
+                gameDisplay.logic.Control(Direction.Left);
             }
             else if (e.Key == Key.Right)
             {
-                logic.Control(Direction.Right);
+                gameDisplay.logic.Control(Direction.Right);
             }
             else if (e.Key == Key.Up)
             {
-                logic.Control(Direction.Up);
+                gameDisplay.logic.Control(Direction.Up);
             }
             else if (e.Key == Key.Down)
             {
-                logic.Control(Direction.Down);
+                gameDisplay.logic.Control(Direction.Down);
             }
             gameDisplay.InvalidateVisual();
         }
