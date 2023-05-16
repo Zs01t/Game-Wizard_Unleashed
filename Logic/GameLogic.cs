@@ -1,4 +1,5 @@
 ﻿using Models;
+using Models.Enemies;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,9 +9,10 @@ namespace Logic
 {
     public class GameLogic : IGameLogic
     {
+        private static Random rnd = new Random();
         public GameItem[,] Map { get; private set; }
         public Player Player { get; set; }
-
+        public List<Enemy> Enemies { get; private set; }
         public List<Spell> Spells { get; private set; }
 
         private Queue<string> levels;
@@ -19,7 +21,9 @@ namespace Logic
         {
             this.Player = player;
             Spells = new List<Spell>();
+            Enemies = new List<Enemy>();
             levels = new Queue<string>();
+
             var lvlFiles = Directory.GetFiles("Levels",
                     "*.lvl");
 
@@ -33,6 +37,7 @@ namespace Logic
         public void TimeStep()
         {
             SpellAnimation();
+            EnemyStepDistributor();
         }
 
         public void LoadNext(string path)
@@ -43,7 +48,6 @@ namespace Logic
 
             for (int i = 0; i < Map.GetLength(0); i++)
             {
-                ;
                 for (int j = 0; j < Map.GetLength(1); j++)
                 {
                     Map[i, j] = ConvertToEnum(lines[i + 2][j]);
@@ -52,6 +56,34 @@ namespace Logic
                         //megadjuk a koordinátáit a játékosnak, ami a mozgáshoz kell neki
                         Player.Position.X = i;
                         Player.Position.Y = j;
+                    }
+                    else if (Map[i, j] == GameItem.Enemy)
+                    {
+                        // ebben az if-ben csak setup-olni akarom a különböző pályákon a különböző enemy generálásokat aszerint,
+                        // hogy hány pálya van még a queue-ban (ha még 4 pálya van, azaz az első pályán vagyunk akkor csak BasicEnemy-ket rak, későbbiekben pedig egyre durvábbakat)
+                        //
+                        // de egyébként olyasmi is lehet, hogy randomizáljuk,
+                        // hogy hány enemy legyen egy pályán, milyen enemy-k legyenek (nyílván nehézséghez igazítva) és azt is hogy hol,
+                        // nem lenne annyira nehéz megoldani, és egy beállítható nehézségi fok is a fejemben van, de azt tényleg csak ha az idő engedi
+                        // -G
+                        switch (levels.Count())
+                        {
+                            case 4:
+                                Enemies.Add(new BasicEnemy(new Coords(i, j), 20));
+                                break;
+                            case 3:
+                                Enemies.Add(new BasicEnemy(new Coords(i, j), 20));
+                                break;
+                            case 2:
+                                Enemies.Add(new BasicEnemy(new Coords(i, j), 20));
+                                break;
+                            case 1:
+                                Enemies.Add(new BasicEnemy(new Coords(i, j), 20));
+                                break;
+                            default:
+                                Enemies.Add(new BasicEnemy(new Coords(i, j), 20));
+                                break;
+                        }
                     }
                 }
             }
@@ -83,22 +115,22 @@ namespace Logic
             switch (direction)
             {
                 case Direction.Left:
-                    if(posY > 0)
+                    if (posY > 0)
                         posY -= 1;
                     break;
 
                 case Direction.Right:
-                    if(posY < Map.GetLength(1))
+                    if (posY < Map.GetLength(1))
                         posY += 1;
                     break;
 
                 case Direction.Up:
-                    if(posX > 0)
+                    if (posX > 0)
                         posX -= 1;
                     break;
 
                 case Direction.Down:
-                    if(posX < Map.GetLength(0))
+                    if (posX < Map.GetLength(0))
                         posX += 1;
                     break;
             }
@@ -127,7 +159,7 @@ namespace Logic
         public void CastSpell()
         {
             // a player helyéhez képest fogjuk meghatározni a spell helyét
-            int posX = Player.Position.X; 
+            int posX = Player.Position.X;
             int posY = Player.Position.Y;
 
             // ezzel okézzuk le, hogy a switch-ben a játéktér egy valid pontjára kerül a spell
@@ -142,7 +174,7 @@ namespace Logic
             {
                 case Direction.Left:
                     if (posY > 0)
-                    { 
+                    {
                         posY -= 1;
                         castable = true;
                     }
@@ -150,7 +182,7 @@ namespace Logic
 
                 case Direction.Right:
                     if (posY < Map.GetLength(1))
-                    { 
+                    {
                         posY += 1;
                         castable = true;
                     }
@@ -158,7 +190,7 @@ namespace Logic
 
                 case Direction.Up:
                     if (posX > 0)
-                    { 
+                    {
                         posX -= 1;
                         castable = true;
                     }
@@ -166,13 +198,13 @@ namespace Logic
 
                 case Direction.Down:
                     if (posX < Map.GetLength(0))
-                    { 
+                    {
                         posX += 1;
                         castable = true;
                     }
                     break;
             }
-            
+
             // ha a spell megjelenésének a helye nem fal és a switch is leokézta, akkor létrehozzuk a spell-t
             if (Map[posX, posY] != GameItem.Wall && castable)
             {
@@ -239,6 +271,168 @@ namespace Logic
                         i--;
                     }
                 }
+            }
+        }
+
+        private void EnemyStepDistributor()
+        {
+            if (Enemies.Count() > 0)
+            {
+                for (int i = 0; i < Enemies.Count(); i++)
+                {
+                    Enemy enemy = Enemies[i];
+
+                    if (enemy is BasicEnemy)
+                    {
+                        i = EnemyHit(enemy, i);
+                        BasicEnemyStep(enemy);
+                        i = EnemyHit(enemy, i);
+                    }
+                }
+            }
+        }
+
+        private int EnemyHit(Enemy enemy, int k)
+        {
+            for (int i = 0; i < Spells.Count(); i++)
+            {
+                Spell spell = Spells[i];
+
+                if (spell.Position.X == enemy.Position.X && spell.Position.Y == enemy.Position.Y)
+                {
+                    enemy.Health -= 10;
+                    this.Enemies.Remove(enemy);
+                    i--;
+                }
+                else
+                {
+                    int new_xa = spell.Position.X + 1;
+                    int new_ya = spell.Position.Y + 1;
+                    int new_xs = spell.Position.X - 1;
+                    int new_ys = spell.Position.Y - 1;
+
+                    switch (spell.Direction)
+                    {
+                        case Direction.Left:
+                            if (spell.Position.X == enemy.Position.X && new_ys == enemy.Position.Y)
+                            {
+                                enemy.Health -= 10;
+                                Spells.Remove(spell);
+                                //i--;
+                                this.Enemies.Remove(enemy);
+                                i--;
+                            }
+                            break;
+                        case Direction.Right:
+                            if (spell.Position.X == enemy.Position.X && new_ya == enemy.Position.Y)
+                            {
+                                enemy.Health -= 10;
+                                Spells.Remove(spell);
+                                //i--;
+                                this.Enemies.Remove(enemy);
+                                i--;
+                            }
+                            break;
+                        case Direction.Up:
+                            if (new_xs == enemy.Position.X && spell.Position.Y == enemy.Position.Y)
+                            {
+                                enemy.Health -= 10;
+                                Spells.Remove(spell);
+                                //i--;
+                                this.Enemies.Remove(enemy);
+                                i--;
+                            }
+                            break;
+                        case Direction.Down:
+                            if (new_xa == enemy.Position.X && spell.Position.Y == enemy.Position.Y)
+                            {
+                                enemy.Health -= 10;
+                                Spells.Remove(spell);
+                                //i--;
+                                this.Enemies.Remove(enemy);
+                                i--;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+
+            if (enemy.Health < 0)
+            {
+                Enemies.Remove(enemy);
+                return k--;
+            }
+            else
+                return k;
+        }
+
+        private void BasicEnemyStep(Enemy enemy)
+        {
+            int oldposX = enemy.Position.X;
+            int oldposY = enemy.Position.Y;
+            int posX = enemy.Position.X;
+            int posY = enemy.Position.Y;
+
+            if (enemy.Position.X == this.Player.Position.X)
+            {
+                if (enemy.Position.Y == this.Player.Position.Y)
+                {
+                    // rajta áll
+                }
+                else if (enemy.Position.Y < this.Player.Position.Y)
+                {
+                    posY++;
+                }
+                else if (enemy.Position.Y > this.Player.Position.Y)
+                {
+                    posY--;
+                }
+            }
+            else if (enemy.Position.X < this.Player.Position.X)
+            {
+                if (enemy.Position.Y == this.Player.Position.Y)
+                {
+                    posX++;
+                }
+                else if (enemy.Position.Y < this.Player.Position.Y)
+                {
+                    posX++;
+                    posY++;
+                }
+                else if (enemy.Position.Y > this.Player.Position.Y)
+                {
+                    posX++;
+                    posY--;
+                }
+            }
+            else if (enemy.Position.X > this.Player.Position.X)
+            {
+                if (enemy.Position.Y == this.Player.Position.Y)
+                {
+                    posX--;
+                }
+                else if (enemy.Position.Y < this.Player.Position.Y)
+                {
+                    posX--;
+                    posY++;
+                }
+                else if (enemy.Position.Y > this.Player.Position.Y)
+                {
+                    posX--;
+                    posY--;
+                }
+            }
+
+            if (Map[posX, posY] != GameItem.Wall && Map[posX, posY] != GameItem.Enemy && Map[posX, posY] != GameItem.Player)
+            {
+                Map[oldposX, oldposY] = GameItem.Floor;
+
+                enemy.Position.X = posX;
+                enemy.Position.Y = posY;
+
+                Map[posX, posY] = GameItem.Enemy;
             }
         }
     }

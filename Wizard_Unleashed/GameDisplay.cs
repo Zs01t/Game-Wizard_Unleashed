@@ -72,7 +72,9 @@ namespace Wizard_Unleashed
                             case GameItem.Spell:
                                 brush = Brushes.Red;
                                 break;
-
+                            case GameItem.Enemy:
+                                brush = Brushes.Black;
+                                break;
                             default:
 
                                 break;
