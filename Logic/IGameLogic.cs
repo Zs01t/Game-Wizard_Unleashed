@@ -9,6 +9,6 @@ namespace Logic
         void Control(Direction direction);
         void LoadNext(string path);
         void TimeStep();
-        void CastSpell(Direction direction);
+        void CastSpell();
     }
 }
