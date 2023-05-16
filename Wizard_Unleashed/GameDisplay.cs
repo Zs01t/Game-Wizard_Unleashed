@@ -69,6 +69,10 @@ namespace Wizard_Unleashed
                                 
                                 break;
 
+                            case GameItem.Spell:
+                                brush = Brushes.Red;
+                                break;
+
                             default:
 
                                 break;

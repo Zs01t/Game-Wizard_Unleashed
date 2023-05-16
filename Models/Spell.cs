@@ -6,16 +6,15 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    public class Player
+    public class Spell
     {
-        public int Health;
+        public Spell(Coords position, Direction direction)
+        {
+            Position = position;
+            Direction = direction;
+        }
 
         public Coords Position { get; set; }
-
-        public Player()
-        {
-            Position = new Coords(0, 0);
-        }
 
         public Direction Direction { get; set; }
     }

@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Wizard_Unleashed
 {
@@ -22,8 +23,9 @@ namespace Wizard_Unleashed
     public partial class GameWindow : Window
     {
 
-        //public IGameLogic logic;
+        public IGameLogic logic;
         public Player player;
+        private DispatcherTimer dT;
 
         public GameWindow()
         {
@@ -32,11 +34,25 @@ namespace Wizard_Unleashed
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             player = new Player();
-            
 
-            //logic = new GameLogic(player);
-            gameDisplay.SetupModel(new GameLogic(player));
+            logic = new GameLogic(player);
+            //gameDisplay.SetupModel(new GameLogic(player));
+            gameDisplay.SetupModel(logic);
             gameDisplay.SetupSizes(new Size(gameGrid.ActualWidth, gameGrid.ActualHeight));
+
+            //időzítő:
+            this.dT = new DispatcherTimer();
+
+            // 20 ms -> 50 fps //eredetileg 200
+            this.dT.Interval = TimeSpan.FromMilliseconds(1000);
+            this.dT.Tick += this.DT_Tick;
+            this.dT.Start();
+        }
+
+        private void DT_Tick(object? sender, EventArgs e)
+        {
+            logic.TimeStep();
+            gameDisplay.InvalidateVisual();
         }
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -65,6 +81,10 @@ namespace Wizard_Unleashed
             else if (e.Key == Key.Down)
             {
                 gameDisplay.logic.Control(Direction.Down);
+            }
+            else if(e.Key == Key.Space)
+            {
+                gameDisplay.logic.CastSpell(gameDisplay.logic.Player.Direction);
             }
             gameDisplay.InvalidateVisual();
         }
