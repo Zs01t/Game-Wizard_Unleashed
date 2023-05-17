@@ -33,6 +33,7 @@ namespace Wizard_Unleashed
         public void SetupModel(IGameLogic logic)
         {
             this.logic = logic;
+            logic.GameStateChanged += this.GameStateChanged;
         }
 
         protected override void OnRender(DrawingContext drawingContext)
@@ -91,6 +92,11 @@ namespace Wizard_Unleashed
                     }
                 }
             }
+        }
+
+        private void GameStateChanged(object sender, EventArgs e)
+        {
+            this.InvalidateVisual();
         }
     }
 }

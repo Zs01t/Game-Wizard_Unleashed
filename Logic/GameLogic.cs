@@ -9,6 +9,8 @@ namespace Logic
 {
     public class GameLogic : IGameLogic
     {
+        public event EventHandler GameStateChanged;
+
         private static Random rnd = new Random();
         public GameItem[,] Map { get; private set; }
         public Player Player { get; set; }
@@ -105,6 +107,8 @@ namespace Logic
 
         GameItem TileYouAreCurrentlyOn;
         GameItem TileYouWerePreviouslyOn;
+
+        // MUST: ne lehessen enemy-re lépni
         public void Control(Direction direction)
         {
             int oldPosX = Player.Position.X;
@@ -153,6 +157,8 @@ namespace Logic
                 Player.Position.Y = oldPosY;
 
             }
+
+            this.GameStateChanged.Invoke(this, null);
         }
 
         //spell lövése (csak ellenőrzi, hogy lőhet e spellt a jelen körülmények között, ha igen, létrehozza)
@@ -272,7 +278,10 @@ namespace Logic
                     }
                 }
             }
+
+            this.GameStateChanged.Invoke(this, null);
         }
+
 
         private void EnemyStepDistributor()
         {
@@ -292,6 +301,7 @@ namespace Logic
             }
         }
 
+        // eltüntetni is el kell!!!!
         private int EnemyHit(Enemy enemy, int k)
         {
             for (int i = 0; i < Spells.Count(); i++)
@@ -301,6 +311,8 @@ namespace Logic
                 if (spell.Position.X == enemy.Position.X && spell.Position.Y == enemy.Position.Y)
                 {
                     enemy.Health -= 10;
+                    
+                    this.Spells.Remove(spell);
                     this.Enemies.Remove(enemy);
                     i--;
                 }
@@ -362,10 +374,14 @@ namespace Logic
             if (enemy.Health < 0)
             {
                 Enemies.Remove(enemy);
+                this.GameStateChanged.Invoke(this, null);
                 return k--;
             }
             else
+            {
+                this.GameStateChanged.Invoke(this, null);
                 return k;
+            }
         }
 
         private void BasicEnemyStep(Enemy enemy)
