@@ -16,6 +16,7 @@ namespace Wizard_Unleashed
     {
         private Size size;
         public IGameLogic logic;
+        public PlayerObject playerObject;
 
         public void SetupSizes(Size size)
         {
@@ -33,6 +34,7 @@ namespace Wizard_Unleashed
         public void SetupModel(IGameLogic logic)
         {
             this.logic = logic;
+            playerObject = new PlayerObject(logic.Player, "Assets\\Wizard");
             logic.GameStateChanged += this.GameStateChanged;
         }
 
@@ -44,17 +46,35 @@ namespace Wizard_Unleashed
                 double rectWidth = size.Width / logic.Map.GetLength(1);
                 double rectHeight = size.Height / logic.Map.GetLength(0);
 
+
                 for (int i = 0; i < logic.Map.GetLength(0); i++)
                 {
                     for (int j = 0; j < logic.Map.GetLength(1); j++)
                     {
+                        drawingContext.DrawRectangle(
+                                    Brushes.LightCoral,
+                                    new Pen(Brushes.Black, 0),
+                                    new Rect(j * rectWidth, i * rectHeight, rectWidth + 1, rectHeight + 1)
+                                    );
+                    }
+                }
+
+
+
+
+                        for (int i = 0; i < logic.Map.GetLength(0); i++)
+                {
+                    for (int j = 0; j < logic.Map.GetLength(1); j++)
+                    {
                         SolidColorBrush brush = new SolidColorBrush();
+
                         switch (logic.Map[i, j])
                         {
-                            case GameItem.Player:
+                            //case GameItem.Player:
 
-                                brush = Brushes.LightBlue;
-                                break;
+                            //    brush = Brushes.LightBlue;
+
+                            //    break;
 
                             case GameItem.Wall:
                                 brush = Brushes.Brown;
@@ -81,13 +101,32 @@ namespace Wizard_Unleashed
                                 break;
                         }
 
-
-
-                        drawingContext.DrawRectangle(
+                        if (logic.Map[i, j] == GameItem.Player)
+                        {
+                            ImageBrush playerBrush;
+                            if (playerObject.IsWalking)
+                            {
+                                playerBrush = new ImageBrush(playerObject.CurrentWalkImage);
+                            }
+                            else
+                            {
+                                playerBrush = new ImageBrush(playerObject.CurrentIdleImage);
+                            }
+                            drawingContext.DrawRectangle(
+                                   playerBrush,
+                                   new Pen(Brushes.Black, 0),
+                                   new Rect(j * rectWidth, i * rectHeight, rectWidth + 1, rectHeight + 1)
+                                   );
+                        }
+                        else
+                        {
+                            drawingContext.DrawRectangle(
                                     brush,
                                     new Pen(Brushes.Black, 0),
                                     new Rect(j * rectWidth, i * rectHeight, rectWidth + 1, rectHeight + 1)
                                     );
+                        }
+                        
 
                     }
                 }

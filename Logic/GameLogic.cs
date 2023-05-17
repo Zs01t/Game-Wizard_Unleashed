@@ -76,19 +76,19 @@ namespace Logic
                         switch (levels.Count())
                         {
                             case 4:
-                                Enemies.Add(new BasicEnemy(new Coords(i, j), 20));
+                                Enemies.Add(new NormalEnemy(new Coords(i, j), 20));
                                 break;
                             case 3:
-                                Enemies.Add(new BasicEnemy(new Coords(i, j), 20));
+                                Enemies.Add(new NormalEnemy(new Coords(i, j), 20));
                                 break;
                             case 2:
-                                Enemies.Add(new BasicEnemy(new Coords(i, j), 20));
+                                Enemies.Add(new NormalEnemy(new Coords(i, j), 20));
                                 break;
                             case 1:
-                                Enemies.Add(new BasicEnemy(new Coords(i, j), 20));
+                                Enemies.Add(new NormalEnemy(new Coords(i, j), 20));
                                 break;
                             default:
-                                Enemies.Add(new BasicEnemy(new Coords(i, j), 20));
+                                Enemies.Add(new NormalEnemy(new Coords(i, j), 20));
                                 break;
                         }
                     }
