@@ -76,10 +76,10 @@ namespace Logic
                         switch (levels.Count())
                         {
                             case 4:
-                                Enemies.Add(new NormalEnemy(new Coords(i, j), 20));
+                                Enemies.Add(new BasicEnemy(new Coords(i, j), 20));
                                 break;
                             case 3:
-                                Enemies.Add(new NormalEnemy(new Coords(i, j), 20));
+                                Enemies.Add(new BasicEnemy(new Coords(i, j), 20));
                                 break;
                             case 2:
                                 Enemies.Add(new BasicEnemy(new Coords(i, j), 20));
@@ -466,6 +466,7 @@ namespace Logic
             }
         }
 
+        // nem fordul elő, hogy éppenhogy belemozog amior átlósan akarna menni???
         private void NormalEnemyStep(Enemy enemy)
         {
             int oldposX = enemy.Position.X;
