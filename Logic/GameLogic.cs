@@ -40,6 +40,10 @@ namespace Logic
         {
             SpellAnimation();
             EnemyStepDistributor();
+            for (int i = 0; i < Enemies.Count(); i++)
+            {
+                i = EnemyHit(Enemies[i], i);
+            }
         }
 
         public void LoadNext(string path)
@@ -293,9 +297,9 @@ namespace Logic
 
                     if (enemy is BasicEnemy)
                     {
-                        i = EnemyHit(enemy, i);
+                        //i = EnemyHit(enemy, i);
                         BasicEnemyStep(enemy);
-                        i = EnemyHit(enemy, i);
+                        //i = EnemyHit(enemy, i);
                     }
                 }
             }
@@ -311,9 +315,9 @@ namespace Logic
                 if (spell.Position.X == enemy.Position.X && spell.Position.Y == enemy.Position.Y)
                 {
                     enemy.Health -= 10;
-                    
+                    //Map[spell.Position.X, spell.Position.Y] = GameItem.Floor;
                     this.Spells.Remove(spell);
-                    this.Enemies.Remove(enemy);
+                    //this.Enemies.Remove(enemy);
                     i--;
                 }
                 else
@@ -329,9 +333,10 @@ namespace Logic
                             if (spell.Position.X == enemy.Position.X && new_ys == enemy.Position.Y)
                             {
                                 enemy.Health -= 10;
+                                Map[spell.Position.X, spell.Position.Y] = GameItem.Floor;
                                 Spells.Remove(spell);
                                 //i--;
-                                this.Enemies.Remove(enemy);
+                                //this.Enemies.Remove(enemy);
                                 i--;
                             }
                             break;
@@ -339,9 +344,10 @@ namespace Logic
                             if (spell.Position.X == enemy.Position.X && new_ya == enemy.Position.Y)
                             {
                                 enemy.Health -= 10;
+                                Map[spell.Position.X, spell.Position.Y] = GameItem.Floor;
                                 Spells.Remove(spell);
                                 //i--;
-                                this.Enemies.Remove(enemy);
+                                //this.Enemies.Remove(enemy);
                                 i--;
                             }
                             break;
@@ -349,9 +355,10 @@ namespace Logic
                             if (new_xs == enemy.Position.X && spell.Position.Y == enemy.Position.Y)
                             {
                                 enemy.Health -= 10;
+                                Map[spell.Position.X, spell.Position.Y] = GameItem.Floor;
                                 Spells.Remove(spell);
                                 //i--;
-                                this.Enemies.Remove(enemy);
+                                //this.Enemies.Remove(enemy);
                                 i--;
                             }
                             break;
@@ -359,9 +366,10 @@ namespace Logic
                             if (new_xa == enemy.Position.X && spell.Position.Y == enemy.Position.Y)
                             {
                                 enemy.Health -= 10;
+                                Map[spell.Position.X, spell.Position.Y] = GameItem.Floor;
                                 Spells.Remove(spell);
                                 //i--;
-                                this.Enemies.Remove(enemy);
+                                //this.Enemies.Remove(enemy);
                                 i--;
                             }
                             break;
@@ -371,8 +379,9 @@ namespace Logic
                 }
             }
 
-            if (enemy.Health < 0)
+            if (enemy.Health <= 0)
             {
+                Map[enemy.Position.X, enemy.Position.Y] = GameItem.Floor;
                 Enemies.Remove(enemy);
                 this.GameStateChanged.Invoke(this, null);
                 return k--;
