@@ -38,12 +38,12 @@ namespace Logic
 
         public void TimeStep()
         {
-            SpellAnimation();
-            EnemyStepDistributor();
             for (int i = 0; i < Enemies.Count(); i++)
             {
                 i = EnemyHit(Enemies[i], i);
             }
+            SpellAnimation();
+            EnemyStepDistributor();
         }
 
         public void LoadNext(string path)
