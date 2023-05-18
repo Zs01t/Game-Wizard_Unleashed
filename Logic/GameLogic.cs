@@ -45,6 +45,10 @@ namespace Logic
             }
             SpellAnimation();
             EnemyStepDistributor();
+            //for (int i = 0; i < Enemies.Count(); i++)
+            //{
+            //    i = EnemyHit(Enemies[i], i);
+            //}
         }
 
         public void LoadNext(string path)
@@ -310,6 +314,8 @@ namespace Logic
             }
         }
 
+
+
         // eltüntetni is el kell!!!! (de már mukszik?)
         private int EnemyHit(Enemy enemy, int k)
         {
@@ -531,9 +537,101 @@ namespace Logic
             //    ;
             //}
 
-            if (Map[posX,posY] == GameItem.Spell || Map[oldposX,oldposY] == GameItem.Spell)
+            Direction direction = Direction.Left;
+            bool dodgeNeeded = false;
+
+            foreach (Spell spell in Spells)
             {
-                
+                if ((spell.Position.X == posX && spell.Position.Y == posY) ||
+                   (spell.Position.X == posX + 1 && spell.Position.Y == posY) ||
+                   (spell.Position.X == posX - 1 && spell.Position.Y == posY) ||
+                   (spell.Position.X == posX && spell.Position.Y == posY + 1) ||
+                   (spell.Position.X == posX && spell.Position.Y == posY - 1))
+                {
+                    direction = spell.Direction;
+                    dodgeNeeded = true;
+                    break;
+                }
+            }
+
+            if(dodgeNeeded)
+            {
+                switch (direction)
+                {
+                    case Direction.Left:
+                        if (Map[oldposX + 1, oldposY] != GameItem.Wall &&
+                            Map[oldposX + 1, oldposY] != GameItem.Enemy &&
+                            Map[oldposX + 1, oldposY] != GameItem.Player)
+                        {
+                            posX = oldposX + 1;
+                            posY = oldposY;
+                        }
+                        else if (Map[oldposX - 1, oldposY] != GameItem.Wall &&
+                                 Map[oldposX - 1, oldposY] != GameItem.Enemy &&
+                                 Map[oldposX - 1, oldposY] != GameItem.Player)
+                        {
+                            posX = oldposX - 1;
+                            posY = oldposY;
+                        }
+                        break;
+                    case Direction.Right:
+                        if (Map[oldposX + 1, oldposY] != GameItem.Wall &&
+                            Map[oldposX + 1, oldposY] != GameItem.Enemy &&
+                            Map[oldposX + 1, oldposY] != GameItem.Player)
+                        {
+                            posX = oldposX + 1;
+                            posY = oldposY;
+                        }
+                        else if (Map[oldposX - 1, oldposY] != GameItem.Wall &&
+                                 Map[oldposX - 1, oldposY] != GameItem.Enemy &&
+                                 Map[oldposX - 1, oldposY] != GameItem.Player)
+                        {
+                            posX = oldposX - 1;
+                            posY = oldposY;
+                        }
+                        break;
+                    case Direction.Up:
+                        if (Map[oldposX, oldposY + 1] != GameItem.Wall &&
+                            Map[oldposX, oldposY + 1] != GameItem.Enemy &&
+                            Map[oldposX, oldposY + 1] != GameItem.Player)
+                        {
+                            posX = oldposX;
+                            posY = oldposY + 1;
+                        }
+                        else if (Map[oldposX, oldposY - 1] != GameItem.Wall &&
+                                 Map[oldposX, oldposY - 1] != GameItem.Enemy &&
+                                 Map[oldposX, oldposY - 1] != GameItem.Player)
+                        {
+                            posX = oldposX;
+                            posY = oldposY - 1;
+                        }
+                        break;
+                    case Direction.Down:
+                        if (Map[oldposX, oldposY + 1] != GameItem.Wall &&
+                            Map[oldposX, oldposY + 1] != GameItem.Enemy &&
+                            Map[oldposX, oldposY + 1] != GameItem.Player)
+                        {
+                            posX = oldposX;
+                            posY = oldposY + 1;
+                        }
+                        else if (Map[oldposX, oldposY - 1] != GameItem.Wall &&
+                                 Map[oldposX, oldposY - 1] != GameItem.Enemy &&
+                                 Map[oldposX, oldposY - 1] != GameItem.Player)
+                        {
+                            posX = oldposX;
+                            posY = oldposY - 1;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            #region not totally working
+            /*
+            if (Map[posX,posY] == GameItem.Spell || Map[oldposX, oldposY] == GameItem.Spell)
+            {
+                ;
                 Direction direction = Direction.Left;
 
                 foreach (Spell spell in Spells)
@@ -542,6 +640,7 @@ namespace Logic
                        (spell.Position.X == oldposX && spell.Position.Y == oldposY))
                     {
                         direction = spell.Direction;
+                        break;
                     }
                 }
 
@@ -615,6 +714,8 @@ namespace Logic
                         break;
                 }
             }
+            */
+            #endregion
 
             if (Map[posX, posY] != GameItem.Wall && Map[posX, posY] != GameItem.Enemy && Map[posX, posY] != GameItem.Player)
             {
