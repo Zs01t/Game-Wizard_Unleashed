@@ -8,6 +8,30 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Slime\Idle\Left\idle_left_01.png" />
+    <None Remove="Assets\Slime\Idle\Left\idle_left_02.png" />
+    <None Remove="Assets\Slime\Idle\Left\idle_left_03.png" />
+    <None Remove="Assets\Slime\Idle\Left\idle_left_04.png" />
+    <None Remove="Assets\Slime\Idle\Right\idle_right_01.png" />
+    <None Remove="Assets\Slime\Idle\Right\idle_right_02.png" />
+    <None Remove="Assets\Slime\Idle\Right\idle_right_03.png" />
+    <None Remove="Assets\Slime\Idle\Right\idle_right_04.png" />
+    <None Remove="Assets\Slime\Walk\Left\walk_left_01.png" />
+    <None Remove="Assets\Slime\Walk\Left\walk_left_02.png" />
+    <None Remove="Assets\Slime\Walk\Left\walk_left_03.png" />
+    <None Remove="Assets\Slime\Walk\Left\walk_left_04.png" />
+    <None Remove="Assets\Slime\Walk\Left\walk_left_05.png" />
+    <None Remove="Assets\Slime\Walk\Left\walk_left_06.png" />
+    <None Remove="Assets\Slime\Walk\Left\walk_left_07.png" />
+    <None Remove="Assets\Slime\Walk\Left\walk_left_08.png" />
+    <None Remove="Assets\Slime\Walk\Right\walk_right_01.png" />
+    <None Remove="Assets\Slime\Walk\Right\walk_right_02.png" />
+    <None Remove="Assets\Slime\Walk\Right\walk_right_03.png" />
+    <None Remove="Assets\Slime\Walk\Right\walk_right_04.png" />
+    <None Remove="Assets\Slime\Walk\Right\walk_right_05.png" />
+    <None Remove="Assets\Slime\Walk\Right\walk_right_06.png" />
+    <None Remove="Assets\Slime\Walk\Right\walk_right_07.png" />
+    <None Remove="Assets\Slime\Walk\Right\walk_right_08.png" />
     <None Remove="Assets\Wizard\Idle\Left\idle_left_01.png" />
     <None Remove="Assets\Wizard\Idle\Left\idle_left_02.png" />
     <None Remove="Assets\Wizard\Idle\Left\idle_left_03.png" />
@@ -41,6 +65,78 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Assets\Slime\Idle\Left\idle_left_01.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slime\Idle\Left\idle_left_02.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slime\Idle\Left\idle_left_03.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slime\Idle\Left\idle_left_04.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slime\Idle\Right\idle_right_01.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slime\Idle\Right\idle_right_02.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slime\Idle\Right\idle_right_03.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slime\Idle\Right\idle_right_04.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slime\Walk\Left\walk_left_01.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slime\Walk\Left\walk_left_02.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slime\Walk\Left\walk_left_03.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slime\Walk\Left\walk_left_04.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slime\Walk\Left\walk_left_05.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slime\Walk\Left\walk_left_06.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slime\Walk\Left\walk_left_07.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slime\Walk\Left\walk_left_08.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slime\Walk\Right\walk_right_01.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slime\Walk\Right\walk_right_02.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slime\Walk\Right\walk_right_03.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slime\Walk\Right\walk_right_04.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slime\Walk\Right\walk_right_05.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slime\Walk\Right\walk_right_06.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slime\Walk\Right\walk_right_07.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slime\Walk\Right\walk_right_08.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Wizard\Idle\Left\idle_left_01.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

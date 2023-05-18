@@ -35,8 +35,8 @@ namespace Wizard_Unleashed
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             player = new Player();
-
             logic = new GameLogic(player);
+
             //gameDisplay.SetupModel(new GameLogic(player));
             gameDisplay.SetupModel(logic);
             gameDisplay.SetupSizes(new Size(gameGrid.ActualWidth, gameGrid.ActualHeight));
@@ -51,7 +51,7 @@ namespace Wizard_Unleashed
 
             //külön timere van az animációknak
             AnimationTimer = new DispatcherTimer();
-            AnimationTimer.Interval = TimeSpan.FromMilliseconds(60);
+            AnimationTimer.Interval = TimeSpan.FromMilliseconds(120);
             AnimationTimer.Tick += AnimationTimer_Tick;
             AnimationTimer.Start();
 
@@ -71,6 +71,14 @@ namespace Wizard_Unleashed
                 gameDisplay.playerObject.ChangeCurrentIdleImage();
                 gameDisplay.playerObject.IsWalking= false;
             }
+
+
+
+            foreach (var enemy in gameDisplay.enemyObjects)
+            {
+                enemy.ChangeCurrentWalkImage();
+            }
+
             
             //ebben nem vagyok biztos, hogy ez jót tesz -Zs
             gameDisplay.InvalidateVisual();

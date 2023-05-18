@@ -6,17 +6,19 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    public class Player
+    public class Player : Entity
     {
-        public int Health;
 
-        public Coords Position { get; set; }
-
+        public Player(Coords Position , int Health) : base(Position, Health) 
+        { 
+        
+        
+        }
         public Player()
         {
-            Position = new Coords(0, 0);
+
         }
 
-        public Direction Direction { get; set; }
+
     }
 }

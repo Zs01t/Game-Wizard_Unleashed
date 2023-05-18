@@ -9,7 +9,7 @@ using System.Windows.Media.Imaging;
 
 namespace Wizard_Unleashed
 {
-    public class PlayerObject
+    public class EntityObject
     {
 
         private BitmapImage[,] idleImages;
@@ -18,11 +18,11 @@ namespace Wizard_Unleashed
         public BitmapImage CurrentIdleImage;
         public BitmapImage CurrentWalkImage;
 
-        public Player Player;
+        public Entity Entity;
         public bool IsWalking;
-        public PlayerObject(Player Player, string path)
+        public EntityObject(Entity Entity, string path)
         {
-            this.Player = Player;
+            this.Entity = Entity;
             IsWalking = false;
             ImportImages(path);
         }
@@ -31,11 +31,11 @@ namespace Wizard_Unleashed
         {
 
             //megnézem, hogy az Idle és Walk mappában mennyi a képek száma, igaziból megadhattam volna hogy 8 illetve 7
-            //int idleImageCount = Directory.GetFiles(Path.Combine(Path.Combine(path, "Idle"), "Left"), "*", SearchOption.TopDirectoryOnly).Length;
-            //int walkImageCount = Directory.GetFiles(Path.Combine(Path.Combine(path, "Walk"), "Left"), "*", SearchOption.TopDirectoryOnly).Length;
+            int idleImageCount = Directory.GetFiles(Path.Combine(Path.Combine(path, "Idle"), "Left"), "*", SearchOption.TopDirectoryOnly).Length;
+            int walkImageCount = Directory.GetFiles(Path.Combine(Path.Combine(path, "Walk"), "Left"), "*", SearchOption.TopDirectoryOnly).Length;
 
-            int idleImageCount = 8;
-            int walkImageCount = 7;
+            //int idleImageCount = 8;
+            //int walkImageCount = 7;
 
             //létrehozom a képeket tároló mátrixokat, 2 sorral, ami a bal és jobb irányú képeket tárolja
             idleImages = new BitmapImage[2, idleImageCount];
@@ -77,7 +77,7 @@ namespace Wizard_Unleashed
             //A Player jelenlegi iránya alapján meghatározom, hogy melyik WalkImage-t töltse be
             //A GameDisplay osztályban majd ez a függvény úgy lesz meghívva, hogy végigmenjen az adott irányú sétálás képek mindegyikén, tehát jelen esetben 7-szer
             //ehhez persze majd kell egy Dispatcher
-            switch (Player.Direction)
+            switch (Entity.Direction)
             {
                 case Direction.Left:
                     walkLeftState++;
@@ -108,7 +108,6 @@ namespace Wizard_Unleashed
                     break;
             }
 
-
         }
 
 
@@ -117,7 +116,7 @@ namespace Wizard_Unleashed
         public void ChangeCurrentIdleImage()
         {
             //ugyanaz a mechanika, mint a ChangeCurrentWalkImage esetén
-            switch (Player.Direction)
+            switch (Entity.Direction)
             {
 
                 case Direction.Left:

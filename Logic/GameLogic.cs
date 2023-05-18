@@ -14,7 +14,7 @@ namespace Logic
         private static Random rnd = new Random();
         public GameItem[,] Map { get; private set; }
         public Player Player { get; set; }
-        public List<Enemy> Enemies { get; private set; }
+        public List<Enemy> Enemies { get;  set; }
         public List<Spell> Spells { get; private set; }
 
         private Queue<string> levels;
@@ -414,10 +414,12 @@ namespace Logic
                 else if (enemy.Position.Y < this.Player.Position.Y)
                 {
                     posY++;
+                    enemy.Direction = Direction.Right;
                 }
                 else if (enemy.Position.Y > this.Player.Position.Y)
                 {
                     posY--;
+                    enemy.Direction = Direction.Left;
                 }
             }
             else if (enemy.Position.X < this.Player.Position.X)
@@ -430,11 +432,13 @@ namespace Logic
                 {
                     posX++;
                     posY++;
+                    enemy.Direction = Direction.Right;
                 }
                 else if (enemy.Position.Y > this.Player.Position.Y)
                 {
                     posX++;
                     posY--;
+                    enemy.Direction = Direction.Left;
                 }
             }
             else if (enemy.Position.X > this.Player.Position.X)
@@ -447,11 +451,13 @@ namespace Logic
                 {
                     posX--;
                     posY++;
+                    enemy.Direction = Direction.Right;
                 }
                 else if (enemy.Position.Y > this.Player.Position.Y)
                 {
                     posX--;
                     posY--;
+                    enemy.Direction = Direction.Left;
                 }
             }
 
@@ -483,10 +489,12 @@ namespace Logic
                 else if (enemy.Position.Y < this.Player.Position.Y)
                 {
                     posY++;
+                    enemy.Direction = Direction.Right;
                 }
                 else if (enemy.Position.Y > this.Player.Position.Y)
                 {
                     posY--;
+                    enemy.Direction = Direction.Left;
                 }
             }
             else if (enemy.Position.X < this.Player.Position.X)
@@ -494,16 +502,19 @@ namespace Logic
                 if (enemy.Position.Y == this.Player.Position.Y)
                 {
                     posX++;
+
                 }
                 else if (enemy.Position.Y < this.Player.Position.Y)
                 {
                     posX++;
                     posY++;
+                    enemy.Direction = Direction.Right;
                 }
                 else if (enemy.Position.Y > this.Player.Position.Y)
                 {
                     posX++;
                     posY--;
+                    enemy.Direction = Direction.Left;
                 }
             }
             else if (enemy.Position.X > this.Player.Position.X)
@@ -516,11 +527,13 @@ namespace Logic
                 {
                     posX--;
                     posY++;
+                    enemy.Direction = Direction.Right;
                 }
                 else if (enemy.Position.Y > this.Player.Position.Y)
                 {
                     posX--;
                     posY--;
+                    enemy.Direction = Direction.Left;
                 }
             }
 

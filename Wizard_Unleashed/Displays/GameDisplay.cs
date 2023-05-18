@@ -16,7 +16,8 @@ namespace Wizard_Unleashed
     {
         private Size size;
         public IGameLogic logic;
-        public PlayerObject playerObject;
+        public EntityObject playerObject;
+        public List<EntityObject> enemyObjects;
 
         public void SetupSizes(Size size)
         {
@@ -34,7 +35,16 @@ namespace Wizard_Unleashed
         public void SetupModel(IGameLogic logic)
         {
             this.logic = logic;
-            playerObject = new PlayerObject(logic.Player, "Assets\\Wizard");
+            playerObject = new EntityObject(logic.Player, "Assets\\Wizard");
+
+
+            enemyObjects = new List<EntityObject>();
+            foreach (var enemy in logic.Enemies)
+            {
+                enemyObjects.Add(new EntityObject(enemy, "Assets\\Slime"));
+            }
+
+
             logic.GameStateChanged += this.GameStateChanged;
         }
 
@@ -62,7 +72,7 @@ namespace Wizard_Unleashed
 
 
 
-                        for (int i = 0; i < logic.Map.GetLength(0); i++)
+                for (int i = 0; i < logic.Map.GetLength(0); i++)
                 {
                     for (int j = 0; j < logic.Map.GetLength(1); j++)
                     {
@@ -93,9 +103,9 @@ namespace Wizard_Unleashed
                             case GameItem.Spell:
                                 brush = Brushes.Red;
                                 break;
-                            case GameItem.Enemy:
-                                brush = Brushes.Black;
-                                break;
+                            //case GameItem.Enemy:
+                            //    brush = Brushes.Black;
+                            //    break;
                             default:
 
                                 break;
@@ -118,6 +128,7 @@ namespace Wizard_Unleashed
                                    new Rect(j * rectWidth, i * rectHeight, rectWidth + 1, rectHeight + 1)
                                    );
                         }
+
                         else
                         {
                             drawingContext.DrawRectangle(
@@ -129,6 +140,17 @@ namespace Wizard_Unleashed
                         
 
                     }
+
+                    foreach (var enemy in enemyObjects)
+                    {
+                        ImageBrush enemyBrush = new ImageBrush(enemy.CurrentWalkImage);
+                        drawingContext.DrawRectangle(
+                                    enemyBrush,
+                                    new Pen(Brushes.Black, 0),
+                                    new Rect(enemy.Entity.Position.Y * rectWidth, enemy.Entity.Position.X * rectHeight, rectWidth, rectHeight)
+                                    );
+                    }
+
                 }
             }
         }
