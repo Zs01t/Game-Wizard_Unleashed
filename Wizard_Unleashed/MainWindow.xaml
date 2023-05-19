@@ -7,7 +7,14 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button Content="Button" HorizontalAlignment="Center" Height="74" VerticalAlignment="Center" Width="152" Click="Button_Click"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0">
+            <Button Content="Play" Margin="10" Height="50" Click="Button_Click"/>
+            <Button Content="Level Editor" Margin="10" Height="50" Click="Button_Click_1"/>
+        </StackPanel>
 
     </Grid>
 </Window>

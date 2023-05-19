@@ -32,6 +32,10 @@
     <None Remove="Assets\Slime\Walk\Right\walk_right_06.png" />
     <None Remove="Assets\Slime\Walk\Right\walk_right_07.png" />
     <None Remove="Assets\Slime\Walk\Right\walk_right_08.png" />
+    <None Remove="Assets\Tiles\floor.png" />
+    <None Remove="Assets\Tiles\slime.png" />
+    <None Remove="Assets\Tiles\wall.png" />
+    <None Remove="Assets\Tiles\wizard.png" />
     <None Remove="Assets\Wizard\Idle\Left\idle_left_01.png" />
     <None Remove="Assets\Wizard\Idle\Left\idle_left_02.png" />
     <None Remove="Assets\Wizard\Idle\Left\idle_left_03.png" />
@@ -137,6 +141,18 @@
     <Content Include="Assets\Slime\Walk\Right\walk_right_08.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Tiles\floor.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Tiles\slime.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Tiles\wall.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Tiles\wizard.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Wizard\Idle\Left\idle_left_01.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -231,6 +247,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Logic\Logic.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.2" />
   </ItemGroup>
 
 </Project>

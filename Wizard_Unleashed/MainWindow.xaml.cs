@@ -28,8 +28,18 @@ namespace Wizard_Unleashed
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             GameWindow gw = new GameWindow();
-            gw.ShowDialog();
+            gw.Show();
             this.Hide();
+            this.Close();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            LevelEditorWindow lvlw = new LevelEditorWindow();
+            lvlw.Show();
+            this.Hide();
+            this.Close();
+
         }
     }
 }
