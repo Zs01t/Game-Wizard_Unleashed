@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Background\fantasy_background_cyrodil.png" />
+    <None Remove="Assets\Background\level editor.png" />
+    <None Remove="Assets\Background\play.png" />
+    <None Remove="Assets\Background\title.png" />
     <None Remove="Assets\Slime\Idle\Left\idle_left_01.png" />
     <None Remove="Assets\Slime\Idle\Left\idle_left_02.png" />
     <None Remove="Assets\Slime\Idle\Left\idle_left_03.png" />
@@ -72,6 +76,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Assets\Background\fantasy_background_cyrodil.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Background\level editor.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Background\play.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Background\title.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Slime\Idle\Left\idle_left_01.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -266,6 +282,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.2" />
+    <PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
   </ItemGroup>
 
   <ItemGroup>

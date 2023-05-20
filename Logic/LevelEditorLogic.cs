@@ -47,9 +47,10 @@ namespace Logic
 
             }
         }
-        private static int levelCount = 5;
+
         public void SaveMap()
         { 
+            
             //oszlopk száma
             //sorok száma
             //pálya
@@ -64,16 +65,20 @@ namespace Logic
                 save += "\n";
             }
 
+            // ...\Wizard_Unleashed_Reloaded\Wizard_Unleashed\bin\Debug\net5.0-windows\Levels
+            //A fentebb írt mappába menti el a fájlt, nem túl szép de ez van
+            //Azért töröltem ki a Level mappát, mert amikor oda mentettem szintet, akkor ott külön manuálisan be kellett volna állítani, hogy Content Always Copy legyen
+            //A szinteket olyan néven mentem el, hogy megadom a szint számát az alapján, hogy hány .lvl fájlt talált az adott mappában
+            int levelCount = Directory.GetFiles("Levels", "*lvl").Length;
             if (levelCount < 10)
             {
-                File.WriteAllText("C:\\Users\\bekef\\Source\\Repos\\Zs01t\\Wizard_Unleashed_Reloaded\\Logic\\Levels\\" + "0" + levelCount + ".lvl", save);
+                File.WriteAllText(Directory.GetCurrentDirectory()+ @"\Levels" + @"\L0" + levelCount + ".lvl", save);
+                
             }
             else
             {
-                File.WriteAllText("C:\\Users\\bekef\\Source\\Repos\\Zs01t\\Wizard_Unleashed_Reloaded\\Logic\\Levels\\" + levelCount + ".lvl", save);
+                File.WriteAllText(Directory.GetCurrentDirectory() +  @"\Levels" + @"\L" + levelCount + ".lvl", save);
             }
-            levelCount++;
-
         }
 
         public void PlaceItemIntoGrid(double mousePosX, double mousePosY, Tile SelectedTile)
@@ -109,6 +114,7 @@ namespace Logic
                     StringMap[i, j] = " ";
                 }
             }
+
         }
     }
 }

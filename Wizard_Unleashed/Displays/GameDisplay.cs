@@ -45,9 +45,6 @@ namespace Wizard_Unleashed
             //{
             //    enemyObjects.Add(new EntityObject(spell, "Assets\\Spell"));
             //}
-
-
-
             logic.GameStateChanged += this.GameStateChanged;
         }
 
@@ -145,12 +142,16 @@ namespace Wizard_Unleashed
 
                     foreach (var enemy in enemyObjects)
                     {
-                        ImageBrush enemyBrush = new ImageBrush(enemy.CurrentWalkImage);
-                        drawingContext.DrawRectangle(
-                                    enemyBrush,
-                                    new Pen(Brushes.Black, 0),
-                                    new Rect(enemy.Entity.Position.Y * rectWidth, enemy.Entity.Position.X * rectHeight, rectWidth, rectHeight)
-                                    );
+                        if (enemy.Entity.Health > 0)
+                        {
+                            ImageBrush enemyBrush = new ImageBrush(enemy.CurrentWalkImage);
+                            drawingContext.DrawRectangle(
+                                        enemyBrush,
+                                        new Pen(Brushes.Black, 0),
+                                        new Rect(enemy.Entity.Position.Y * rectWidth, enemy.Entity.Position.X * rectHeight, rectWidth, rectHeight)
+                                        );
+                        }
+                        
                     }
 
                     //foreach (var spell in spellObjects)

@@ -6,12 +6,15 @@
         xmlns:local="clr-namespace:Wizard_Unleashed"
         xmlns:vms="clr-namespace:Wizard_Unleashed.ViewModels"
         mc:Ignorable="d"
-        Title="LevelEditor" Height="464" Width="800" Loaded="Window_Loaded" MouseLeftButtonUp="Window_MouseLeftButtonUp" Background="DarkSlateBlue">
+        Title="LevelEditor" Loaded="Window_Loaded" MouseLeftButtonUp="Window_MouseLeftButtonUp" WindowStyle="None" WindowState="Maximized">
     
     <Window.DataContext>
         <vms:LevelEditorViewModel/>
     </Window.DataContext>
 
+    <Window.Background>
+        <ImageBrush ImageSource="\Assets\Background\fantasy_background_cyrodil.png" Stretch="Fill" />
+    </Window.Background>
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -19,18 +22,27 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0" x:Name="editorGrid"  Background="AliceBlue" Width="400" Height="400">
+        <Grid Grid.Column="0" x:Name="editorGrid"  Background="AliceBlue" Width="800" Height="800">
             <local:LevelEditorDisplay x:Name="levelEditorDisplay" />
         </Grid>
         
-        <StackPanel Grid.Column="1">
-            <ListBox Height="340" Margin="10" ItemsSource="{Binding Tiles}" SelectedItem="{Binding SelectedTile}" HorizontalContentAlignment="Stretch" Background="Aquamarine">
+        <StackPanel Grid.Column="1" VerticalAlignment="Stretch">
+            <StackPanel.Background>
+                <SolidColorBrush Color="Black" Opacity="0.50"/>
+            </StackPanel.Background>
+            <ListBox  Margin="10" ItemsSource="{Binding Tiles}" SelectedItem="{Binding SelectedTile}" HorizontalContentAlignment="Stretch">
+                <ListBox.Background>
+                    <SolidColorBrush Color="Black"  Opacity=".025"/>
+                </ListBox.Background>
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Border BorderBrush="Black" BorderThickness="1">
+                        <Border BorderBrush="Black" BorderThickness="1" Background="Transparent">
                             <StackPanel Orientation="Horizontal" >
+                                <StackPanel.Background>
+                                    <SolidColorBrush Color="White" Opacity="0.75"/>
+                                </StackPanel.Background>
                                 <TextBlock Text="{Binding Name}" FontSize="20"/>
-                                <Image Source="{Binding Image}"  Height="32" Margin="10" />
+                                <Image Source="{Binding Image}"   Margin="10" />
                             </StackPanel>
                         </Border>
                     </DataTemplate>

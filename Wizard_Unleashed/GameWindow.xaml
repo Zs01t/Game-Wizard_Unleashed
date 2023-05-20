@@ -5,8 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Wizard_Unleashed"
         mc:Ignorable="d"
-        Title="Level Editor" Height="450" Width="800" Loaded="Window_Loaded" SizeChanged="Window_SizeChanged" KeyDown="Window_KeyDown">
-    <Grid x:Name="gameGrid">
-        <local:GameDisplay x:Name="gameDisplay"/>
+        Title="Level Editor"  Loaded="Window_Loaded" SizeChanged="Window_SizeChanged" KeyDown="Window_KeyDown" WindowState="Maximized" WindowStyle="None">
+    <Window.Background>
+        <ImageBrush ImageSource="\Assets\Background\fantasy_background_cyrodil.png" Stretch="Fill" />
+    </Window.Background>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid x:Name="gameGrid" Grid.Column="1" Width="800" Height="800">
+            <local:GameDisplay x:Name="gameDisplay" />
+        </Grid>
+        
     </Grid>
 </Window>
