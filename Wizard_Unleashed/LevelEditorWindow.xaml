@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Wizard_Unleashed"
         xmlns:vms="clr-namespace:Wizard_Unleashed.ViewModels"
         mc:Ignorable="d"
-        Title="LevelEditor" Height="464" Width="800" Loaded="Window_Loaded" MouseLeftButtonUp="Window_MouseLeftButtonUp">
+        Title="LevelEditor" Height="464" Width="800" Loaded="Window_Loaded" MouseLeftButtonUp="Window_MouseLeftButtonUp" Background="DarkSlateBlue">
     
     <Window.DataContext>
         <vms:LevelEditorViewModel/>
@@ -24,7 +24,7 @@
         </Grid>
         
         <StackPanel Grid.Column="1">
-            <ListBox Height="340" Margin="10" ItemsSource="{Binding Tiles}" SelectedItem="{Binding SelectedTile}" HorizontalContentAlignment="Stretch">
+            <ListBox Height="340" Margin="10" ItemsSource="{Binding Tiles}" SelectedItem="{Binding SelectedTile}" HorizontalContentAlignment="Stretch" Background="Aquamarine">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Border BorderBrush="Black" BorderThickness="1">

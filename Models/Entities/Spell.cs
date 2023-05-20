@@ -6,16 +6,12 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    public class Spell
+    public class Spell : Entity
     {
-        public Spell(Coords position, Direction direction)
+        public Spell(Coords position, Direction direction) : base(position, 0, direction)
         {
-            Position = position;
-            Direction = direction;
+            
         }
 
-        public Coords Position { get; set; }
-
-        public Direction Direction { get; set; }
     }
 }

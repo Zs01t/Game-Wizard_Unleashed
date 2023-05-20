@@ -9,7 +9,7 @@ namespace Models
     public class Player : Entity
     {
 
-        public Player(Coords Position , int Health) : base(Position, Health) 
+        public Player(Coords Position , int Health, Direction direction) : base(Position, Health, direction) 
         { 
         
         

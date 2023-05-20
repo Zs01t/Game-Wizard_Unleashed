@@ -1,31 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net5.0-windows</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Levels\L00.lvl" />
-    <None Remove="Levels\L01.lvl" />
-    <None Remove="Levels\L02.lvl" />
-    <None Remove="Levels\L03.lvl" />
-    <None Remove="Levels\L04.lvl" />
+    <None Remove="Levels\05.lvl" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Levels\L00.lvl">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Levels\L01.lvl">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Levels\L02.lvl">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Levels\L03.lvl">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Levels\L04.lvl">
+    <Content Include="Levels\05.lvl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

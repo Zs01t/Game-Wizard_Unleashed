@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Logic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,10 +28,13 @@ namespace Wizard_Unleashed
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+                ILevelEditorLogic logic = new LevelEditorLogic();
 
+                levelEditorDisplay.SetUpLogic(logic);
                 levelEditorDisplay.SetupSizes(new Size(editorGrid.ActualWidth, editorGrid.ActualHeight));
                 levelEditorDisplay.InvalidateVisual();
-            
+                //ezzel elekrültem a Dependency-s problémákat? -Zs
+                (this.DataContext as LevelEditorViewModel).SetUpLogic(logic);
         }
 
         //sender: az az elem, amelyi kezeli az eseményt, nem a kiváltó

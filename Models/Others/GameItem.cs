@@ -8,6 +8,6 @@ namespace Models
 {
     public enum GameItem
     {
-        Player, Enemy, Wall, Spell, Floor, Door
+        Player, Enemy, Wall, MiddleWall, UpperWall, Spell, Floor, Door
     }
 }

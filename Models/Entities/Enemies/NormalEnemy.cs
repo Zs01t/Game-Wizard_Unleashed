@@ -8,7 +8,7 @@ namespace Models.Enemies
 {
     public class NormalEnemy : Enemy
     {
-        public NormalEnemy(Coords position, int health) : base(position, health)
+        public NormalEnemy(Coords position, int health, Direction direction = Direction.Left) : base(position, health, direction)
         {
         }
 

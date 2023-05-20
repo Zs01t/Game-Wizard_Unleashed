@@ -1,5 +1,7 @@
-﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
+﻿using Logic;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
+using Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,9 +19,7 @@ namespace Wizard_Unleashed.ViewModels
     {
         public ObservableCollection<Tile> Tiles { get; set; }
 
-        //public LevelEditorDisplay LvlDisplay { get; set; }
-
-
+        public ILevelEditorLogic logic { get; set; }
 
         private Tile selectedTile;
         public Tile SelectedTile 
@@ -33,34 +33,32 @@ namespace Wizard_Unleashed.ViewModels
                SetProperty(ref selectedTile, value);
             }
         }
+        public void SetUpLogic(ILevelEditorLogic logic)
+        { 
+            this.logic= logic;
+        }
 
         public ICommand SaveMapCommand { get; set; }
 
         public LevelEditorViewModel()
         {
-            //LvlDisplay = new LevelEditorDisplay();
             Tiles = new ObservableCollection<Tile>();
-            
-            //StringMap = new string[16,16];
 
             Tiles.Add(new Tile("wall"));
+            Tiles.Add(new Tile("middleWall"));
+            Tiles.Add(new Tile("upperWall"));
             Tiles.Add(new Tile("floor"));
             Tiles.Add(new Tile("wizard"));
             Tiles.Add(new Tile("slime"));
 
 
-            //SaveMapCommand = new RelayCommand(
-            //    () =>
-            //    () =>
-            //    );
+
+            SaveMapCommand = new RelayCommand(
+                () => logic.SaveMap()
+                );
 
 
         }
-
-        
-
-       
-
 
     }
 }

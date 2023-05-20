@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
 namespace Wizard_Unleashed
 {
@@ -18,15 +19,10 @@ namespace Wizard_Unleashed
         public IGameLogic logic;
         public EntityObject playerObject;
         public List<EntityObject> enemyObjects;
+        public List<EntityObject> spellObjects;
 
         public void SetupSizes(Size size)
         {
-            //if (this.size.Width > 0 && this.size.Height > 0)
-            //{
-            //    logic.character.PosX = (double)size.Width / (double)this.size.Width * logic.character.PosX;
-            //    logic.character.PosY = (double)size.Height / (double)this.size.Height * logic.character.PosY;
-
-            //}
 
             this.size = size;
             this.InvalidateVisual();
@@ -43,6 +39,13 @@ namespace Wizard_Unleashed
             {
                 enemyObjects.Add(new EntityObject(enemy, "Assets\\Slime"));
             }
+
+            //spellObjects = new List<EntityObject>();
+            //foreach (var spell in logic.Spells)
+            //{
+            //    enemyObjects.Add(new EntityObject(spell, "Assets\\Spell"));
+            //}
+
 
 
             logic.GameStateChanged += this.GameStateChanged;
@@ -62,7 +65,7 @@ namespace Wizard_Unleashed
                     for (int j = 0; j < logic.Map.GetLength(1); j++)
                     {
                         drawingContext.DrawRectangle(
-                                    Brushes.LightCoral,
+                                    new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\floor.png", UriKind.RelativeOrAbsolute))),
                                     new Pen(Brushes.Black, 0),
                                     new Rect(j * rectWidth, i * rectHeight, rectWidth + 1, rectHeight + 1)
                                     );
@@ -76,36 +79,35 @@ namespace Wizard_Unleashed
                 {
                     for (int j = 0; j < logic.Map.GetLength(1); j++)
                     {
-                        SolidColorBrush brush = new SolidColorBrush();
+                        ImageBrush brush = new ImageBrush();
 
                         switch (logic.Map[i, j])
                         {
-                            //case GameItem.Player:
-
-                            //    brush = Brushes.LightBlue;
-
-                            //    break;
 
                             case GameItem.Wall:
-                                brush = Brushes.Brown;
+                                brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\wall.png", UriKind.RelativeOrAbsolute)));
                                 break;
 
+                            case GameItem.MiddleWall:
+                                brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\middleWall.png", UriKind.RelativeOrAbsolute)));
+                                break;
+                            case GameItem.UpperWall:
+                                brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\upperWall.png", UriKind.RelativeOrAbsolute))); ;
+                                break;
 
                             case GameItem.Floor:
-                                brush = Brushes.LightCoral;
+                                brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\floor.png", UriKind.RelativeOrAbsolute))); 
 
                                 break;
                             case GameItem.Door:
-                                brush = Brushes.LightPink;
-                                
+                                brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\door.png", UriKind.RelativeOrAbsolute)));
+
                                 break;
 
                             case GameItem.Spell:
-                                brush = Brushes.Red;
+                                brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\spell.png", UriKind.RelativeOrAbsolute)));
                                 break;
-                            //case GameItem.Enemy:
-                            //    brush = Brushes.Black;
-                            //    break;
+
                             default:
 
                                 break;
@@ -150,6 +152,16 @@ namespace Wizard_Unleashed
                                     new Rect(enemy.Entity.Position.Y * rectWidth, enemy.Entity.Position.X * rectHeight, rectWidth, rectHeight)
                                     );
                     }
+
+                    //foreach (var spell in spellObjects)
+                    //{
+                    //    ImageBrush enemyBrush = new ImageBrush(spell.CurrentWalkImage);
+                    //    drawingContext.DrawRectangle(
+                    //                enemyBrush,
+                    //                new Pen(Brushes.Black, 0),
+                    //                new Rect(spell.Entity.Position.Y * rectWidth, spell.Entity.Position.X * rectHeight, rectWidth, rectHeight)
+                    //                );
+                    //}
 
                 }
             }

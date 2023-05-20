@@ -12,10 +12,11 @@ namespace Models
         public Direction Direction { get; set; }
         public int Health { get; set; }
 
-        public Entity(Coords position,  int health)
+        public Entity(Coords position,  int health, Direction direction = Direction.Left)
         {
             Position = position;
             Health = health;
+            Direction = direction;
         }
 
         public Entity()

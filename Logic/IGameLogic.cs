@@ -12,6 +12,8 @@ namespace Logic
         Player Player { get; set; }
 
         public List<Enemy> Enemies { get;  set; }
+
+        public List<Spell> Spells { get; set; }
         void Control(Direction direction);
         void LoadNext(string path);
         void TimeStep();

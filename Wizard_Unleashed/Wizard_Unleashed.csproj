@@ -32,8 +32,11 @@
     <None Remove="Assets\Slime\Walk\Right\walk_right_06.png" />
     <None Remove="Assets\Slime\Walk\Right\walk_right_07.png" />
     <None Remove="Assets\Slime\Walk\Right\walk_right_08.png" />
+    <None Remove="Assets\Tiles\door.png" />
     <None Remove="Assets\Tiles\floor.png" />
+    <None Remove="Assets\Tiles\middleWall.png" />
     <None Remove="Assets\Tiles\slime.png" />
+    <None Remove="Assets\Tiles\upperWall.png" />
     <None Remove="Assets\Tiles\wall.png" />
     <None Remove="Assets\Tiles\wizard.png" />
     <None Remove="Assets\Wizard\Idle\Left\idle_left_01.png" />
@@ -141,13 +144,25 @@
     <Content Include="Assets\Slime\Walk\Right\walk_right_08.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Tiles\door.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Tiles\floor.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Tiles\spell.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Tiles\wall.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Tiles\middleWall.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Tiles\slime.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Tiles\wall.png">
+    <Content Include="Assets\Tiles\upperWall.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Tiles\wizard.png">
@@ -251,6 +266,10 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Assets\Spell\" />
   </ItemGroup>
 
 </Project>

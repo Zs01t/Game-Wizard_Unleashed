@@ -8,11 +8,8 @@ namespace Models.Enemies
 {
     public abstract class Enemy : Entity
     {
-        protected Enemy(Coords position, int health) : base(position, health) { }
-        //{
-        //    Position = position;
-        //    Health = health;
-        //}
+        protected Enemy(Coords position, int health, Direction direction = Direction.Left) : base(position, health, direction) { }
+
 
         //public Coords Position { get; set; }
         //// 0-100

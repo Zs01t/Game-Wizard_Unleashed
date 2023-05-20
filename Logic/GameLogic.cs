@@ -15,7 +15,7 @@ namespace Logic
         public GameItem[,] Map { get; private set; }
         public Player Player { get; set; }
         public List<Enemy> Enemies { get;  set; }
-        public List<Spell> Spells { get; private set; }
+        public List<Spell> Spells { get;  set; }
 
         private Queue<string> levels;
 
@@ -104,7 +104,9 @@ namespace Logic
         {
             switch (v)
             {
-                case '#': return GameItem.Wall;
+                case 'v': return GameItem.Wall;
+                case 'V': return GameItem.MiddleWall;
+                case 'W': return GameItem.UpperWall;
                 case 'P': return GameItem.Player;
                 case 'F': return GameItem.Floor;
                 case 'E': return GameItem.Enemy;
@@ -113,9 +115,6 @@ namespace Logic
                 default: return GameItem.Floor;
             }
         }
-
-        GameItem TileYouAreCurrentlyOn;
-        GameItem TileYouWerePreviouslyOn;
 
         // MUST: ne lehessen enemy-re lépni
         public void Control(Direction direction)
