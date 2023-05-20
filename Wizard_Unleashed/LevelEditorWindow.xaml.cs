@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Wizard_Unleashed.ViewModels;
 
 namespace Wizard_Unleashed
 {
@@ -26,8 +27,25 @@ namespace Wizard_Unleashed
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            levelEditorDisplay.SetupSizes(new Size(editorGrid.ActualWidth, editorGrid.ActualHeight));
-            levelEditorDisplay.InvalidateVisual();
+
+                levelEditorDisplay.SetupSizes(new Size(editorGrid.ActualWidth, editorGrid.ActualHeight));
+                levelEditorDisplay.InvalidateVisual();
+            
+        }
+
+        //sender: az az elem, amelyi kezeli az eseményt, nem a kiváltó
+        //e.Source az esemény kiváltója (logikai fán)
+        //e.OriginalSource: az esemény kiváltója, de úgy hogy pl. Egy buttonban lévő Textblockra kattintottunk
+        private void Window_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (e.Source == levelEditorDisplay && (this.DataContext as LevelEditorViewModel).SelectedTile != null)
+            {
+                double mousePosX = e.GetPosition(levelEditorDisplay).X;
+                double mousePosY = e.GetPosition(levelEditorDisplay).Y;
+                levelEditorDisplay.PlaceItemIntoGrid(mousePosX, mousePosY, (this.DataContext as LevelEditorViewModel).SelectedTile);
+                levelEditorDisplay.InvalidateVisual();
+            }
+            
         }
     }
 }
