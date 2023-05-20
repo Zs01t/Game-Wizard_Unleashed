@@ -38,9 +38,20 @@
     <None Remove="Assets\Slime\Walk\Right\walk_right_08.png" />
     <None Remove="Assets\Tiles\door.png" />
     <None Remove="Assets\Tiles\floor.png" />
+    <None Remove="Assets\Tiles\ironBar.png" />
+    <None Remove="Assets\Tiles\ironBarTop.png" />
+    <None Remove="Assets\Tiles\leftSideWall.png" />
     <None Remove="Assets\Tiles\middleWall.png" />
+    <None Remove="Assets\Tiles\openTrapDoor.png" />
+    <None Remove="Assets\Tiles\rightSideWall.png" />
     <None Remove="Assets\Tiles\slime.png" />
+    <None Remove="Assets\Tiles\underLeftCornerWall.png" />
+    <None Remove="Assets\Tiles\underRightCornerWall.png" />
+    <None Remove="Assets\Tiles\underWall.png" />
+    <None Remove="Assets\Tiles\upperCornerLeftWall.png" />
+    <None Remove="Assets\Tiles\upperCornerRigthWall.png" />
     <None Remove="Assets\Tiles\upperWall.png" />
+    <None Remove="Assets\Tiles\void.png" />
     <None Remove="Assets\Tiles\wall.png" />
     <None Remove="Assets\Tiles\wizard.png" />
     <None Remove="Assets\Wizard\Idle\Left\idle_left_01.png" />
@@ -166,7 +177,40 @@
     <Content Include="Assets\Tiles\floor.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Tiles\ironBar.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Tiles\ironBarTop.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Tiles\leftSideWall.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Tiles\openTrapDoor.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Tiles\rightSideWall.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Tiles\spell.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Tiles\underLeftCornerWall.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Tiles\underRightCornerWall.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Tiles\underWall.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Tiles\upperCornerLeftWall.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Tiles\upperCornerRigthWall.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Tiles\void.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Tiles\wall.png">

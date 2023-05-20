@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace Wizard_Unleashed
 {
@@ -36,6 +37,10 @@ namespace Wizard_Unleashed
         {
             if (editorLogic != null)
             {
+
+
+
+
                 base.OnRender(drawingContext);
                 double rectWidth = editorLogic.size.Width / editorLogic.sizeOfMap;
                 double rectHeight = editorLogic.size.Height / editorLogic.sizeOfMap;
@@ -44,6 +49,12 @@ namespace Wizard_Unleashed
                 {
                     for (int j = 0; j < editorLogic.sizeOfMap; j++)
                     {
+                        
+                        drawingContext.DrawRectangle(
+                                    new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\floor.png", UriKind.RelativeOrAbsolute))),
+                                    new Pen(Brushes.Black, 1),
+                                    new Rect(j * rectWidth, i * rectHeight, rectWidth, rectHeight)
+                                    );
                         ImageBrush tileBursh = new ImageBrush(editorLogic.TileMap[i, j].Image);
                         drawingContext.DrawRectangle(
                                     tileBursh,
