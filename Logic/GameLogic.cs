@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace Logic
 {
@@ -476,6 +477,30 @@ namespace Logic
                 Map[posX, posY] = GameItem.Enemy;
             }
         }
+
+        // megnézi, hogy a basic enemy-nek van e rálátása a playerre, mert csak akkor fog elindulni felé
+        // (picit butácska szegény, rip)
+        // x = 1 > lefele
+        // x = -1 > felfelé
+        // y = 1 > jobbra
+        // y = -1 > balra
+        //private bool BasicEnemyCheck(int x, int y, Coords Position)
+        //{
+        //    if (y == 0)
+        //    {
+        //        if (x < 0)
+        //        {
+        //            int checkx = Position.X - 1;
+        //            int checky = Position.Y;
+
+        //            while (Map[checkx,checky] != GameItem.Player && checkx < 1)
+        //            {
+        //                checkx++;
+        //            }
+
+        //        }
+        //    }
+        //}
 
         // nem fordul elő, hogy éppenhogy belemozog amior átlósan akarna menni???
         private void NormalEnemyStep(Enemy enemy)
