@@ -170,21 +170,24 @@ namespace Logic
             //itt majd meg kell írni hogy mely falakkal nem szabad collidolni -Zs
             if (Map[posX, posY] != GameItem.Wall)
             {
-                Map[posX, posY] = GameItem.Player;
-                Player.Position.X = posX;
-                Player.Position.Y = posY;
-                Map[oldPosX, oldPosY] = GameItem.Floor;
+                if (Map[posX, posY] == GameItem.Door)
+                {
+                    LoadNext(levels.Dequeue());
+                }
+                else
+                {
+                    Map[posX, posY] = GameItem.Player;
+                    Player.Position.X = posX;
+                    Player.Position.Y = posY;
+                    Map[oldPosX, oldPosY] = GameItem.Floor;
+                    //lövéshez (később jó lehet a player rendereléséhez is)
+                    Player.Direction = direction;
+                }
+                
 
-                //lövéshez (később jó lehet a player rendereléséhez is)
-                Player.Direction = direction;
+                
             }
-            else
-            {
-                //erre az ágra nincs is szükség valószínűleg
-                Player.Position.X = oldPosX;
-                Player.Position.Y = oldPosY;
-
-            }
+            
 
             this.GameStateChanged.Invoke(this, null);
         }
