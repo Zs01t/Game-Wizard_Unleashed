@@ -37,10 +37,27 @@ namespace Models
                 SetProperty(ref image, value);
             }
         }
-        public Tile(string name)
+
+        private GameItem tileType;
+        public GameItem TileType
         {
-            Name = name;
+            get
+            {
+                return tileType;
+            }
+            set
+            { 
+                SetProperty(ref tileType, value);
+            }
+        
+        }
+
+        public Tile(GameItem tileType)
+        {
+            Name = tileType.ToString();
+            Name[0].ToString().ToLower();
             Image = new BitmapImage(new Uri(Path.Combine(Path.Combine("Assets", "Tiles"), name+".png"), UriKind.RelativeOrAbsolute));
+            this.tileType = tileType;
         }
     }
 }

@@ -44,12 +44,27 @@ namespace Wizard_Unleashed.ViewModels
         {
             Tiles = new ObservableCollection<Tile>();
 
-            Tiles.Add(new Tile("wall"));
-            Tiles.Add(new Tile("middleWall"));
-            Tiles.Add(new Tile("upperWall"));
-            Tiles.Add(new Tile("floor"));
-            Tiles.Add(new Tile("wizard"));
-            Tiles.Add(new Tile("slime"));
+            Tiles.Add(new Tile(GameItem.Wall));
+            Tiles.Add(new Tile(GameItem.Floor));
+            Tiles.Add(new Tile(GameItem.Enemy));
+            Tiles.Add(new Tile(GameItem.Player));
+            Tiles.Add(new Tile(GameItem.Door));
+            Tiles.Add(new Tile(GameItem.IronBar));
+            Tiles.Add(new Tile(GameItem.IronBarTop));
+            Tiles.Add(new Tile(GameItem.Void));
+
+            Tiles.Add(new Tile(GameItem.UnderLeftCornerWall));
+            Tiles.Add(new Tile(GameItem.UnderWall));
+            Tiles.Add(new Tile(GameItem.UnderRightCornerWall));
+            Tiles.Add(new Tile(GameItem.LeftSideWall));
+            Tiles.Add(new Tile(GameItem.MiddleWall));
+            Tiles.Add(new Tile(GameItem.RightSideWall));
+            Tiles.Add(new Tile(GameItem.UpperCornerLeftWall));
+            Tiles.Add(new Tile(GameItem.UpperWall));
+            Tiles.Add(new Tile(GameItem.UpperCornerRightWall));
+            ;
+            
+            
 
 
 

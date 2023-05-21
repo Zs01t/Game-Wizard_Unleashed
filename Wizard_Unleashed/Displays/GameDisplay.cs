@@ -100,30 +100,24 @@ namespace Wizard_Unleashed
                         switch (logic.Map[i, j])
                         {
 
-                            case GameItem.Wall:
-                                brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\wall.png", UriKind.RelativeOrAbsolute)));
-                                break;
+                            case GameItem.Wall:brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\wall.png", UriKind.RelativeOrAbsolute)));break;
+                            case GameItem.Floor: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\floor.png", UriKind.RelativeOrAbsolute))); break;
 
-                            case GameItem.MiddleWall:
-                                brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\middleWall.png", UriKind.RelativeOrAbsolute)));
-                                break;
-                            case GameItem.UpperWall:
-                                brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\upperWall.png", UriKind.RelativeOrAbsolute))); ;
-                                break;
+                            case GameItem.Door: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\door.png", UriKind.RelativeOrAbsolute))); break;
+                            case GameItem.IronBar: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\ironBar.png", UriKind.RelativeOrAbsolute))); break;
+                            case GameItem.IronBarTop: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\ironBarTop.png", UriKind.RelativeOrAbsolute))); break;
 
-                            case GameItem.Floor:
-                                brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\floor.png", UriKind.RelativeOrAbsolute))); 
+                            case GameItem.UnderLeftCornerWall: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\underLeftCornerWall.png", UriKind.RelativeOrAbsolute))); break;
+                            case GameItem.UnderWall: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\underWall.png", UriKind.RelativeOrAbsolute))); break;
+                            case GameItem.UnderRightCornerWall: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\underRightCornerWall.png", UriKind.RelativeOrAbsolute))); break;
+                            case GameItem.LeftSideWall: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\leftSideWall.png", UriKind.RelativeOrAbsolute))); break;
+                            case GameItem.MiddleWall: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\middleWall.png", UriKind.RelativeOrAbsolute))); break;
+                            case GameItem.RightSideWall: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\rightSideWall.png", UriKind.RelativeOrAbsolute))); break;
+                            case GameItem.UpperCornerLeftWall: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\upperCornerLeftWall.png", UriKind.RelativeOrAbsolute))); break;
+                            case GameItem.UpperWall: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\upperWall.png", UriKind.RelativeOrAbsolute))); break;
+                            case GameItem.UpperCornerRightWall: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\upperCornerRightWall.png", UriKind.RelativeOrAbsolute))); break;
 
-                                break;
-                            case GameItem.Door:
-                                brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\door.png", UriKind.RelativeOrAbsolute)));
-
-                                break;
-
-
-                            default:
-
-                                break;
+                            default:break;
                         }
 
                         if (logic.Map[i, j] == GameItem.Player)
@@ -157,22 +151,22 @@ namespace Wizard_Unleashed
                     }
 
 
-                        for (int k = 0; k < enemyObjects.Count; k++)
+                    for (int k = 0; k < enemyObjects.Count; k++)
+                    {
+                        if (enemyObjects[k].Entity.Health > 0)
                         {
-                            if (enemyObjects[k].Entity.Health > 0)
-                            {
-                                ImageBrush enemyBrush = new ImageBrush(enemyObjects[k].CurrentWalkImage);
-                                drawingContext.DrawRectangle(
-                                            enemyBrush,
-                                            new Pen(Brushes.Black, 0),
-                                new Rect(enemyObjects[k].Entity.Position.Y * rectWidth, enemyObjects[k].Entity.Position.X * rectHeight, rectWidth, rectHeight)
-                                            );
-                            }
-                            else
-                            {
-                                enemyObjects.Remove(enemyObjects[k]);
-                            }
+                            ImageBrush enemyBrush = new ImageBrush(enemyObjects[k].CurrentWalkImage);
+                            drawingContext.DrawRectangle(
+                                        enemyBrush,
+                                        new Pen(Brushes.Black, 0),
+                            new Rect(enemyObjects[k].Entity.Position.Y * rectWidth, enemyObjects[k].Entity.Position.X * rectHeight, rectWidth, rectHeight)
+                                        );
                         }
+                        else
+                        {
+                            enemyObjects.Remove(enemyObjects[k]);
+                        }
+                    }
 
 
 

@@ -105,14 +105,33 @@ namespace Logic
         {
             switch (v)
             {
+
+                
                 case 'v': return GameItem.Wall;
-                case 'V': return GameItem.MiddleWall;
-                case 'W': return GameItem.UpperWall;
-                case 'P': return GameItem.Player;
-                case 'F': return GameItem.Floor;
+                case ' ': return GameItem.Floor;
+
                 case 'E': return GameItem.Enemy;
+                case 'P': return GameItem.Player;
                 case 'S': return GameItem.Spell;
+
                 case 'D': return GameItem.Door;
+                case 'B': return GameItem.IronBar;
+                case 'b': return GameItem.IronBarTop;
+                case '0': return GameItem.Void;
+
+
+
+                //numpad alapján logikus...
+                case '1': return GameItem.UnderLeftCornerWall;
+                case '2': return GameItem.UnderWall;
+                case '3': return GameItem.UnderRightCornerWall;
+                case '4': return GameItem.LeftSideWall;
+                case '5': return GameItem.MiddleWall;
+                case '6': return GameItem.RightSideWall;
+                case '7': return GameItem.UpperCornerLeftWall;
+                case '8': return GameItem.UpperWall;
+                case '9': return GameItem.UpperCornerRightWall;
+
                 default: return GameItem.Floor;
             }
         }
@@ -147,8 +166,8 @@ namespace Logic
                         posX += 1;
                     break;
             }
-            ;
-
+            
+            //itt majd meg kell írni hogy mely falakkal nem szabad collidolni -Zs
             if (Map[posX, posY] != GameItem.Wall)
             {
                 Map[posX, posY] = GameItem.Player;

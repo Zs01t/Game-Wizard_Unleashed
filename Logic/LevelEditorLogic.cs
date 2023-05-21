@@ -21,29 +21,34 @@ namespace Logic
 
         private string ConvertTileToString(Tile tile)
         {
-            switch (tile.Name)
+            switch (tile.TileType)
             {
-                case "upperWall":
-                    return "W";
 
-                case "middleWall":
-                    return "V";
+                case GameItem.Wall: return "v";
+                case GameItem.Floor: return " ";
+                case GameItem.Enemy: return "E";
+                case GameItem.Player: return "P";
+                case GameItem.Door: return "D";
+                case GameItem.IronBar: return "B";
+                case GameItem.IronBarTop: return "b";
+                case GameItem.Void: return "0";
 
-                case "wall":
-                    return "v";
 
 
-                case "floor":
-                    return " ";
+                //numpad alapján logikus
+                case GameItem.UnderLeftCornerWall: return "1";
+                case GameItem.UnderWall: return "2";
+                case GameItem.UnderRightCornerWall: return "3";
+                case GameItem.LeftSideWall: return "4";
+                case GameItem.MiddleWall: return "5";
+                case GameItem.RightSideWall: return "6";
+                case GameItem.UpperCornerLeftWall: return "7";
+                case GameItem.UpperWall: return "8";
+                case GameItem.UpperCornerRightWall: return "9";
 
-                case "slime":
-                    return "E";
+                default: return " ";
 
-                case "wizard":
-                    return "P";
 
-                default:
-                    return " ";
 
             }
         }
@@ -110,7 +115,7 @@ namespace Logic
                 for (int j = 0; j < TileMap.GetLength(1); j++)
                 {
                     //alapesetben minden Tile floor és ennek megfelelően minden string szóköz
-                    TileMap[i, j] = new Tile("floor");
+                    TileMap[i, j] = new Tile(GameItem.Floor);
                     StringMap[i, j] = " ";
                 }
             }

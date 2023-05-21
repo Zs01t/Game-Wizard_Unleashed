@@ -47,23 +47,23 @@
     <None Remove="Assets\Slime\Walk\Right\walk_right_07.png" />
     <None Remove="Assets\Slime\Walk\Right\walk_right_08.png" />
     <None Remove="Assets\Tiles\door.png" />
+    <None Remove="Assets\Tiles\Enemy.png" />
     <None Remove="Assets\Tiles\floor.png" />
     <None Remove="Assets\Tiles\ironBar.png" />
     <None Remove="Assets\Tiles\ironBarTop.png" />
     <None Remove="Assets\Tiles\leftSideWall.png" />
     <None Remove="Assets\Tiles\middleWall.png" />
     <None Remove="Assets\Tiles\openTrapDoor.png" />
+    <None Remove="Assets\Tiles\player.png" />
     <None Remove="Assets\Tiles\rightSideWall.png" />
-    <None Remove="Assets\Tiles\slime.png" />
     <None Remove="Assets\Tiles\underLeftCornerWall.png" />
     <None Remove="Assets\Tiles\underRightCornerWall.png" />
     <None Remove="Assets\Tiles\underWall.png" />
     <None Remove="Assets\Tiles\upperCornerLeftWall.png" />
-    <None Remove="Assets\Tiles\upperCornerRigthWall.png" />
+    <None Remove="Assets\Tiles\upperCornerRightWall.png" />
     <None Remove="Assets\Tiles\upperWall.png" />
     <None Remove="Assets\Tiles\void.png" />
     <None Remove="Assets\Tiles\wall.png" />
-    <None Remove="Assets\Tiles\wizard.png" />
     <None Remove="Assets\Wizard\Idle\Left\idle_left_01.png" />
     <None Remove="Assets\Wizard\Idle\Left\idle_left_02.png" />
     <None Remove="Assets\Wizard\Idle\Left\idle_left_03.png" />
@@ -274,7 +274,7 @@
     <Content Include="Assets\Tiles\upperCornerLeftWall.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Tiles\upperCornerRigthWall.png">
+    <Content Include="Assets\Tiles\upperCornerRightWall.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Tiles\void.png">
@@ -286,13 +286,13 @@
     <Content Include="Assets\Tiles\middleWall.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Tiles\slime.png">
+    <Content Include="Assets\Tiles\Enemy.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Tiles\upperWall.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Tiles\wizard.png">
+    <Content Include="Assets\Tiles\player.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Wizard\Idle\Left\idle_left_01.png">
