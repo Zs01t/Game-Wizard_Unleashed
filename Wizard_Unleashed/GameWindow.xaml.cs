@@ -51,7 +51,7 @@ namespace Wizard_Unleashed
 
             //külön timere van az animációknak
             AnimationTimer = new DispatcherTimer();
-            AnimationTimer.Interval = TimeSpan.FromMilliseconds(120);
+            AnimationTimer.Interval = TimeSpan.FromMilliseconds(60);
             AnimationTimer.Tick += AnimationTimer_Tick;
             AnimationTimer.Start();
 
@@ -61,7 +61,7 @@ namespace Wizard_Unleashed
         int walkFrameChangeTick = 0;
         private void AnimationTimer_Tick(object? sender, EventArgs e)
         {
-            if (walkFrameChangeTick < 16 && gameDisplay.playerObject.IsWalking)
+            if (walkFrameChangeTick < 12 && gameDisplay.playerObject.IsWalking)
             {
                 gameDisplay.playerObject.ChangeCurrentWalkImage();
                 walkFrameChangeTick++;
@@ -78,6 +78,15 @@ namespace Wizard_Unleashed
             {
                 enemy.ChangeCurrentWalkImage();
             }
+            if(gameDisplay.spellObjects.Count > 0)
+            {
+                foreach (var spell in gameDisplay.spellObjects)
+                {
+                    spell.ChangeCurrentProjectileImage();
+                }
+
+            }
+            
 
             
             //ebben nem vagyok biztos, hogy ez jót tesz -Zs
@@ -88,6 +97,7 @@ namespace Wizard_Unleashed
         {
             logic.TimeStep();
             gameDisplay.InvalidateVisual();
+            timeSinceLastMove += dT.Interval.TotalSeconds;
         }
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -99,43 +109,48 @@ namespace Wizard_Unleashed
             }
         }
 
+        // Define a cooldown time for movement
+        private const double moveCooldown = 0.0001; // in seconds
 
+        // Define a variable to store the time since the last movement
+        private double timeSinceLastMove = 0;
 
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Left)
-            {
-                gameDisplay.logic.Control(Direction.Left);
-                //teszt jelleggel van itt egyenlőre
-                gameDisplay.playerObject.IsWalking = true;
-                walkFrameChangeTick = 0;
-            }
-            else if (e.Key == Key.Right)
-            {
-                gameDisplay.logic.Control(Direction.Right);
-                //teszt jelleggel van itt egyenlőre
-                gameDisplay.playerObject.IsWalking = true;
-                walkFrameChangeTick = 0;
-            }
-            else if (e.Key == Key.Up)
-            {
-                gameDisplay.logic.Control(Direction.Up);
-                //teszt jelleggel van itt egyenlőre
-                gameDisplay.playerObject.IsWalking = true;
-                walkFrameChangeTick = 0;
-            }
-            else if (e.Key == Key.Down)
-            {
-                gameDisplay.logic.Control(Direction.Down);
-                //teszt jelleggel van itt egyenlőre
-                gameDisplay.playerObject.IsWalking = true;
-                walkFrameChangeTick = 0;
-            }
-            else if(e.Key == Key.Space)
-            {
-                gameDisplay.logic.CastSpell();
-            }
+
+                if (e.Key == Key.Left)
+                {
+                    gameDisplay.logic.Control(Direction.Left);
+                    //teszt jelleggel van itt egyenlőre
+                    gameDisplay.playerObject.IsWalking = true;
+                    walkFrameChangeTick = 0;
+                }
+                else if (e.Key == Key.Right)
+                {
+                    gameDisplay.logic.Control(Direction.Right);
+                    //teszt jelleggel van itt egyenlőre
+                    gameDisplay.playerObject.IsWalking = true;
+                    walkFrameChangeTick = 0;
+                }
+                else if (e.Key == Key.Up)
+                {
+                    gameDisplay.logic.Control(Direction.Up);
+                    //teszt jelleggel van itt egyenlőre
+                    gameDisplay.playerObject.IsWalking = true;
+                    walkFrameChangeTick = 0;
+                }
+                else if (e.Key == Key.Down)
+                {
+                    gameDisplay.logic.Control(Direction.Down);
+                    //teszt jelleggel van itt egyenlőre
+                    gameDisplay.playerObject.IsWalking = true;
+                    walkFrameChangeTick = 0;
+                }
+                else if (e.Key == Key.Space)
+                {
+                    gameDisplay.logic.CastSpell();
+                }
 
            
 

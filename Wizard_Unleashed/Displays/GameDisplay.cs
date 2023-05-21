@@ -1,5 +1,7 @@
 ﻿using Logic;
 using Models;
+using Models.Enemies;
+using Models.GameObjects;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,7 +21,7 @@ namespace Wizard_Unleashed
         public IGameLogic logic;
         public EntityObject playerObject;
         public List<EntityObject> enemyObjects;
-        public List<EntityObject> spellObjects;
+        public List<ProjectileObject> spellObjects;
 
         public void SetupSizes(Size size)
         {
@@ -31,28 +33,45 @@ namespace Wizard_Unleashed
         public void SetupModel(IGameLogic logic)
         {
             this.logic = logic;
-            playerObject = new EntityObject(logic.Player, "Assets\\Wizard");
+            playerObject = new EntityObject(logic.Player, @"Assets\Wizard");
 
 
             enemyObjects = new List<EntityObject>();
             foreach (var enemy in logic.Enemies)
             {
-                enemyObjects.Add(new EntityObject(enemy, "Assets\\Slime"));
+                enemyObjects.Add(new EntityObject(enemy, @"Assets\Slime"));
             }
 
-            //spellObjects = new List<EntityObject>();
-            //foreach (var spell in logic.Spells)
-            //{
-            //    enemyObjects.Add(new EntityObject(spell, "Assets\\Spell"));
-            //}
+            spellObjects = new List<ProjectileObject>();
+            
             logic.GameStateChanged += this.GameStateChanged;
+        }
+
+        public void AddSpell()
+        {
+            if (logic!= null)
+            {
+                foreach (var spell in logic.Spells)
+                {
+                    if (!spell.IsImageAssigned)
+                    {
+                        spellObjects.Add(new ProjectileObject(spell, @"Assets\Fireball"));
+                        spell.IsImageAssigned = true;
+                    }
+
+                }
+            }
+            
         }
 
         protected override void OnRender(DrawingContext drawingContext)
         {
+
+            this.AddSpell();
             base.OnRender(drawingContext);
             if (logic != null)
             {
+
                 double rectWidth = size.Width / logic.Map.GetLength(1);
                 double rectHeight = size.Height / logic.Map.GetLength(0);
 
@@ -64,7 +83,7 @@ namespace Wizard_Unleashed
                         drawingContext.DrawRectangle(
                                     new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\floor.png", UriKind.RelativeOrAbsolute))),
                                     new Pen(Brushes.Black, 0),
-                                    new Rect(j * rectWidth, i * rectHeight, rectWidth + 1, rectHeight + 1)
+                                    new Rect(j * rectWidth, i * rectHeight, rectWidth , rectHeight )
                                     );
                     }
                 }
@@ -101,9 +120,6 @@ namespace Wizard_Unleashed
 
                                 break;
 
-                            case GameItem.Spell:
-                                brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\spell.png", UriKind.RelativeOrAbsolute)));
-                                break;
 
                             default:
 
@@ -124,7 +140,7 @@ namespace Wizard_Unleashed
                             drawingContext.DrawRectangle(
                                    playerBrush,
                                    new Pen(Brushes.Black, 0),
-                                   new Rect(j * rectWidth, i * rectHeight, rectWidth + 1, rectHeight + 1)
+                                   new Rect(j * rectWidth, i * rectHeight, rectWidth , rectHeight)
                                    );
                         }
 
@@ -133,37 +149,46 @@ namespace Wizard_Unleashed
                             drawingContext.DrawRectangle(
                                     brush,
                                     new Pen(Brushes.Black, 0),
-                                    new Rect(j * rectWidth, i * rectHeight, rectWidth + 1, rectHeight + 1)
+                                    new Rect(j * rectWidth, i * rectHeight, rectWidth , rectHeight )
                                     );
                         }
                         
 
                     }
 
-                    foreach (var enemy in enemyObjects)
-                    {
-                        if (enemy.Entity.Health > 0)
+
+                        for (int k = 0; k < enemyObjects.Count; k++)
                         {
-                            ImageBrush enemyBrush = new ImageBrush(enemy.CurrentWalkImage);
+                            if (enemyObjects[k].Entity.Health > 0)
+                            {
+                                ImageBrush enemyBrush = new ImageBrush(enemyObjects[k].CurrentWalkImage);
+                                drawingContext.DrawRectangle(
+                                            enemyBrush,
+                                            new Pen(Brushes.Black, 0),
+                                new Rect(enemyObjects[k].Entity.Position.Y * rectWidth, enemyObjects[k].Entity.Position.X * rectHeight, rectWidth, rectHeight)
+                                            );
+                            }
+                            else
+                            {
+                                enemyObjects.Remove(enemyObjects[k]);
+                            }
+                        }
+
+
+
+                    foreach (var spell in spellObjects)
+                    {
+                        if (logic.Spells.Contains(spell.Entity))
+                        {
+                            ImageBrush spellBrush = new ImageBrush(spell.CurrentProjectileImage);
                             drawingContext.DrawRectangle(
-                                        enemyBrush,
+                                        spellBrush,
                                         new Pen(Brushes.Black, 0),
-                                        new Rect(enemy.Entity.Position.Y * rectWidth, enemy.Entity.Position.X * rectHeight, rectWidth, rectHeight)
+                                        new Rect(spell.Entity.Position.Y * rectWidth, spell.Entity.Position.X * rectHeight, rectWidth, rectHeight)
                                         );
                         }
-                        
+
                     }
-
-                    //foreach (var spell in spellObjects)
-                    //{
-                    //    ImageBrush enemyBrush = new ImageBrush(spell.CurrentWalkImage);
-                    //    drawingContext.DrawRectangle(
-                    //                enemyBrush,
-                    //                new Pen(Brushes.Black, 0),
-                    //                new Rect(spell.Entity.Position.Y * rectWidth, spell.Entity.Position.X * rectHeight, rectWidth, rectHeight)
-                    //                );
-                    //}
-
                 }
             }
         }

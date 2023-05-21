@@ -12,6 +12,16 @@
     <None Remove="Assets\Background\level editor.png" />
     <None Remove="Assets\Background\play.png" />
     <None Remove="Assets\Background\title.png" />
+    <None Remove="Assets\Fireball\Left\spell_left_01.png" />
+    <None Remove="Assets\Fireball\Left\spell_left_02.png" />
+    <None Remove="Assets\Fireball\Left\spell_left_03.png" />
+    <None Remove="Assets\Fireball\Left\spell_left_04.png" />
+    <None Remove="Assets\Fireball\Left\spell_left_05.png" />
+    <None Remove="Assets\Fireball\Right\spell_right_01.png" />
+    <None Remove="Assets\Fireball\Right\spell_right_02.png" />
+    <None Remove="Assets\Fireball\Right\spell_right_03.png" />
+    <None Remove="Assets\Fireball\Right\spell_right_04.png" />
+    <None Remove="Assets\Fireball\Right\spell_right_05.png" />
     <None Remove="Assets\Slime\Idle\Left\idle_left_01.png" />
     <None Remove="Assets\Slime\Idle\Left\idle_left_02.png" />
     <None Remove="Assets\Slime\Idle\Left\idle_left_03.png" />
@@ -97,6 +107,66 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Background\title.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Fireball\Up\spell_up_01.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Fireball\Up\spell_up_02.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Fireball\Up\spell_up_03.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Fireball\Up\spell_up_04.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Fireball\Up\spell_up_05.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Fireball\Left\spell_left_01.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Fireball\Left\spell_left_02.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Fireball\Left\spell_left_03.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Fireball\Left\spell_left_04.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Fireball\Left\spell_left_05.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Fireball\Right\spell_right_01.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Fireball\Right\spell_right_02.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Fireball\Right\spell_right_03.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Fireball\Right\spell_right_04.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Fireball\Right\spell_right_05.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Fireball\Down\spell_down_01.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Fireball\Down\spell_down_02.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Fireball\Down\spell_down_03.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Fireball\Down\spell_down_04.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Fireball\Down\spell_down_05.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Slime\Idle\Left\idle_left_01.png">
@@ -190,9 +260,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Tiles\rightSideWall.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Tiles\spell.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Tiles\underLeftCornerWall.png">
@@ -327,10 +394,6 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.2" />
     <PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Assets\Spell\" />
   </ItemGroup>
 
 </Project>
