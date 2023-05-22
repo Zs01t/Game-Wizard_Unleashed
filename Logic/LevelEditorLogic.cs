@@ -54,27 +54,36 @@ namespace Logic
         }
 
         public void SaveMap()
-        { 
-            
+        {
+
             //oszlopk száma
             //sorok száma
             //pálya
-            string save = StringMap.GetLength(1).ToString()  + "\n" + StringMap.GetLength(0).ToString() + "\n";
+            string save = StringMap.GetLength(1).ToString() + "\n" + StringMap.GetLength(0).ToString() + "\n";
             for (int i = 0; i < StringMap.GetLength(0); i++)
             {
                 for (int j = 0; j < StringMap.GetLength(1); j++)
                 {
                     save += StringMap[i, j];
                 }
-                if(i < StringMap.GetLength(0)-1)
-                save += "\n";
+                if (i < StringMap.GetLength(0) - 1)
+                    save += "\n";
             }
 
             // ...\Wizard_Unleashed_Reloaded\Wizard_Unleashed\bin\Debug\net5.0-windows\Levels
             //A fentebb írt mappába menti el a fájlt, nem túl szép de ez van
             //Azért töröltem ki a Level mappát, mert amikor oda mentettem szintet, akkor ott külön manuálisan be kellett volna állítani, hogy Content Always Copy legyen
             //A szinteket olyan néven mentem el, hogy megadom a szint számát az alapján, hogy hány .lvl fájlt talált az adott mappában
-            int levelCount = Directory.GetFiles("Levels", "*lvl").Length;
+            int levelCount = 0;
+            if (Directory.Exists("Levels"))
+            {
+                levelCount = Directory.GetFiles("Levels", "*lvl").Length;
+            }
+            else
+            {
+                Directory.CreateDirectory("Levels");
+            }
+            
             if (levelCount < 10)
             {
                 File.WriteAllText(Directory.GetCurrentDirectory()+ @"\Levels" + @"\L0" + levelCount + ".lvl", save);

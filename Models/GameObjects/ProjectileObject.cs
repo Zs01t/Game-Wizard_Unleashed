@@ -50,7 +50,7 @@ namespace Models.GameObjects
             }
 
             //beállíítom az alapképállapotot
-            CurrentProjectileImage = projectileImages[0, 0];
+            //ChangeCurrentProjectileImage();
         }
 
         private int leftState = 0;
