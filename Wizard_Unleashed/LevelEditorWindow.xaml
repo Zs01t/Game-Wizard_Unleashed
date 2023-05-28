@@ -30,7 +30,7 @@
             <StackPanel.Background>
                 <SolidColorBrush Color="Black" Opacity="0.50"/>
             </StackPanel.Background>
-            <ListBox  Margin="10" ItemsSource="{Binding Tiles}" SelectedItem="{Binding SelectedTile}" HorizontalContentAlignment="Stretch" Height="700">
+            <ListBox  Margin="10" ItemsSource="{Binding Tiles}" SelectedItem="{Binding SelectedTile}" HorizontalContentAlignment="Stretch" Height="650">
                 <ListBox.Background>
                     <SolidColorBrush Color="Black"  Opacity=".025"/>
                 </ListBox.Background>

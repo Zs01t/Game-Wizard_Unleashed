@@ -44,7 +44,7 @@ namespace Wizard_Unleashed
             //időzítő:
             this.dT = new DispatcherTimer();
             // 20 ms -> 50 fps //eredetileg 200
-            this.dT.Interval = TimeSpan.FromMilliseconds(1000);
+            this.dT.Interval = TimeSpan.FromMilliseconds(500);
             this.dT.Tick += this.DT_Tick;
             this.dT.Start();
 

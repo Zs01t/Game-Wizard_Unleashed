@@ -15,7 +15,7 @@
             <ColumnDefinition Width="4*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <Grid x:Name="gameGrid" Grid.Column="1" Width="800" Height="800">
+        <Grid x:Name="gameGrid" Grid.Column="1" Width="800" Height="700">
             <local:GameDisplay x:Name="gameDisplay" />
         </Grid>
         
