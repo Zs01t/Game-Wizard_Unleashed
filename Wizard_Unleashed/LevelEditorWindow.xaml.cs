@@ -51,5 +51,14 @@ namespace Wizard_Unleashed
             }
             
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+            MainWindow mainw = new MainWindow();
+            mainw.Show();
+            this.Close();
+
+        }
     }
 }
