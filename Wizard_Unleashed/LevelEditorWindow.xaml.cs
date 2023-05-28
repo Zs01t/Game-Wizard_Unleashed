@@ -40,7 +40,7 @@ namespace Wizard_Unleashed
         //sender: az az elem, amelyi kezeli az eseményt, nem a kiváltó
         //e.Source az esemény kiváltója (logikai fán)
         //e.OriginalSource: az esemény kiváltója, de úgy hogy pl. Egy buttonban lévő Textblockra kattintottunk
-        private void Window_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (e.Source == levelEditorDisplay && (this.DataContext as LevelEditorViewModel).SelectedTile != null)
             {
@@ -48,6 +48,7 @@ namespace Wizard_Unleashed
                 double mousePosY = e.GetPosition(levelEditorDisplay).Y;
                 levelEditorDisplay.PlaceItemIntoGrid(mousePosX, mousePosY, (this.DataContext as LevelEditorViewModel).SelectedTile);
                 levelEditorDisplay.InvalidateVisual();
+
             }
             
         }
@@ -59,6 +60,13 @@ namespace Wizard_Unleashed
             mainw.Show();
             this.Close();
 
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainw = new MainWindow();
+            mainw.Show();
+            this.Close();
         }
     }
 }
