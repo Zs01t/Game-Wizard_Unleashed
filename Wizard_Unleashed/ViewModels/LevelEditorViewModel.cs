@@ -62,6 +62,11 @@ namespace Wizard_Unleashed.ViewModels
             Tiles.Add(new Tile(GameItem.UpperCornerLeftWall));
             Tiles.Add(new Tile(GameItem.UpperWall));
             Tiles.Add(new Tile(GameItem.UpperCornerRightWall));
+
+            Tiles.Add(new Tile(GameItem.LeftLowerCornerPiece));
+            Tiles.Add(new Tile(GameItem.LeftUpperCornerPiece));
+            Tiles.Add(new Tile(GameItem.RightLowerCornerPiece));
+            Tiles.Add(new Tile(GameItem.RightUpperCornerPiece));
             ;
             
             

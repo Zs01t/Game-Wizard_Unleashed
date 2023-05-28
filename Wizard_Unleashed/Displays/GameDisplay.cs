@@ -116,6 +116,11 @@ namespace Wizard_Unleashed
                             case GameItem.UpperCornerLeftWall: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\upperCornerLeftWall.png", UriKind.RelativeOrAbsolute))); break;
                             case GameItem.UpperWall: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\upperWall.png", UriKind.RelativeOrAbsolute))); break;
                             case GameItem.UpperCornerRightWall: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\upperCornerRightWall.png", UriKind.RelativeOrAbsolute))); break;
+                            case GameItem.LeftUpperCornerPiece: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\LeftUpperCornerPiece.png", UriKind.RelativeOrAbsolute))); break;
+                            case GameItem.LeftLowerCornerPiece: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\LeftLowerCornerPiece.png", UriKind.RelativeOrAbsolute))); break;
+                            case GameItem.RightLowerCornerPiece: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\RightLowerCornerPiece.png", UriKind.RelativeOrAbsolute))); break;
+                            case GameItem.RightUpperCornerPiece: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\RightUpperCornerPiece.png", UriKind.RelativeOrAbsolute))); break;
+
 
                             default:break;
                         }

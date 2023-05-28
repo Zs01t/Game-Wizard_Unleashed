@@ -46,6 +46,11 @@ namespace Logic
                 case GameItem.UpperWall: return "8";
                 case GameItem.UpperCornerRightWall: return "9";
 
+
+                case GameItem.LeftUpperCornerPiece: return "Ő" ;
+                case GameItem.RightUpperCornerPiece: return "Ú";
+                case GameItem.LeftLowerCornerPiece: return "Á";
+                case GameItem.RightLowerCornerPiece: return "Ű";
                 default: return " ";
 
 

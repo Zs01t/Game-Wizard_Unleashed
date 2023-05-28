@@ -132,6 +132,11 @@ namespace Logic
                 case '8': return GameItem.UpperWall;
                 case '9': return GameItem.UpperCornerRightWall;
 
+
+                case 'Ő': return GameItem.LeftUpperCornerPiece;
+                case 'Ú': return GameItem.RightUpperCornerPiece;
+                case 'Á': return GameItem.LeftLowerCornerPiece;
+                case 'Ű': return GameItem.RightLowerCornerPiece;
                 default: return GameItem.Floor;
             }
         }

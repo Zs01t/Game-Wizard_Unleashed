@@ -51,11 +51,15 @@
     <None Remove="Assets\Tiles\floor.png" />
     <None Remove="Assets\Tiles\ironBar.png" />
     <None Remove="Assets\Tiles\ironBarTop.png" />
+    <None Remove="Assets\Tiles\LeftLowerCornerPiece.png" />
     <None Remove="Assets\Tiles\leftSideWall.png" />
+    <None Remove="Assets\Tiles\LeftUpperCornerPiece.png" />
     <None Remove="Assets\Tiles\middleWall.png" />
     <None Remove="Assets\Tiles\openTrapDoor.png" />
     <None Remove="Assets\Tiles\player.png" />
+    <None Remove="Assets\Tiles\RightLowerCornerPiece.png" />
     <None Remove="Assets\Tiles\rightSideWall.png" />
+    <None Remove="Assets\Tiles\RightUpperCornerPiece.png" />
     <None Remove="Assets\Tiles\underLeftCornerWall.png" />
     <None Remove="Assets\Tiles\underRightCornerWall.png" />
     <None Remove="Assets\Tiles\underWall.png" />
@@ -253,13 +257,25 @@
     <Content Include="Assets\Tiles\ironBarTop.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Tiles\LeftLowerCornerPiece.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Tiles\leftSideWall.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Tiles\LeftUpperCornerPiece.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Tiles\openTrapDoor.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Tiles\RightLowerCornerPiece.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Tiles\rightSideWall.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Tiles\RightUpperCornerPiece.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Tiles\underLeftCornerWall.png">
