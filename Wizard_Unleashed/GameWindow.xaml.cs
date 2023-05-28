@@ -158,5 +158,12 @@ namespace Wizard_Unleashed
 
             gameDisplay.InvalidateVisual();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainw = new MainWindow();
+            mainw.Show();
+            this.Close();
+        }
     }
 }

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Wizard_Unleashed"
         xmlns:vms="clr-namespace:Wizard_Unleashed.ViewModels"
         mc:Ignorable="d"
-        Title="LevelEditor" Loaded="Window_Loaded" MouseLeftButtonUp="Window_MouseLeftButtonUp" WindowStyle="None" WindowState="Maximized" >
+        Title="LevelEditor" Loaded="Window_Loaded"  MouseLeftButtonDown="Window_MouseLeftButtonDown" WindowStyle="None" WindowState="Maximized" >
     
     <Window.DataContext>
         <vms:LevelEditorViewModel/>
@@ -49,6 +49,7 @@
                 </ListBox.ItemTemplate>
             </ListBox>
             <Button Grid.Column="1" Height="50" Margin="10" Content="Save" Command="{Binding SaveMapCommand}" Click="Button_Click"/>
+            <Button Grid.Column="1" Height="50" Margin="10" Content="Exit to Main menu" Click="Button_Click_1"/>
         </StackPanel>
 
     </Grid>
