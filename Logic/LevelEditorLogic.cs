@@ -80,23 +80,26 @@ namespace Logic
             //Azért töröltem ki a Level mappát, mert amikor oda mentettem szintet, akkor ott külön manuálisan be kellett volna állítani, hogy Content Always Copy legyen
             //A szinteket olyan néven mentem el, hogy megadom a szint számát az alapján, hogy hány .lvl fájlt talált az adott mappában
             int levelCount = 0;
-            if (Directory.Exists("Levels"))
+
+            string lvlPath = Directory.GetCurrentDirectory().Replace("Wizard_Unleashed\\bin\\Debug\\net5.0-windows", "Logic\\Levels\\");
+
+            if (Directory.Exists(lvlPath))
             {
-                levelCount = Directory.GetFiles("Levels", "*lvl").Length;
+                levelCount = Directory.GetFiles(lvlPath).Length;
             }
             else
             {
-                Directory.CreateDirectory("Levels");
+                Directory.CreateDirectory(lvlPath);
             }
             
             if (levelCount < 10)
             {
-                File.WriteAllText(Directory.GetCurrentDirectory()+ @"\Levels" + @"\L0" + levelCount + ".lvl", save);
+                File.WriteAllText(lvlPath + @"\L0" + levelCount + ".lvl", save);
                 
             }
             else
             {
-                File.WriteAllText(Directory.GetCurrentDirectory() +  @"\Levels" + @"\L" + levelCount + ".lvl", save);
+                File.WriteAllText(lvlPath + @"\L" + levelCount + ".lvl", save);
             }
         }
 

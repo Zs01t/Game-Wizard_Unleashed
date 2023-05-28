@@ -27,7 +27,12 @@ namespace Logic
             Enemies = new List<Enemy>();
             levels = new Queue<string>();
 
-            var lvlFiles = Directory.GetFiles("Levels",
+            string lvlPath = Directory.GetCurrentDirectory().Replace("Wizard_Unleashed\\bin\\Debug\\net5.0-windows", "Logic\\Levels\\");
+
+
+            
+
+            var lvlFiles = Directory.GetFiles(lvlPath,
                     "*.lvl");
 
             foreach (var item in lvlFiles)

@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:Wizard_Unleashed"
         xmlns:vms="clr-namespace:Wizard_Unleashed.ViewModels"
         mc:Ignorable="d"
-        Title="LevelEditor" Loaded="Window_Loaded" MouseLeftButtonUp="Window_MouseLeftButtonUp" WindowStyle="None" WindowState="Maximized">
-    
+        Title="LevelEditor" Loaded="Window_Loaded" MouseLeftButtonUp="Window_MouseLeftButtonUp" WindowStyle="None" WindowState="Maximized" Height="997" Width="1209">
+
     <Window.DataContext>
         <vms:LevelEditorViewModel/>
     </Window.DataContext>
@@ -25,12 +25,12 @@
         <Grid Grid.Column="0" x:Name="editorGrid"  Background="AliceBlue" Width="800" Height="800">
             <local:LevelEditorDisplay x:Name="levelEditorDisplay" />
         </Grid>
-        
+
         <StackPanel Grid.Column="1" VerticalAlignment="Stretch">
             <StackPanel.Background>
                 <SolidColorBrush Color="Black" Opacity="0.50"/>
             </StackPanel.Background>
-            <ListBox  Margin="10" ItemsSource="{Binding Tiles}" SelectedItem="{Binding SelectedTile}" HorizontalContentAlignment="Stretch">
+            <ListBox  Margin="10" ItemsSource="{Binding Tiles}" SelectedItem="{Binding SelectedTile}" HorizontalContentAlignment="Stretch" Height="781">
                 <ListBox.Background>
                     <SolidColorBrush Color="Black"  Opacity=".025"/>
                 </ListBox.Background>
@@ -50,6 +50,6 @@
             </ListBox>
             <Button Grid.Column="1" Height="50" Margin="10" Content="Save" Command="{Binding SaveMapCommand}"/>
         </StackPanel>
-        
+
     </Grid>
 </Window>
