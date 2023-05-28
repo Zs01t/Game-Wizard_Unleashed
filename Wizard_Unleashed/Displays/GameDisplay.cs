@@ -154,8 +154,12 @@ namespace Wizard_Unleashed
                         
 
                     }
-
-
+                    if (logic.mapChanged)
+                    {
+                        EnemyListAfterMapChanged();
+                        logic.mapChanged = false;
+                    }
+                   
                     for (int k = 0; k < enemyObjects.Count; k++)
                     {
                         if (enemyObjects[k].Entity.Health > 0)
@@ -189,6 +193,15 @@ namespace Wizard_Unleashed
 
                     }
                 }
+            }
+        }
+
+        public void EnemyListAfterMapChanged()
+        {
+            enemyObjects = new List<EntityObject>();
+            foreach (var enemy in logic.Enemies)
+            {
+                enemyObjects.Add(new EntityObject(enemy, @"Assets\Slime"));
             }
         }
 

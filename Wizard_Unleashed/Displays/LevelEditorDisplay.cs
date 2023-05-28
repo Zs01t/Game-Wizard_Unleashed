@@ -13,6 +13,7 @@ namespace Wizard_Unleashed
 {
     public class LevelEditorDisplay : FrameworkElement
     {
+
         public ILevelEditorLogic editorLogic { get; set; }
 
         public void SetUpLogic(ILevelEditorLogic logic)

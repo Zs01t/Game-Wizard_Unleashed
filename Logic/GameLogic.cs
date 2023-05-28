@@ -20,12 +20,15 @@ namespace Logic
 
         private Queue<string> levels;
 
+        public bool mapChanged { get; set; }
+
         public GameLogic(Player player)
         {
             this.Player = player;
             Spells = new List<Spell>();
             Enemies = new List<Enemy>();
             levels = new Queue<string>();
+            mapChanged = false;
 
             string lvlPath = Directory.GetCurrentDirectory().Replace("Wizard_Unleashed\\bin\\Debug\\net5.0-windows", "Logic\\Levels\\");
 
@@ -182,6 +185,8 @@ namespace Logic
             {
                 if (Map[posX, posY] == GameItem.Door)
                 {
+                    mapChanged = true;
+                    this.Enemies.RemoveAll(t => true);
                     LoadNext(levels.Dequeue());
                 }
                 else

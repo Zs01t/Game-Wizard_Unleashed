@@ -18,5 +18,6 @@ namespace Logic
         void LoadNext(string path);
         void TimeStep();
         void CastSpell();
+        public bool mapChanged { get; set; }
     }
 }
