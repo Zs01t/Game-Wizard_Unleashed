@@ -15,44 +15,45 @@ namespace Logic
         public int sizeOfMap { get; set; }
 
         public Size size { get; set; }
-        public string[,] StringMap { get; set; }
+        public char[,] CharMap { get; set; }
 
         public Tile[,] TileMap { get; set; }
 
-        private string ConvertTileToString(Tile tile)
+        private char ConvertTileToString(Tile tile)
         {
-            //ezt lehetne dinamikussá tenni, de az enumok nem alkalmasak erre...
+            //ezt lehetne dinamikussá tenni, de az enumok nem alkalmasak erre... hatalmas átírásra lenne szükség, csak azért, hogy ha egy új képet rakok a tiles mappába, akkor azt mindenhol jól letudja kezelni
             switch (tile.TileType)
             {
-
-                case GameItem.Wall: return "v";
-                case GameItem.Floor: return " ";
-                case GameItem.Enemy: return "E";
-                case GameItem.Player: return "P";
-                case GameItem.Door: return "D";
-                case GameItem.IronBar: return "B";
-                case GameItem.IronBarTop: return "b";
-                case GameItem.Void: return "0";
+                //átírtam a stringeket char-rá hogy konzisztensebb legyen
+                case GameItem.Wall: return 'v';
+                case GameItem.Floor: return ' ';
+                case GameItem.Enemy: return 'E';
+                case GameItem.Player: return 'P';
+                case GameItem.Door: return 'D';
+                case GameItem.OpenTrapDoor: return 'd';
+                case GameItem.IronBar: return 'B';
+                case GameItem.IronBarTop: return 'b';
+                case GameItem.Void: return '0';
 
 
 
                 //numpad alapján logikus
-                case GameItem.UnderLeftCornerWall: return "1";
-                case GameItem.UnderWall: return "2";
-                case GameItem.UnderRightCornerWall: return "3";
-                case GameItem.LeftSideWall: return "4";
-                case GameItem.MiddleWall: return "5";
-                case GameItem.RightSideWall: return "6";
-                case GameItem.UpperCornerLeftWall: return "7";
-                case GameItem.UpperWall: return "8";
-                case GameItem.UpperCornerRightWall: return "9";
+                case GameItem.UnderLeftCornerWall: return '1';
+                case GameItem.UnderWall: return '2';
+                case GameItem.UnderRightCornerWall: return '3';
+                case GameItem.LeftSideWall: return '4';
+                case GameItem.MiddleWall: return '5';
+                case GameItem.RightSideWall: return '6';
+                case GameItem.UpperCornerLeftWall: return '7';
+                case GameItem.UpperWall: return '8';
+                case GameItem.UpperCornerRightWall: return '9';
 
 
-                case GameItem.LeftUpperCornerPiece: return "Ő" ;
-                case GameItem.RightUpperCornerPiece: return "Ú";
-                case GameItem.LeftLowerCornerPiece: return "Á";
-                case GameItem.RightLowerCornerPiece: return "Ű";
-                default: return " ";
+                case GameItem.LeftUpperCornerPiece: return 'Ő' ;
+                case GameItem.RightUpperCornerPiece: return 'Ú';
+                case GameItem.LeftLowerCornerPiece: return 'Á';
+                case GameItem.RightLowerCornerPiece: return 'Ű';
+                default: return ' ';
 
 
 
@@ -65,14 +66,14 @@ namespace Logic
             //oszlopk száma
             //sorok száma
             //pálya
-            string save = StringMap.GetLength(1).ToString() + "\n" + StringMap.GetLength(0).ToString() + "\n";
-            for (int i = 0; i < StringMap.GetLength(0); i++)
+            string save = CharMap.GetLength(1).ToString() + "\n" + CharMap.GetLength(0).ToString() + "\n";
+            for (int i = 0; i < CharMap.GetLength(0); i++)
             {
-                for (int j = 0; j < StringMap.GetLength(1); j++)
+                for (int j = 0; j < CharMap.GetLength(1); j++)
                 {
-                    save += StringMap[i, j];
+                    save += CharMap[i, j];
                 }
-                if (i < StringMap.GetLength(0) - 1)
+                if (i < CharMap.GetLength(0) - 1)
                     save += "\n";
             }
 
@@ -174,7 +175,7 @@ namespace Logic
         {
 
             //átlaakítjuk a tile-t a neki megfelelő stringgé, hogy majd a Save gombra kattintva kimentsük
-            string TileInString = ConvertTileToString(SelectedTile);
+            char TileInString = ConvertTileToString(SelectedTile);
 
 
             //kiszámoljuk az egér pozíciójából, hogy az a StringMap melyik sor melyik oszlopának felel meg
@@ -182,7 +183,7 @@ namespace Logic
             int arrayPosY = (int)((size.Height - (size.Height - mousePosY)) / (size.Height / sizeOfMap));
 
             //belehelyezzük az adott stringet és Tile-t a megfelelő helyre
-            StringMap[arrayPosY, arrayPosX] = TileInString;
+            CharMap[arrayPosY, arrayPosX] = TileInString;
             TileMap[arrayPosY, arrayPosX] = SelectedTile;
 
 
@@ -191,7 +192,7 @@ namespace Logic
         public void SetupSizes(Size size)
         {
             this.size = size;
-            StringMap = new string[sizeOfMap, sizeOfMap];
+            CharMap = new char[sizeOfMap, sizeOfMap];
             TileMap = new Tile[sizeOfMap, sizeOfMap];
 
             for (int i = 0; i < TileMap.GetLength(0); i++)
@@ -200,7 +201,7 @@ namespace Logic
                 {
                     //alapesetben minden Tile floor és ennek megfelelően minden string szóköz
                     TileMap[i, j] = new Tile(GameItem.Floor);
-                    StringMap[i, j] = " ";
+                    CharMap[i, j] = ' ';
                 }
             }
 

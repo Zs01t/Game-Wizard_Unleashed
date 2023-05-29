@@ -53,8 +53,12 @@ namespace Wizard_Unleashed.ViewModels
             foreach (var png in tilesPngs)
             {
                 string tmpString = png.Replace(".png", "").Replace(tilesPath + "\\", "");
-                GameItem tmp = (GameItem) Enum.Parse(typeof(GameItem), tmpString, true);
-                Tiles.Add(new Tile(tmp));
+                if (tmpString != "openTrapDoor")
+                {
+                    GameItem tmp = (GameItem)Enum.Parse(typeof(GameItem), tmpString, true);
+                    Tiles.Add(new Tile(tmp));
+                }
+                
             }
 
             //Tiles.Add(new Tile(GameItem.Wall));

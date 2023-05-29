@@ -5,7 +5,7 @@ namespace Logic
 {
     public interface ILevelEditorLogic
     {
-        string[,] StringMap { get; set; }
+        char[,] CharMap { get; set; }
         Tile[,] TileMap { get; set; }
 
         void PlaceItemIntoGrid(double mousePosX, double mousePosY, Tile SelectedTile);

@@ -126,6 +126,7 @@ namespace Logic
                 case 'S': return GameItem.Spell;
 
                 case 'D': return GameItem.Door;
+                case 'd': return GameItem.OpenTrapDoor;
                 case 'B': return GameItem.IronBar;
                 case 'b': return GameItem.IronBarTop;
                 case '0': return GameItem.Void;
@@ -184,10 +185,11 @@ namespace Logic
             }
 
             //itt majd meg kell írni hogy mely falakkal nem szabad collidolni -Zs
-            if (!CollidedWithWall(posX, posY))
+            if (!CollidedWithObject(posX, posY))
             {
-                if (Map[posX, posY] == GameItem.Door)
+                if (Map[posX, posY] == GameItem.OpenTrapDoor)
                 {
+
                     mapChanged = true;
                     this.Enemies.RemoveAll(t => true);
                     LoadNext(levels.Dequeue());
@@ -270,20 +272,20 @@ namespace Logic
             }
 
             // ha a spell megjelenésének a helye nem fal és a switch is leokézta és a player cooldown-ja lement akkor létrehozzuk a spell-t
-            if (!CollidedWithWall(posX, posY) && castable && Player.canCast()) //1mp a cooldown
+            if (!CollidedWithObject(posX, posY) && castable && Player.canCast()) //1mp a cooldown
             {
                 Spells.Add(new Spell(new Coords(posX, posY), direction));
                 Map[posX, posY] = GameItem.Spell;
             }
         }
 
-        //falnak ütközés metódus
+        //falnak ütközés metódus, a walls elnevezés nem jó már, mert nem csak falaknak ütközhet neki, viszont a kód egyes részeiben ez a lista lett használva
         private List<GameItem> walls = new List<GameItem>() { GameItem.Wall, GameItem.LeftSideWall, GameItem.UpperWall, GameItem.RightSideWall,
                                                               GameItem.MiddleWall, GameItem.IronBar, GameItem.IronBarTop, GameItem.UnderLeftCornerWall,
                                                               GameItem.UnderRightCornerWall, GameItem.UpperCornerLeftWall, GameItem.UpperCornerRightWall,
-                                                              GameItem.Void, GameItem.UnderWall
+                                                              GameItem.Void, GameItem.UnderWall, GameItem.Door, GameItem.Enemy
                                                             };
-        private bool CollidedWithWall(int posX, int PosY)
+        private bool CollidedWithObject(int posX, int PosY)
         {
             foreach (var wall in walls)
             {
@@ -341,7 +343,7 @@ namespace Logic
                     Map[oldposX, oldposY] = GameItem.Floor;
 
                     // ha a spell új koordinátáján nem fal van, odamozgatjuk és a spell koordinátáit is beállítjuk
-                    if (!CollidedWithWall(posX, posY))
+                    if (!CollidedWithObject(posX, posY))
                     {
                         Map[posX, posY] = GameItem.Spell;
                         spell.Position.X = posX;
@@ -379,11 +381,28 @@ namespace Logic
                     }
                 }
             }
+            else
+            {
+                //itt végzek egy ellenőrzést, hogy a pályán az enemyCount 0, akkor nyíljon ki a Door, ergó cseréljük ki a Door-t OpenTrapDoorrá
+                for (int i = 0; i < Map.GetLength(0); i++)
+                {
+                    for (int j = 0; j < Map.GetLength(1); j++)
+                    {
+                        if (Map[i, j] == GameItem.Door)
+                        {
+                            Map[i, j] = GameItem.OpenTrapDoor;
+                            break;
+                        }
+                    }
+                }
+            }
         }
 
         // eltüntetni is el kell!!!! (de már mukszik?)
         private int EnemyHit(Enemy enemy, int k)
         {
+   
+
             for (int i = 0; i < Spells.Count(); i++)
             {
                 Spell spell = Spells[i];
@@ -532,7 +551,7 @@ namespace Logic
                 }
             }
 
-            if (!CollidedWithWall(posX, posY) && Map[posX, posY] != GameItem.Enemy && Map[posX, posY] != GameItem.Player)
+            if (!CollidedWithObject(posX, posY) && Map[posX, posY] != GameItem.Enemy && Map[posX, posY] != GameItem.Player)
             {
                 Map[oldposX, oldposY] = GameItem.Floor;
 
@@ -545,7 +564,7 @@ namespace Logic
             {
                 Player.Injure(10);
             }
-            else if (CollidedWithWall(posX, posY) && Map[posX, posY] != GameItem.Enemy && Map[posX, posY] != GameItem.Player)
+            else if (CollidedWithObject(posX, posY) && Map[posX, posY] != GameItem.Enemy && Map[posX, posY] != GameItem.Player)
             {
                 Coords forBypass = EnemyBypassWall(new Coords(oldposX, oldposY));
 
@@ -1155,14 +1174,14 @@ namespace Logic
                 switch (direction)
                 {
                     case Direction.Left:
-                        if (!CollidedWithWall(oldposX + 1, oldposY) &&
+                        if (!CollidedWithObject(oldposX + 1, oldposY) &&
                             Map[oldposX + 1, oldposY] != GameItem.Enemy &&
                             Map[oldposX + 1, oldposY] != GameItem.Player)
                         {
                             posX = oldposX + 1;
                             posY = oldposY;
                         }
-                        else if (!CollidedWithWall(oldposX - 1, oldposY) &&
+                        else if (!CollidedWithObject(oldposX - 1, oldposY) &&
                                  Map[oldposX - 1, oldposY] != GameItem.Enemy &&
                                  Map[oldposX - 1, oldposY] != GameItem.Player)
                         {
@@ -1171,14 +1190,14 @@ namespace Logic
                         }
                         break;
                     case Direction.Right:
-                        if (!CollidedWithWall(oldposX + 1, oldposY) &&
+                        if (!CollidedWithObject(oldposX + 1, oldposY) &&
                             Map[oldposX + 1, oldposY] != GameItem.Enemy &&
                             Map[oldposX + 1, oldposY] != GameItem.Player)
                         {
                             posX = oldposX + 1;
                             posY = oldposY;
                         }
-                        else if (!CollidedWithWall(oldposX - 1, oldposY) &&
+                        else if (!CollidedWithObject(oldposX - 1, oldposY) &&
                                  Map[oldposX - 1, oldposY] != GameItem.Enemy &&
                                  Map[oldposX - 1, oldposY] != GameItem.Player)
                         {
@@ -1187,14 +1206,14 @@ namespace Logic
                         }
                         break;
                     case Direction.Up:
-                        if (!CollidedWithWall(oldposX, oldposY + 1) &&
+                        if (!CollidedWithObject(oldposX, oldposY + 1) &&
                             Map[oldposX, oldposY + 1] != GameItem.Enemy &&
                             Map[oldposX, oldposY + 1] != GameItem.Player)
                         {
                             posX = oldposX;
                             posY = oldposY + 1;
                         }
-                        else if (!CollidedWithWall(oldposX, oldposY - 1) &&
+                        else if (!CollidedWithObject(oldposX, oldposY - 1) &&
                                  Map[oldposX, oldposY - 1] != GameItem.Enemy &&
                                  Map[oldposX, oldposY - 1] != GameItem.Player)
                         {
@@ -1203,14 +1222,14 @@ namespace Logic
                         }
                         break;
                     case Direction.Down:
-                        if (!CollidedWithWall(oldposX, oldposY + 1) &&
+                        if (!CollidedWithObject(oldposX, oldposY + 1) &&
                             Map[oldposX, oldposY + 1] != GameItem.Enemy &&
                             Map[oldposX, oldposY + 1] != GameItem.Player)
                         {
                             posX = oldposX;
                             posY = oldposY + 1;
                         }
-                        else if (!CollidedWithWall(oldposX, oldposY - 1) &&
+                        else if (!CollidedWithObject(oldposX, oldposY - 1) &&
                                  Map[oldposX, oldposY - 1] != GameItem.Enemy &&
                                  Map[oldposX, oldposY - 1] != GameItem.Player)
                         {
@@ -1313,7 +1332,7 @@ namespace Logic
             */
             #endregion
 
-            if (!CollidedWithWall(posX, posY) && Map[posX, posY] != GameItem.Enemy && Map[posX, posY] != GameItem.Player)
+            if (!CollidedWithObject(posX, posY) && Map[posX, posY] != GameItem.Enemy && Map[posX, posY] != GameItem.Player)
             {
                 Map[oldposX, oldposY] = GameItem.Floor;
 
@@ -1326,7 +1345,7 @@ namespace Logic
             {
                 Player.Injure(20);
             }
-            else if (CollidedWithWall(posX, posY) && Map[posX, posY] != GameItem.Enemy && Map[posX, posY] != GameItem.Player)
+            else if (CollidedWithObject(posX, posY) && Map[posX, posY] != GameItem.Enemy && Map[posX, posY] != GameItem.Player)
             {
 
                 Coords forBypass = EnemyBypassWall(new Coords(oldposX, oldposY));
