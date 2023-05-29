@@ -14,16 +14,20 @@ namespace Models
 
         private BitmapImage[,] idleImages;
         private BitmapImage[,] walkImages;
+        private BitmapImage[] deathImages;
+
 
         public BitmapImage CurrentIdleImage;
         public BitmapImage CurrentWalkImage;
-
+        public BitmapImage CurrentDeathImage;
         public Entity Entity;
         public bool IsWalking;
+        public bool IsDead;
         public EntityObject(Entity Entity, string path)
         {
             this.Entity = Entity;
             IsWalking = false;
+            IsDead= false;
             ImportImages(path);
         }
 
@@ -33,6 +37,11 @@ namespace Models
             //megnézem, hogy az Idle és Walk mappában mennyi a képek száma, igaziból megadhattam volna hogy 8 illetve 7
             int idleImageCount = Directory.GetFiles(Path.Combine(Path.Combine(path, "Idle"), "Left"), "*", SearchOption.TopDirectoryOnly).Length;
             int walkImageCount = Directory.GetFiles(Path.Combine(Path.Combine(path, "Walk"), "Left"), "*", SearchOption.TopDirectoryOnly).Length;
+            int deathImageCount = Directory.GetFiles(Path.Combine(path, "Death"), "*", SearchOption.TopDirectoryOnly).Length;
+
+
+
+
 
             //int idleImageCount = 8;
             //int walkImageCount = 7;
@@ -40,7 +49,7 @@ namespace Models
             //létrehozom a képeket tároló mátrixokat, 2 sorral, ami a bal és jobb irányú képeket tárolja
             idleImages = new BitmapImage[2, idleImageCount];
             walkImages = new BitmapImage[2, walkImageCount];
-
+            deathImages = new BitmapImage[deathImageCount];
             //betöltöm az IdleImageket
             for (int i = 0; i < idleImageCount; i++)
             {
@@ -63,9 +72,31 @@ namespace Models
                 walkImages[1, i] = new BitmapImage(new Uri(Path.Combine(path, Path.Combine("Walk", Path.Combine("Right", rightImageName))), UriKind.RelativeOrAbsolute));
             }
 
+            for (int i = 0; i < deathImageCount; i++)
+            {
+                string deathImageName = "death0" + (i + 1) + ".png";
+                deathImages[i] = new BitmapImage(new Uri(Path.Combine(path, Path.Combine("Death",deathImageName)), UriKind.RelativeOrAbsolute));
+            }
+
+
+
+
             //beállíítom az alapképállapotot
             CurrentIdleImage = idleImages[0, 0];
             CurrentWalkImage = walkImages[0, 0];
+            CurrentDeathImage = deathImages[0];
+        }
+
+
+        private int deathState = 0;
+        public void ChangeCurrentDeathImage()
+        {
+            deathState++;
+            if(deathState > deathImages.Length-1) 
+            {
+                deathState = 0;
+            }
+            CurrentDeathImage = deathImages[deathState];
         }
 
         //private int walkUpState = 0;

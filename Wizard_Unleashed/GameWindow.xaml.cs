@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -58,11 +59,14 @@ namespace Wizard_Unleashed
 
             logic.PlayerDead += this.PlayerDead;
             logic.NoMoreLevel += NoMoreLevel;
+
+            
         }
 
         private void NoMoreLevel(object? sender, EventArgs e)
         {
             dT.Stop();
+            
             YouWonWindow youWonWindow = new YouWonWindow();
             youWonWindow.Show();
             this.Close();
@@ -71,34 +75,58 @@ namespace Wizard_Unleashed
         }
 
         
-        int walkFrameChangeTick = 0;
+        int walkFrameChangeTick = 12;
+        private int deathAnimationtick = 7;
         private void AnimationTimer_Tick(object? sender, EventArgs e)
         {
-            if (walkFrameChangeTick < 12 && gameDisplay.playerObject.IsWalking)
+            if (!gameDisplay.playerObject.IsDead)
             {
-                gameDisplay.playerObject.ChangeCurrentWalkImage();
-                walkFrameChangeTick++;
+                if (walkFrameChangeTick > 0 && gameDisplay.playerObject.IsWalking)
+                {
+                    gameDisplay.playerObject.ChangeCurrentWalkImage();
+                    walkFrameChangeTick--;
+                }
+                else
+                {
+                    gameDisplay.playerObject.ChangeCurrentIdleImage();
+                    gameDisplay.playerObject.IsWalking = false;
+                }
+                foreach (var enemy in gameDisplay.enemyObjects)
+                {
+                    enemy.ChangeCurrentWalkImage();
+                }
+                if (gameDisplay.spellObjects.Count > 0)
+                {
+                    foreach (var spell in gameDisplay.spellObjects)
+                    {
+                        spell.ChangeCurrentProjectileImage();
+                    }
+
+                }
             }
             else
             {
-                gameDisplay.playerObject.ChangeCurrentIdleImage();
-                gameDisplay.playerObject.IsWalking= false;
-            }
-
-
-
-            foreach (var enemy in gameDisplay.enemyObjects)
-            {
-                enemy.ChangeCurrentWalkImage();
-            }
-            if(gameDisplay.spellObjects.Count > 0)
-            {
-                foreach (var spell in gameDisplay.spellObjects)
+                
+                if (deathAnimationtick > 0)
                 {
-                    spell.ChangeCurrentProjectileImage();
+                    gameDisplay.playerObject.ChangeCurrentDeathImage();
+                    deathAnimationtick--;
                 }
-
+                else
+                {
+                    dT.Stop();
+                    AnimationTimer.Stop();
+                    GameOverWindow gameOverWindow = new GameOverWindow();
+                    gameOverWindow.Show();
+                    this.Close();
+                }
+                
             }
+            
+
+
+
+            
             
 
             
@@ -137,40 +165,43 @@ namespace Wizard_Unleashed
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
 
-                if (e.Key == Key.Left)
-                {
-                    gameDisplay.logic.Control(Direction.Left);
-                    //teszt jelleggel van itt egyenlőre
-                    gameDisplay.playerObject.IsWalking = true;
-                    walkFrameChangeTick = 0;
-                }
-                else if (e.Key == Key.Right)
-                {
-                    gameDisplay.logic.Control(Direction.Right);
-                    //teszt jelleggel van itt egyenlőre
-                    gameDisplay.playerObject.IsWalking = true;
-                    walkFrameChangeTick = 0;
-                }
-                else if (e.Key == Key.Up)
-                {
-                    gameDisplay.logic.Control(Direction.Up);
-                    //teszt jelleggel van itt egyenlőre
-                    gameDisplay.playerObject.IsWalking = true;
-                    walkFrameChangeTick = 0;
-                }
-                else if (e.Key == Key.Down)
-                {
-                    gameDisplay.logic.Control(Direction.Down);
-                    //teszt jelleggel van itt egyenlőre
-                    gameDisplay.playerObject.IsWalking = true;
-                    walkFrameChangeTick = 0;
-                }
-                else if (e.Key == Key.Space)
-                {
-                    gameDisplay.logic.CastSpell();
-                }
+
+            if (e.Key == Key.Left)
+            {
+                gameDisplay.logic.Control(Direction.Left);
+                //teszt jelleggel van itt egyenlőre
+                gameDisplay.playerObject.IsWalking = true;
+                walkFrameChangeTick = 12;
+            }
+            else if (e.Key == Key.Right)
+            {
+                gameDisplay.logic.Control(Direction.Right);
+                //teszt jelleggel van itt egyenlőre
+                gameDisplay.playerObject.IsWalking = true;
+                walkFrameChangeTick = 12;
+            }
+            else if (e.Key == Key.Up)
+            {
+                gameDisplay.logic.Control(Direction.Up);
+                //teszt jelleggel van itt egyenlőre
+                gameDisplay.playerObject.IsWalking = true;
+                walkFrameChangeTick = 12;
+            }
+            else if (e.Key == Key.Down)
+            {
+                gameDisplay.logic.Control(Direction.Down);
+                //teszt jelleggel van itt egyenlőre
+                gameDisplay.playerObject.IsWalking = true;
+                walkFrameChangeTick = 12;
+            }
+            else if (e.Key == Key.Space)
+            {
+                gameDisplay.logic.CastSpell();
+            }
 
             gameDisplay.InvalidateVisual();
+
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -180,13 +211,15 @@ namespace Wizard_Unleashed
             this.Close();
         }
 
+        
         private void PlayerDead(object sender, EventArgs e)
         {
-            dT.Stop();
-            GameOverWindow gameOverWindow = new GameOverWindow();
-            gameOverWindow.Show();
-            this.Close();
-            
+            //Az AnimationTImer_Tick-ben ennek hatására mág lemegy a halál animáció, majd ugrik a game over ablakra
+
+            gameDisplay.playerObject.IsDead = true;
+            //ez csak a látvány miatt van itt
+            AnimationTimer.Interval = TimeSpan.FromMilliseconds(200);
+
         }
     }
 }

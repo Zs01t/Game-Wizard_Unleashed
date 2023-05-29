@@ -138,6 +138,10 @@ namespace Wizard_Unleashed
                             {
                                 playerBrush = new ImageBrush(playerObject.CurrentWalkImage);
                             }
+                            else if (playerObject.IsDead)
+                            {
+                                playerBrush = new ImageBrush(playerObject.CurrentDeathImage);
+                            }
                             else
                             {
                                 playerBrush = new ImageBrush(playerObject.CurrentIdleImage);

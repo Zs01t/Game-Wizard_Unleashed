@@ -27,6 +27,7 @@
     <None Remove="Assets\Fireball\Right\spell_right_03.png" />
     <None Remove="Assets\Fireball\Right\spell_right_04.png" />
     <None Remove="Assets\Fireball\Right\spell_right_05.png" />
+    <None Remove="Assets\Slime\Death\death01.png" />
     <None Remove="Assets\Slime\Idle\Left\idle_left_01.png" />
     <None Remove="Assets\Slime\Idle\Left\idle_left_02.png" />
     <None Remove="Assets\Slime\Idle\Left\idle_left_03.png" />
@@ -73,6 +74,14 @@
     <None Remove="Assets\Tiles\upperWall.png" />
     <None Remove="Assets\Tiles\void.png" />
     <None Remove="Assets\Tiles\wall.png" />
+    <None Remove="Assets\Wizard\Death\death01.png" />
+    <None Remove="Assets\Wizard\Death\death02.png" />
+    <None Remove="Assets\Wizard\Death\death03.png" />
+    <None Remove="Assets\Wizard\Death\death04.png" />
+    <None Remove="Assets\Wizard\Death\death05.png" />
+    <None Remove="Assets\Wizard\Death\death06.png" />
+    <None Remove="Assets\Wizard\Death\death07.png" />
+    <None Remove="Assets\Wizard\Death\death08.png" />
     <None Remove="Assets\Wizard\Idle\Left\idle_left_01.png" />
     <None Remove="Assets\Wizard\Idle\Left\idle_left_02.png" />
     <None Remove="Assets\Wizard\Idle\Left\idle_left_03.png" />
@@ -191,6 +200,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Fireball\Down\spell_down_05.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Slime\Death\death01.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Slime\Idle\Left\idle_left_01.png">
@@ -329,6 +341,30 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Tiles\player.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Wizard\Death\death01.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Wizard\Death\death02.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Wizard\Death\death03.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Wizard\Death\death04.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Wizard\Death\death05.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Wizard\Death\death06.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Wizard\Death\death07.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Wizard\Death\death08.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Wizard\Idle\Left\idle_left_01.png">

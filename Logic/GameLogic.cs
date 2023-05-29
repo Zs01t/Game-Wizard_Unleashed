@@ -291,7 +291,7 @@ namespace Logic
         private List<GameItem> walls = new List<GameItem>() { GameItem.Wall, GameItem.LeftSideWall, GameItem.UpperWall, GameItem.RightSideWall,
                                                               GameItem.MiddleWall, GameItem.IronBar, GameItem.IronBarTop, GameItem.UnderLeftCornerWall,
                                                               GameItem.UnderRightCornerWall, GameItem.UpperCornerLeftWall, GameItem.UpperCornerRightWall,
-                                                              GameItem.Void, GameItem.UnderWall, GameItem.Door, GameItem.Enemy, GameItem.Spell
+                                                              GameItem.Void, GameItem.UnderWall, GameItem.Door, GameItem.Enemy, GameItem.Spell, GameItem.LeftLowerCornerPiece, GameItem.LeftUpperCornerPiece, GameItem.RightLowerCornerPiece, GameItem.RightUpperCornerPiece
                                                             };
         private bool CollidedWithObject(int posX, int PosY)
         {
