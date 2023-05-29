@@ -848,6 +848,18 @@ namespace Logic
                     {
                         return new Coords(EX, EY + 1);
                     }
+                    //ha mindkettő falba vezetné és mozdulatlan maradna
+                    /*
+                    else if (!walls.Contains(Map[EX - 1,EY]) && (EX - 1 > 0))
+                    {
+                        return new Coords(EX - 1, EY);
+                    }*/
+                    /*
+                    else if (!walls.Contains(Map[EX, EY - 1]) && (EY - 1 > 0))
+                    {
+                        return new Coords(EX, EY - 1);
+                    }
+                    */
 
                 }
                 //enemy playertől balra és lefelé van, EX-- és EY++ irányba kéne mennie, jobbra felfelé
@@ -960,6 +972,12 @@ namespace Logic
                     {
                         return new Coords(EX, EY - 1);
                     }
+                    //Ha meg kéne kerülnie a falat
+                    /*
+                    else if (!walls.Contains(Map[EX,EY+1]) && EY < Map.GetLength(1) - 1)
+                    {
+                        return new Coords(EX, EY + 1);
+                    }*/
 
                 }
                 //enemy playertől jobbra és lefelé van, EX-- és EY-- irányba kéne mennie, balra felfelé
