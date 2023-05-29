@@ -11,6 +11,7 @@
     <None Remove="Assets\Background\back to main menu.png" />
     <None Remove="Assets\Background\exit to windows.png" />
     <None Remove="Assets\Background\fantasy_background_cyrodil.png" />
+    <None Remove="Assets\Background\game over.png" />
     <None Remove="Assets\Background\level editor.png" />
     <None Remove="Assets\Background\play.png" />
     <None Remove="Assets\Background\save.png" />
@@ -111,6 +112,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Background\fantasy_background_cyrodil.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Background\game over.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Background\level editor.png">

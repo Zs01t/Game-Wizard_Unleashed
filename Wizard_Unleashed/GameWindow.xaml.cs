@@ -170,8 +170,11 @@ namespace Wizard_Unleashed
 
         private void PlayerDead(object sender, EventArgs e)
         {
-            this.dT.Stop();
-            MessageBoxResult deathMessage = MessageBox.Show("rip bro");
+            dT.Stop();
+            GameOverWindow gameOverWindow = new GameOverWindow();
+            gameOverWindow.Show();
+            this.Close();
+            
         }
     }
 }
