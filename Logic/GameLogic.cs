@@ -25,6 +25,7 @@ namespace Logic
         public GameLogic(Player player)
         {
             this.Player = player;
+            Player.Health = 100; //!!!
             Spells = new List<Spell>();
             Enemies = new List<Enemy>();
             levels = new Queue<string>();
@@ -58,6 +59,7 @@ namespace Logic
             //{
             //    i = EnemyHit(Enemies[i], i);
             //}
+            IsPlayerDead(); //halálellenőrzés
         }
 
         public void LoadNext(string path)
@@ -207,6 +209,15 @@ namespace Logic
             this.GameStateChanged.Invoke(this, null);
         }
 
+        public event EventHandler PlayerDead;
+        public void IsPlayerDead()
+        {
+            if(Player.Health <= 0)
+            {
+                this.PlayerDead.Invoke(this, null);
+            }
+        }
+
         //spell lövése (csak ellenőrzi, hogy lőhet e spellt a jelen körülmények között, ha igen, létrehozza)
         public void CastSpell()
         {
@@ -257,8 +268,8 @@ namespace Logic
                     break;
             }
 
-            // ha a spell megjelenésének a helye nem fal és a switch is leokézta, akkor létrehozzuk a spell-t
-            if (!CollidedWithWall(posX, posY) && castable)
+            // ha a spell megjelenésének a helye nem fal és a switch is leokézta és a player cooldown-ja lement akkor létrehozzuk a spell-t
+            if (!CollidedWithWall(posX, posY) && castable && Player.canCast()) //1mp a cooldown
             {
                 Spells.Add(new Spell(new Coords(posX, posY), direction));
                 Map[posX, posY] = GameItem.Spell;
@@ -347,7 +358,6 @@ namespace Logic
             this.GameStateChanged.Invoke(this, null);
         }
 
-
         private void EnemyStepDistributor()
         {
             if (Enemies.Count() > 0)
@@ -369,8 +379,6 @@ namespace Logic
                 }
             }
         }
-
-
 
         // eltüntetni is el kell!!!! (de már mukszik?)
         private int EnemyHit(Enemy enemy, int k)
@@ -531,6 +539,10 @@ namespace Logic
                 enemy.Position.Y = posY;
 
                 Map[posX, posY] = GameItem.Enemy;
+            }
+            else if (Map[posX,posY] == GameItem.Player)
+            {
+                Player.Injure(10);
             }
             else if (CollidedWithWall(posX, posY) && Map[posX, posY] != GameItem.Enemy && Map[posX, posY] != GameItem.Player)
             {
@@ -1308,6 +1320,10 @@ namespace Logic
                 enemy.Position.Y = posY;
 
                 Map[posX, posY] = GameItem.Enemy;
+            }
+            else if (Map[posX,posY] == GameItem.Player)
+            {
+                Player.Injure(20);
             }
             else if (CollidedWithWall(posX, posY) && Map[posX, posY] != GameItem.Enemy && Map[posX, posY] != GameItem.Player)
             {

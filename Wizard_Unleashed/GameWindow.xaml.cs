@@ -56,7 +56,7 @@ namespace Wizard_Unleashed
             AnimationTimer.Tick += AnimationTimer_Tick;
             AnimationTimer.Start();
 
-
+            logic.PlayerDead += this.PlayerDead;
         }
 
         int walkFrameChangeTick = 0;
@@ -101,6 +101,7 @@ namespace Wizard_Unleashed
             {
                 enemy.timeSinceLastDodge += dT.Interval.TotalSeconds;
             }
+            logic.Player.timeSinceLastSpell += dT.Interval.TotalSeconds; //mérjük mennyi idő telt el az utolsó lövés óta
             gameDisplay.InvalidateVisual();
             timeSinceLastMove += dT.Interval.TotalSeconds;
         }
@@ -157,10 +158,6 @@ namespace Wizard_Unleashed
                     gameDisplay.logic.CastSpell();
                 }
 
-           
-
-
-
             gameDisplay.InvalidateVisual();
         }
 
@@ -169,6 +166,12 @@ namespace Wizard_Unleashed
             MainWindow mainw = new MainWindow();
             mainw.Show();
             this.Close();
+        }
+
+        private void PlayerDead(object sender, EventArgs e)
+        {
+            this.dT.Stop();
+            MessageBoxResult deathMessage = MessageBox.Show("rip bro");
         }
     }
 }
