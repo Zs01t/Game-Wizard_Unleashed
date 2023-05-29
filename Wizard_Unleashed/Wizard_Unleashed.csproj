@@ -16,6 +16,7 @@
     <None Remove="Assets\Background\play.png" />
     <None Remove="Assets\Background\save.png" />
     <None Remove="Assets\Background\title.png" />
+    <None Remove="Assets\Background\you won.png" />
     <None Remove="Assets\Fireball\Left\spell_left_01.png" />
     <None Remove="Assets\Fireball\Left\spell_left_02.png" />
     <None Remove="Assets\Fireball\Left\spell_left_03.png" />
@@ -127,6 +128,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Background\title.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Background\you won.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Fireball\Up\spell_up_01.png">

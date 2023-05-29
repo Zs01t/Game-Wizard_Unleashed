@@ -8,6 +8,7 @@ namespace Logic
     public interface IGameLogic
     {
         event EventHandler GameStateChanged;
+        public event EventHandler NoMoreLevel;
         event EventHandler PlayerDead;
         GameItem[,] Map { get; }
         Player Player { get; set; }

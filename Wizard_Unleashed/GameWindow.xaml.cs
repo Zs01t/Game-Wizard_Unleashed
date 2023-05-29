@@ -57,8 +57,20 @@ namespace Wizard_Unleashed
             AnimationTimer.Start();
 
             logic.PlayerDead += this.PlayerDead;
+            logic.NoMoreLevel += NoMoreLevel;
         }
 
+        private void NoMoreLevel(object? sender, EventArgs e)
+        {
+            dT.Stop();
+            YouWonWindow youWonWindow = new YouWonWindow();
+            youWonWindow.Show();
+            this.Close();
+
+
+        }
+
+        
         int walkFrameChangeTick = 0;
         private void AnimationTimer_Tick(object? sender, EventArgs e)
         {
@@ -103,7 +115,7 @@ namespace Wizard_Unleashed
             }
             logic.Player.timeSinceLastSpell += dT.Interval.TotalSeconds; //mérjük mennyi idő telt el az utolsó lövés óta
             gameDisplay.InvalidateVisual();
-            timeSinceLastMove += dT.Interval.TotalSeconds;
+            //timeSinceLastMove += dT.Interval.TotalSeconds;
         }
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -115,11 +127,11 @@ namespace Wizard_Unleashed
             }
         }
 
-        // Define a cooldown time for movement
-        private const double moveCooldown = 0.0001; // in seconds
+        //// Define a cooldown time for movement
+        //private const double moveCooldown = 0.0001; // in seconds
 
-        // Define a variable to store the time since the last movement
-        private double timeSinceLastMove = 0;
+        //// Define a variable to store the time since the last movement
+        //private double timeSinceLastMove = 0;
 
 
         private void Window_KeyDown(object sender, KeyEventArgs e)

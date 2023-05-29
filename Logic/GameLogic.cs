@@ -11,7 +11,7 @@ namespace Logic
     public class GameLogic : IGameLogic
     {
         public event EventHandler GameStateChanged;
-
+        public event EventHandler NoMoreLevel;
         private static Random rnd = new Random();
         public GameItem[,] Map { get; private set; }
         public Player Player { get; set; }
@@ -192,7 +192,15 @@ namespace Logic
 
                     mapChanged = true;
                     this.Enemies.RemoveAll(t => true);
-                    LoadNext(levels.Dequeue());
+                    if (levels.Count == 0)
+                    {
+                        NoMoreLevel?.Invoke(this, null);
+                    }
+                    else
+                    {
+                        LoadNext(levels.Dequeue());
+                    }
+                    
                 }
                 else
                 {
@@ -283,7 +291,7 @@ namespace Logic
         private List<GameItem> walls = new List<GameItem>() { GameItem.Wall, GameItem.LeftSideWall, GameItem.UpperWall, GameItem.RightSideWall,
                                                               GameItem.MiddleWall, GameItem.IronBar, GameItem.IronBarTop, GameItem.UnderLeftCornerWall,
                                                               GameItem.UnderRightCornerWall, GameItem.UpperCornerLeftWall, GameItem.UpperCornerRightWall,
-                                                              GameItem.Void, GameItem.UnderWall, GameItem.Door, GameItem.Enemy
+                                                              GameItem.Void, GameItem.UnderWall, GameItem.Door, GameItem.Enemy, GameItem.Spell
                                                             };
         private bool CollidedWithObject(int posX, int PosY)
         {

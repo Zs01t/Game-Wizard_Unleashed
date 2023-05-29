@@ -212,6 +212,11 @@ namespace Wizard_Unleashed
             {
                 enemyObjects.Add(new EntityObject(enemy, @"Assets\Slime"));
             }
+
+            //most itt fogom lenullázni a spelleket is
+            logic.Spells.Clear();
+
+
         }
 
         private void GameStateChanged(object sender, EventArgs e)
