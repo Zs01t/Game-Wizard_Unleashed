@@ -15,8 +15,8 @@ namespace Logic
         private static Random rnd = new Random();
         public GameItem[,] Map { get; private set; }
         public Player Player { get; set; }
-        public List<Enemy> Enemies { get;  set; }
-        public List<Spell> Spells { get;  set; }
+        public List<Enemy> Enemies { get; set; }
+        public List<Spell> Spells { get; set; }
 
         private Queue<string> levels;
 
@@ -33,7 +33,7 @@ namespace Logic
             string lvlPath = Directory.GetCurrentDirectory().Replace("Wizard_Unleashed\\bin\\Debug\\net5.0-windows", "Logic\\Levels\\");
 
 
-            
+
 
             var lvlFiles = Directory.GetFiles(lvlPath,
                     "*.lvl");
@@ -114,7 +114,7 @@ namespace Logic
             switch (v)
             {
 
-                
+
                 case 'v': return GameItem.Wall;
                 case ' ': return GameItem.Floor;
 
@@ -179,7 +179,7 @@ namespace Logic
                         posX += 1;
                     break;
             }
-            
+
             //itt majd meg kell írni hogy mely falakkal nem szabad collidolni -Zs
             if (!CollidedWithWall(posX, posY))
             {
@@ -198,11 +198,11 @@ namespace Logic
                     //lövéshez (később jó lehet a player rendereléséhez is)
                     Player.Direction = direction;
                 }
-                
 
-                
+
+
             }
-            
+
 
             this.GameStateChanged.Invoke(this, null);
         }
@@ -272,8 +272,8 @@ namespace Logic
                                                               GameItem.Void, GameItem.UnderWall
                                                             };
         private bool CollidedWithWall(int posX, int PosY)
-        { 
-            foreach (var wall in walls) 
+        {
+            foreach (var wall in walls)
             {
                 if (Map[posX, PosY] == wall)
                 {
@@ -281,7 +281,7 @@ namespace Logic
                 }
             }
             return false;
-        
+
         }
 
         // spellek mozgatása a játéktéren
@@ -532,7 +532,7 @@ namespace Logic
 
                 Map[posX, posY] = GameItem.Enemy;
             }
-            else if(CollidedWithWall(posX, posY) && Map[posX, posY] != GameItem.Enemy && Map[posX, posY] != GameItem.Player) 
+            else if (CollidedWithWall(posX, posY) && Map[posX, posY] != GameItem.Enemy && Map[posX, posY] != GameItem.Player)
             {
                 Coords forBypass = EnemyBypassWall(new Coords(oldposX, oldposY));
 
@@ -546,9 +546,7 @@ namespace Logic
             }
         }
 
-        //milyen visszatérési értéke legyen???
         //ez jobb lenne a basicenemynek, mert a falat ölelve szeretne ezzel végigmenni
-        //(kell a while-okba ellenőrzés arra, hogy a megvizsgált koordok nem falak e????)
         private Coords EnemyBypassWall(Coords PosE)
         {
             //enemy coords
@@ -569,373 +567,341 @@ namespace Logic
             if (EY == PY)
             {
                 //enemy player fölött van, enemynek EX++ irányba kéne mennie, lefelé
-                if(EX < PX)
+                if (EX < PX)
                 {
-                    /*if (walls.Contains(Map[EX + 1, EY]))
-                    {*/
-                        //potenciális új coord, elsőnek jobbra nézzük meg
-                        int potY1 = EY;
-                        while (walls.Contains(Map[EX + 1, potY1]) && potY1 < Map.GetLength(1) - 1)
-                        {
-                            potY1++;
-                            BpY++;
-                        }
+                    //potenciális új coord, elsőnek jobbra nézzük meg
+                    int potY1 = EY;
+                    while (walls.Contains(Map[EX + 1, potY1]) && potY1 < Map.GetLength(1) - 1)
+                    {
+                        potY1++;
+                        BpY++;
+                    }
 
-                        //megnézzük balra is
-                        int potY2 = EY;
-                        while (walls.Contains(Map[EX + 1, potY2]) && potY2 > 0)
-                        {
-                            potY2--;
-                            BnY++;
-                        }
+                    //megnézzük balra is
+                    int potY2 = EY;
+                    while (walls.Contains(Map[EX + 1, potY2]) && potY2 > 0)
+                    {
+                        potY2--;
+                        BnY++;
+                    }
 
-                        //amelyik jóságszámláló kisebb a másiknál és bent is van a pályán és nem is falba vezetné az enemy-t,
-                        //azt adjuk vissza, egyébként random adjuk vissza az egyiket (olyat ami nem falba vezeti az enemy-t)
-                        if(BpY < BnY && potY1 < Map.GetLength(1) - 1 && !walls.Contains(Map[EX, EY + 1]))
+                    //amelyik jóságszámláló kisebb a másiknál és bent is van a pályán és nem is falba vezetné az enemy-t,
+                    //azt adjuk vissza, egyébként random adjuk vissza az egyiket (olyat ami nem falba vezeti az enemy-t)
+                    if (BpY < BnY && potY1 < Map.GetLength(1) - 1 && !walls.Contains(Map[EX, EY + 1]))
+                    {
+                        return new Coords(EX, EY + 1);
+                    }
+                    else if (BnY < BpY && potY2 > 0 && !walls.Contains(Map[EX, EY - 1]))
+                    {
+                        return new Coords(EX, EY - 1);
+                    }
+                    else if (BnY == BpY)
+                    {
+                        if (!walls.Contains(Map[EX, EY + 1]) && !walls.Contains(Map[EX, EY - 1]))
                         {
-                            //RETURN JOBBRA MENŐT
-                            return new Coords(EX, EY+1);
-                        }
-                        else if(BnY < BpY && potY2 > 0 && !walls.Contains(Map[EX, EY - 1]))
-                        {
-                            //RETURN BALRA MENŐT
-                            return new Coords(EX, EY-1);
-                        }
-                        else if(BnY == BpY)
-                        {
-                            if (!walls.Contains(Map[EX, EY + 1]) && !walls.Contains(Map[EX, EY - 1]))
+                            int randomret = rnd.Next(0, 2);
+                            if (randomret == 0 && potY1 < Map.GetLength(1) - 1)
                             {
-                                int randomret = rnd.Next(0, 2);
-                                if (randomret == 0 && potY1 < Map.GetLength(1) - 1)
-                                {
-                                    //RETURN JOBBRA MENŐT
-                                    return new Coords(EX, EY + 1);
-                                }
-                                else if(potY2 > 0)
-                                {
-                                    //RETURN BALRA MENŐT
-                                    return new Coords(EX, EY - 1);
-                                }
+                                return new Coords(EX, EY + 1);
+                            }
+                            else if (potY2 > 0)
+                            {
+                                return new Coords(EX, EY - 1);
                             }
                         }
-                        //erre az ágra akkor futunk rá, ha a 2 lehetséges út jósága ugyanannyira jó, de az egyik falba ütközne
-                        else if (!walls.Contains(Map[EX, EY + 1]) && potY1 < Map.GetLength(1) - 1)
-                        {
-                            return new Coords(EX, EY + 1);
-                        }
-                        else if (!walls.Contains(Map[EX, EY - 1]) && potY2 > 0)
-                        {
-                            return new Coords(EX, EY - 1);
-                        }
-                    
+                    }
+                    //erre az ágra akkor futunk rá, ha az egyik falba ütközne
+                    else if (!walls.Contains(Map[EX, EY + 1]) && potY1 < Map.GetLength(1) - 1)
+                    {
+                        return new Coords(EX, EY + 1);
+                    }
+                    else if (!walls.Contains(Map[EX, EY - 1]) && potY2 > 0)
+                    {
+                        return new Coords(EX, EY - 1);
+                    }
+
                 }
                 //enemy player alatt van, enemynek EX-- irányba kéne mennie, felfelé
                 else if (EX > PX)
                 {
-                    /*
-                    if (walls.Contains(Map[EX - 1, EY]))
-                    {*/
-                        //potenciális új coord, elsőnek jobbra nézzük meg
-                        int potY1 = EY;
-                        while (walls.Contains(Map[EX - 1, potY1]) && potY1 < Map.GetLength(1) - 1)
-                        {
-                            potY1++;
-                            BpY++;
-                        }
+                    //potenciális új coord, elsőnek jobbra nézzük meg
+                    int potY1 = EY;
+                    while (walls.Contains(Map[EX - 1, potY1]) && potY1 < Map.GetLength(1) - 1)
+                    {
+                        potY1++;
+                        BpY++;
+                    }
 
-                        //megnézzük balra is
-                        int potY2 = EY;
-                        while (walls.Contains(Map[EX - 1, potY2]) && potY2 > 0)
-                        {
-                            potY2--;
-                            BnY++;
-                        }
+                    //megnézzük balra is
+                    int potY2 = EY;
+                    while (walls.Contains(Map[EX - 1, potY2]) && potY2 > 0)
+                    {
+                        potY2--;
+                        BnY++;
+                    }
 
-                        //amelyik jóságszámláló kisebb a másiknál és bent is van a pályán, azt adjuk vissza, egyébként random adjuk vissza az egyiket
-                        if (BpY < BnY && potY1 < Map.GetLength(1) - 1 && !walls.Contains(Map[EX,EY + 1]))
+                    //amelyik jóságszámláló kisebb a másiknál és bent is van a pályán és falba sem viszi az enemy-t, azt adjuk vissza, egyébként random adjuk vissza az egyiket
+                    if (BpY < BnY && potY1 < Map.GetLength(1) - 1 && !walls.Contains(Map[EX, EY + 1]))
+                    {
+                        return new Coords(EX, EY + 1);
+                    }
+                    else if (BnY < BpY && potY2 > 0 && !walls.Contains(Map[EX, EY - 1]))
+                    {
+                        return new Coords(EX, EY - 1);
+                    }
+                    else if (BnY == BpY)
+                    {
+                        if (!walls.Contains(Map[EX, EY + 1]) && !walls.Contains(Map[EX, EY - 1]))
                         {
-                            //RETURN JOBBRA MENŐT
-                            return new Coords(EX, EY+1);
-                        }
-                        else if (BnY < BpY && potY2 > 0 && !walls.Contains(Map[EX, EY -1]))
-                        {
-                            //RETURN BALRA MENŐT
-                            return new Coords(EX, EY-1);
-                        }
-                        else if(BnY == BpY)
-                        {
-                            if (!walls.Contains(Map[EX, EY + 1]) && !walls.Contains(Map[EX, EY - 1]))
+                            int randomret = rnd.Next(0, 2);
+                            if (randomret == 0 && potY1 < Map.GetLength(1) - 1)
                             {
-                                int randomret = rnd.Next(0, 2);
-                                if (randomret == 0 && potY1 < Map.GetLength(1) - 1)
-                                {
-                                    //RETURN JOBBRA MENŐT
-                                    return new Coords(EX, EY + 1);
-                                }
-                                else if(potY2 > 0)
-                                {
-                                    //RETURN BALRA MENŐT
-                                    return new Coords(EX, EY - 1);
-                                }
+                                return new Coords(EX, EY + 1);
+                            }
+                            else if (potY2 > 0)
+                            {
+                                return new Coords(EX, EY - 1);
                             }
                         }
-                        else if (!walls.Contains(Map[EX, EY + 1]) && potY1 < Map.GetLength(1) - 1)
-                        {
-                            return new Coords(EX, EY + 1);
-                        }
-                        else if (!walls.Contains(Map[EX, EY - 1]) && potY2 > 0)
-                        {
-                            return new Coords(EX, EY - 1);
-                        }
-                    
+                    }
+                    //ha az egyik falba vezetné az enemy-t
+                    else if (!walls.Contains(Map[EX, EY + 1]) && potY1 < Map.GetLength(1) - 1)
+                    {
+                        return new Coords(EX, EY + 1);
+                    }
+                    else if (!walls.Contains(Map[EX, EY - 1]) && potY2 > 0)
+                    {
+                        return new Coords(EX, EY - 1);
+                    }
+
                 }
             }
             //egy oszlopban ellenőrzés vége
 
             //egy sorban vannak
-            if(EX == PX)
+            if (EX == PX)
             {
                 //enemy playertől balra van, enemynek EY++ irányba kéne mennie, jobbra
                 if (EY < PY)
                 {
-                    /*if (walls.Contains(Map[EX, EY + 1]))
-                    {*/
-                        //potenciális új coord, elsőnek lefelé nézzük meg
-                        int potX1 = EX;
-                        while (walls.Contains(Map[potX1, EY + 1]) && potX1 < Map.GetLength(0) - 1)
-                        {
-                            potX1++;
-                            BpX++;
-                        }
+                    //potenciális új coord, elsőnek lefelé nézzük meg
+                    int potX1 = EX;
+                    while (walls.Contains(Map[potX1, EY + 1]) && potX1 < Map.GetLength(0) - 1)
+                    {
+                        potX1++;
+                        BpX++;
+                    }
 
-                        //megnézzük felfelé is
-                        int potX2 = EX;
-                        while (walls.Contains(Map[potX2, EY + 1]) && potX2 > 0)
-                        {
-                            potX2--;
-                            BnX++;
-                        }
+                    //megnézzük felfelé is
+                    int potX2 = EX;
+                    while (walls.Contains(Map[potX2, EY + 1]) && potX2 > 0)
+                    {
+                        potX2--;
+                        BnX++;
+                    }
 
-                        //amelyik jóságszámláló kisebb a másiknál és bent is van a pályán, azt adjuk vissza, egyébként random adjuk vissza az egyiket
-                        if (BpX < BnX && potX1 < Map.GetLength(0) - 1 && !walls.Contains(Map[EX+1, EY]))
+                    //amelyik jóságszámláló kisebb a másiknál és bent is van a pályán és falba sem vezet azt adjuk vissza, egyébként random adjuk vissza az egyiket
+                    if (BpX < BnX && potX1 < Map.GetLength(0) - 1 && !walls.Contains(Map[EX + 1, EY]))
+                    {
+                        return new Coords(EX + 1, EY);
+                    }
+                    else if (BnX < BpX && potX2 > 0 && !walls.Contains(Map[EX - 1, EY]))
+                    {
+                        return new Coords(EX - 1, EY);
+                    }
+                    else if (BnX == BpX)
+                    {
+                        if (!walls.Contains(Map[EX + 1, EY]) && !walls.Contains(Map[EX - 1, EY]))
                         {
-                            //RETURN lefelé MENŐT
-                            return new Coords(EX+1, EY);
-                        }
-                        else if (BnX < BpX && potX2 > 0 && !walls.Contains(Map[EX-1, EY]))
-                        {
-                            //RETURN felfeé MENŐT
-                            return new Coords(EX-1, EY);
-                        }
-                        else if(BnX == BpX)
-                        {
-                            if (!walls.Contains(Map[EX + 1, EY]) && !walls.Contains(Map[EX - 1, EY]))
+                            int randomret = rnd.Next(0, 2);
+                            if (randomret == 0 && potX1 < Map.GetLength(0) - 1)
                             {
-                                int randomret = rnd.Next(0, 2);
-                                if (randomret == 0 && potX1 < Map.GetLength(0) - 1)
-                                {
-                                    //RETURN lefelé MENŐT
-                                    return new Coords(EX + 1, EY);
-                                }
-                                else if(potX2 > 0)
-                                {
-                                    //RETURN felfelé MENŐT
-                                    return new Coords(EX - 1, EY);
-                                }
+                                return new Coords(EX + 1, EY);
+                            }
+                            else if (potX2 > 0)
+                            {
+                                return new Coords(EX - 1, EY);
                             }
                         }
-                        else if (!walls.Contains(Map[EX + 1, EY]) && potX1 < Map.GetLength(0) - 1)
-                        {
-                            return new Coords(EX + 1, EY);
-                        }
-                        else if (!walls.Contains(Map[EX - 1, EY]) && potX2 > 0)
-                        {
-                            return new Coords(EX - 1, EY);
-                        }
-                    
+                    }
+                    //ha az egyik falba vezetné
+                    else if (!walls.Contains(Map[EX + 1, EY]) && potX1 < Map.GetLength(0) - 1)
+                    {
+                        return new Coords(EX + 1, EY);
+                    }
+                    else if (!walls.Contains(Map[EX - 1, EY]) && potX2 > 0)
+                    {
+                        return new Coords(EX - 1, EY);
+                    }
+
                 }
                 //enemy playertől jobbra van, enemynek EY-- irányba kéne mennie, balra
                 else if (EY > PY)
                 {
-                    /*
-                    if (walls.Contains(Map[EX, EY - 1]))
+                    //potenciális új coord, elsőnek lefelé nézzük meg
+                    int potX1 = EX;
+                    while (walls.Contains(Map[potX1, EY - 1]) && potX1 < Map.GetLength(1) - 1)
                     {
-                        */
-                        //potenciális új coord, elsőnek lefelé nézzük meg
-                        int potX1 = EX;
-                        while (walls.Contains(Map[potX1, EY - 1]) && potX1 < Map.GetLength(1) - 1)
-                        {
-                            potX1++;
-                            BpX++;
-                        }
+                        potX1++;
+                        BpX++;
+                    }
 
-                        //megnézzük felfelé is
-                        int potX2 = EX;
-                        while (walls.Contains(Map[potX1, EY - 1]) && potX2 > 0)
-                        {
-                            potX2--;
-                            BnX++;
-                        }
+                    //megnézzük felfelé is
+                    int potX2 = EX;
+                    while (walls.Contains(Map[potX2, EY - 1]) && potX2 > 0)
+                    {
+                        potX2--;
+                        BnX++;
+                    }
 
-                        //amelyik jóságszámláló kisebb a másiknál és bent is van a pályán, azt adjuk vissza, egyébként random adjuk vissza az egyiket
-                        if (BpX < BnX && potX1 < Map.GetLength(0) - 1 && !walls.Contains(Map[EX+1, EY]))
+                    //amelyik jóságszámláló kisebb a másiknál és bent is van a pályán és falba se vezeti azt adjuk vissza, egyébként random adjuk vissza az egyiket
+                    if (BpX < BnX && potX1 < Map.GetLength(0) - 1 && !walls.Contains(Map[EX + 1, EY]))
+                    {
+                        return new Coords(EX + 1, EY);
+                    }
+                    else if (BnX < BpX && potX2 > 0 && !walls.Contains(Map[EX - 1, EY]))
+                    {
+                        return new Coords(EX - 1, EY);
+                    }
+                    else if (BnX == BpX)
+                    {
+                        if (!walls.Contains(Map[EX + 1, EY]) && !walls.Contains(Map[EX - 1, EY]))
                         {
-                            //RETURN lefelé MENŐT
-                            return new Coords(EX+1, EY);
-                        }
-                        else if (BnX < BpX && potX2 > 0 && !walls.Contains(Map[EX-1, EY]))
-                        {
-                            //RETURN felfelé MENŐT
-                            return new Coords(EX-1, EY);
-                        }
-                        else if(BnX == BpX)
-                        {
-                            if (!walls.Contains(Map[EX + 1, EY]) && !walls.Contains(Map[EX - 1, EY]))
+                            int randomret = rnd.Next(0, 2);
+                            if (randomret == 0 && potX1 < Map.GetLength(0) - 1)
                             {
-                                int randomret = rnd.Next(0, 2);
-                                if (randomret == 0 && potX1 < Map.GetLength(0) - 1)
-                                {
-                                    //RETURN lefelé MENŐT
-                                    return new Coords(EX + 1, EY);
-                                }
-                                else if(potX2 > 0)
-                                {
-                                    //RETURN felfelé MENŐT
-                                    return new Coords(EX - 1, EY);
-                                }
+                                return new Coords(EX + 1, EY);
+                            }
+                            else if (potX2 > 0)
+                            {
+                                return new Coords(EX - 1, EY);
                             }
                         }
-                        else if (!walls.Contains(Map[EX + 1, EY]) && potX1 < Map.GetLength(0) - 1)
-                        {
-                            return new Coords(EX + 1, EY);
-                        }
-                        else if (!walls.Contains(Map[EX - 1, EY]) && potX2 > 0)
-                        {
-                            return new Coords(EX - 1, EY);
-                        }
-                    
+                    }
+                    //ha az egyik falba vezeti
+                    else if (!walls.Contains(Map[EX + 1, EY]) && potX1 < Map.GetLength(0) - 1)
+                    {
+                        return new Coords(EX + 1, EY);
+                    }
+                    else if (!walls.Contains(Map[EX - 1, EY]) && potX2 > 0)
+                    {
+                        return new Coords(EX - 1, EY);
+                    }
+
                 }
             }
             //egy sorban ellenőrzés vége
 
             //ÁTLÓSAN FALBA ÜTKÖZÉS:
-
             //enemy playertől balra és (...) van
-            if(EY < PY)
+            if (EY < PY)
             {
                 //enemy playertől balra és felfelé van, EX++ és EY++ irányba kéne mennie, jobbra lefelé
-                //elsőnek lefelé próbáljuk meg
-                if(EX < PX)
+                if (EX < PX)
                 {
-                        //potenciális új coord, elsőnek lefelé nézzük meg
-                        int potX1 = EX;
-                        while (walls.Contains(Map[potX1, EY + 1]) && potX1 < Map.GetLength(0) - 1)
-                        {
-                            potX1++;
-                            BpX++;
-                        }
+                    //potenciális új coord, elsőnek lefelé nézzük meg
+                    int potX1 = EX;
+                    while (walls.Contains(Map[potX1, EY + 1]) && potX1 < Map.GetLength(0) - 1)
+                    {
+                        potX1++;
+                        BpX++;
+                    }
 
-                        //megnézzük jobbra is
-                        int potY2 = EY;
-                        while (walls.Contains(Map[EX + 1, potY2]) && potY2 < Map.GetLength(1) - 1)
-                        {
-                            potY2++;
-                            BpY++;
-                        }
+                    //megnézzük jobbra is
+                    int potY2 = EY;
+                    while (walls.Contains(Map[EX + 1, potY2]) && potY2 < Map.GetLength(1) - 1)
+                    {
+                        potY2++;
+                        BpY++;
+                    }
 
-                        //amelyik jóságszámláló kisebb a másiknál és bent is van a pályán, azt adjuk vissza, egyébként random adjuk vissza az egyiket
-                        if (BpX < BpY && potX1 < Map.GetLength(0) - 1 && !walls.Contains(Map[EX+1, EY]))
+                    //amelyik jóságszámláló kisebb a másiknál és bent is van a pályán és falba se vezeti azt adjuk vissza, egyébként random adjuk vissza az egyiket
+                    if (BpX < BpY && potX1 < Map.GetLength(0) - 1 && !walls.Contains(Map[EX + 1, EY]))
+                    {
+                        return new Coords(EX + 1, EY);
+                    }
+                    else if (BpY < BpX && potY2 < Map.GetLength(1) - 1 && !walls.Contains(Map[EX, EY + 1]))
+                    {
+                        return new Coords(EX, EY + 1);
+                    }
+                    else if (BpX == BpY)
+                    {
+                        if (!walls.Contains(Map[EX + 1, EY]) && !walls.Contains(Map[EX, EY + 1]))
                         {
-                            //RETURN lefelé MENŐT
-                            return new Coords(EX + 1, EY);
-                        }
-                        else if (BpY < BpX && potY2 < Map.GetLength(1) - 1 && !walls.Contains(Map[EX, EY+1]))
-                        {
-                            //RETURN felfeé MENŐT
-                            return new Coords(EX, EY + 1);
-                        }
-                        else if(BpX == BpY)
-                        {
-                            if (!walls.Contains(Map[EX + 1, EY]) && !walls.Contains(Map[EX, EY + 1]))
+                            int randomret = rnd.Next(0, 2);
+                            if (randomret == 0 && potX1 < Map.GetLength(0) - 1)
                             {
-                                int randomret = rnd.Next(0, 2);
-                                if (randomret == 0 && potX1 < Map.GetLength(0) - 1)
-                                {
-                                    //RETURN lefelé MENŐT
-                                    return new Coords(EX + 1, EY);
-                                }
-                                else if(potY2 < Map.GetLength(1) - 1)
-                                {
-                                    //RETURN felfelé MENŐT
-                                    return new Coords(EX, EY + 1);
-                                }
+                                return new Coords(EX + 1, EY);
+                            }
+                            else if (potY2 < Map.GetLength(1) - 1)
+                            {
+                                return new Coords(EX, EY + 1);
                             }
                         }
-                        else if (!walls.Contains(Map[EX + 1, EY]) && potX1 < Map.GetLength(0) - 1)
-                        {
-                            return new Coords(EX + 1, EY);
-                        }
-                        else if (!walls.Contains(Map[EX, EY + 1]) && potY2 < Map.GetLength(1) - 1)
-                        {
-                            return new Coords(EX, EY + 1);
-                        }
-                    
+                    }
+                    //ha az egyik falba vezeti
+                    else if (!walls.Contains(Map[EX + 1, EY]) && potX1 < Map.GetLength(0) - 1)
+                    {
+                        return new Coords(EX + 1, EY);
+                    }
+                    else if (!walls.Contains(Map[EX, EY + 1]) && potY2 < Map.GetLength(1) - 1)
+                    {
+                        return new Coords(EX, EY + 1);
+                    }
+
                 }
                 //enemy playertől balra és lefelé van, EX-- és EY++ irányba kéne mennie, jobbra felfelé
                 else if (EX > PX)
                 {
-                        //potenciális új coord, elsőnek jobbra nézzük meg
-                        int potY1 = EY;
-                        while (walls.Contains(Map[EX - 1, potY1]) && potY1 < Map.GetLength(1) - 1)
-                        {
-                            potY1++;
-                            BpY++;
-                        }
+                    //potenciális új coord, elsőnek jobbra nézzük meg
+                    int potY1 = EY;
+                    while (walls.Contains(Map[EX - 1, potY1]) && potY1 < Map.GetLength(1) - 1)
+                    {
+                        potY1++;
+                        BpY++;
+                    }
 
-                        //megnézzük felfelé is
-                        int potX2 = EX;
-                        while (walls.Contains(Map[potX2, EY + 1]) && potX2 > 0)
-                        {
-                            potX2--;
-                            BnX++;
-                        }
+                    //megnézzük felfelé is
+                    int potX2 = EX;
+                    while (walls.Contains(Map[potX2, EY + 1]) && potX2 > 0)
+                    {
+                        potX2--;
+                        BnX++;
+                    }
 
-                        //amelyik jóságszámláló kisebb a másiknál és bent is van a pályán, azt adjuk vissza, egyébként random adjuk vissza az egyiket
-                        if (BpY < BnX && potY1 < Map.GetLength(1) - 1 && !walls.Contains(Map[EX, EY+1]))
+                    //amelyik jóságszámláló kisebb a másiknál és bent is van a pályán és falba se vezeti azt adjuk vissza, egyébként random adjuk vissza az egyiket
+                    if (BpY < BnX && potY1 < Map.GetLength(1) - 1 && !walls.Contains(Map[EX, EY + 1]))
+                    {
+                        return new Coords(EX, EY + 1);
+                    }
+                    else if (BnX < BpY && potX2 > 0 && !walls.Contains(Map[EX - 1, EY]))
+                    {
+                        return new Coords(EX - 1, EY);
+                    }
+                    else if (BpY == BnX)
+                    {
+                        if (!walls.Contains(Map[EX, EY + 1]) && !walls.Contains(Map[EX - 1, EY]))
                         {
-                            //RETURN JOBBRA MENŐT
-                            return new Coords(EX, EY + 1);
-                        }
-                        else if (BnX < BpY && potX2 > 0 && !walls.Contains(Map[EX - 1, EY]))
-                        {
-                            //RETURN BALRA MENŐT
-                            return new Coords(EX - 1, EY);
-                        }
-                        else if(BpY == BnX)
-                        {
-                            if (!walls.Contains(Map[EX, EY + 1]) && !walls.Contains(Map[EX - 1, EY]))
+                            int randomret = rnd.Next(0, 2);
+                            if (randomret == 0 && potY1 < Map.GetLength(1) - 1)
                             {
-                                int randomret = rnd.Next(0, 2);
-                                if (randomret == 0 && potY1 < Map.GetLength(1) - 1)
-                                {
-                                    //RETURN JOBBRA MENŐT
-                                    return new Coords(EX, EY + 1);
-                                }
-                                else if (potX2 > 0)
-                                {
-                                    //RETURN BALRA MENŐT
-                                    return new Coords(EX - 1, EY);
-                                }
+                                return new Coords(EX, EY + 1);
+                            }
+                            else if (potX2 > 0)
+                            {
+                                return new Coords(EX - 1, EY);
                             }
                         }
-                        else if (!walls.Contains(Map[EX, EY + 1]) && potY1 < Map.GetLength(1) - 1)
-                        {
-                            return new Coords(EX, EY + 1);
-                        }
-                        else if (!walls.Contains(Map[EX - 1, EY]) && potX2 > 0)
-                        {
-                            return new Coords(EX - 1, EY);
-                        }
+                    }
+                    //ha az egyik falba vezeti
+                    else if (!walls.Contains(Map[EX, EY + 1]) && potY1 < Map.GetLength(1) - 1)
+                    {
+                        return new Coords(EX, EY + 1);
+                    }
+                    else if (!walls.Contains(Map[EX - 1, EY]) && potX2 > 0)
+                    {
+                        return new Coords(EX - 1, EY);
+                    }
                 }
             }
 
@@ -945,113 +911,108 @@ namespace Logic
                 //enemy playertől jobbra és felfelé van tehát balra és lefelé fogjuk ellenőrizni
                 if (EX < PX)
                 {
-                        //potenciális új coord, elsőnek lefelé nézzük meg
-                        int potX1 = EX;
-                        while (walls.Contains(Map[potX1, EY - 1]) && potX1 < Map.GetLength(0) - 1)
-                        {
-                            potX1++;
-                            BpX++;
-                        }
+                    //potenciális új coord, elsőnek lefelé nézzük meg
+                    int potX1 = EX;
+                    while (walls.Contains(Map[potX1, EY - 1]) && potX1 < Map.GetLength(0) - 1)
+                    {
+                        potX1++;
+                        BpX++;
+                    }
 
-                        //megnézzük jobbra is
-                        int potY2 = EY;
-                        while (walls.Contains(Map[EX + 1, potY2]) && potY2 > 0)
-                        {
-                            potY2--;
-                            BpY++;
-                        }
+                    //megnézzük balra is
+                    int potY2 = EY;
+                    while (walls.Contains(Map[EX + 1, potY2]) && potY2 > 0)
+                    {
+                        potY2--;
+                        BpY++;
+                    }
 
-                        //amelyik jóságszámláló kisebb a másiknál és bent is van a pályán, azt adjuk vissza, egyébként random adjuk vissza az egyiket
-                        if (BpX < BpY && potX1 < Map.GetLength(0) - 1 && !walls.Contains(Map[EX+1, EY]))
-                        {
-                            //RETURN lefelé MENŐT
-                            return new Coords(EX + 1, EY);
-                        }
-                        else if (BpY < BpX && potY2 > 0 && !walls.Contains(Map[EX, EY-1]))
-                        {
-                            //RETURN felfeé MENŐT
-                            return new Coords(EX, EY - 1);
-                        }
-                        else if (BpX == BpY)
-                        {
-                            if (!walls.Contains(Map[EX + 1, EY]) && !walls.Contains(Map[EX, EY - 1]))
-                            {
-                                int randomret = rnd.Next(0, 2);
-                                if (randomret == 0 && potX1 < Map.GetLength(0) - 1)
-                                {
-                                    //RETURN lefelé MENŐT
-                                    return new Coords(EX + 1, EY);
-                                }
-                                else if (potY2 > 0)
-                                {
-                                    //RETURN felfelé MENŐT
-                                    return new Coords(EX, EY - 1);
-                                }
-                            }
-                        }
-                        else if (!walls.Contains(Map[EX + 1, EY]) && potX1 < Map.GetLength(0) - 1)
-                        {
-                            return new Coords(EX + 1, EY);
-                        }
-                        else if (!walls.Contains(Map[EX, EY - 1]) && potY2 > 0)
-                        {
-                            return new Coords(EX, EY - 1);
-                        }
-                    
-                }
-                //enemy playertől balra és lefelé van, EX-- és EY++ irányba kéne mennie, jobbra felfelé
-                else if (EX > PX)
-                {
-                        //potenciális új coord, elsőnek jobbra nézzük meg
-                        int potY1 = EY;
-                        while (walls.Contains(Map[EX - 1, potY1]) && potY1 < Map.GetLength(1) - 1)
-                        {
-                            potY1++;
-                            BpY++;
-                        }
-
-                        //megnézzük felfelé is
-                        int potX2 = EX;
-                        while (walls.Contains(Map[potX2, EY + 1]) && potX2 > 0)
-                        {
-                            potX2--;
-                            BnX++;
-                        }
-
-                        //amelyik jóságszámláló kisebb a másiknál és bent is van a pályán, azt adjuk vissza, egyébként random adjuk vissza az egyiket
-                        if (BpY < BnX && potY1 < Map.GetLength(1) - 1 && !walls.Contains(Map[EX, EY+1]))
-                        {
-                            //RETURN JOBBRA MENŐT
-                            return new Coords(EX, EY + 1);
-                        }
-                        else if (BnX < BpY && potX2 > 0 && !walls.Contains(Map[EX-1, EY]))
-                        {
-                            //RETURN BALRA MENŐT
-                            return new Coords(EX-1, EY);
-                        }
-                        else if (BpY == BnX)
+                    //amelyik jóságszámláló kisebb a másiknál és bent is van a pályán és falba se vezeti azt adjuk vissza, egyébként random adjuk vissza az egyiket
+                    if (BpX < BpY && potX1 < Map.GetLength(0) - 1 && !walls.Contains(Map[EX + 1, EY]))
+                    {
+                        return new Coords(EX + 1, EY);
+                    }
+                    else if (BpY < BpX && potY2 > 0 && !walls.Contains(Map[EX, EY - 1]))
+                    {
+                        return new Coords(EX, EY - 1);
+                    }
+                    else if (BpX == BpY)
+                    {
+                        if (!walls.Contains(Map[EX + 1, EY]) && !walls.Contains(Map[EX, EY - 1]))
                         {
                             int randomret = rnd.Next(0, 2);
-                            if (randomret == 0 && potY1 < Map.GetLength(1) - 1)
+                            if (randomret == 0 && potX1 < Map.GetLength(0) - 1)
                             {
-                                //RETURN JOBBRA MENŐT
-                                return new Coords(EX, EY + 1);
+                                return new Coords(EX + 1, EY);
                             }
-                            else if (potX2 > 0)
+                            else if (potY2 > 0)
                             {
-                                //RETURN BALRA MENŐT
-                                return new Coords(EX-1, EY);
+                                return new Coords(EX, EY - 1);
                             }
                         }
-                        else if (!walls.Contains(Map[EX, EY + 1]) && potY1 < Map.GetLength(1) - 1)
+                    }
+                    //ha az egyik falba vezeti
+                    else if (!walls.Contains(Map[EX + 1, EY]) && potX1 < Map.GetLength(0) - 1)
+                    {
+                        return new Coords(EX + 1, EY);
+                    }
+                    else if (!walls.Contains(Map[EX, EY - 1]) && potY2 > 0)
+                    {
+                        return new Coords(EX, EY - 1);
+                    }
+
+                }
+                //enemy playertől jobbra és lefelé van, EX-- és EY-- irányba kéne mennie, balra felfelé
+                else if (EX > PX)
+                {
+                    //potenciális új coord, elsőnek balra nézzük meg
+                    int potY1 = EY;
+                    while (walls.Contains(Map[EX - 1, potY1]) && potY1 > 0)
+                    {
+                        potY1--;
+                        BnY++;
+                    }
+
+                    //megnézzük felfelé is
+                    int potX2 = EX;
+                    while (walls.Contains(Map[potX2, EY - 1]) && potX2 > 0)
+                    {
+                        potX2--;
+                        BnX++;
+                    }
+
+                    //amelyik jóságszámláló kisebb a másiknál és bent is van a pályán, azt adjuk vissza, egyébként random adjuk vissza az egyiket
+                    if (BnY < BnX && potY1 > 0 && !walls.Contains(Map[EX, EY - 1]))
+                    {
+                        return new Coords(EX, EY - 1);
+                    }
+                    else if (BnX < BnY && potX2 > 0 && !walls.Contains(Map[EX - 1, EY]))
+                    {
+                        return new Coords(EX - 1, EY);
+                    }
+                    else if (BnY == BnX)
+                    {
+                        int randomret = rnd.Next(0, 2);
+                        if (randomret == 0 && potY1 > 0)
                         {
-                            return new Coords(EX, EY + 1);
+                            //RETURN JOBBRA MENŐT
+                            return new Coords(EX, EY - 1);
                         }
-                        else if (!walls.Contains(Map[EX - 1, EY]) && potX2 > 0)
+                        else if (potX2 > 0)
                         {
+                            //RETURN BALRA MENŐT
                             return new Coords(EX - 1, EY);
                         }
-                    
+                    }
+                    else if (!walls.Contains(Map[EX, EY - 1]) && potY1 > 0)
+                    {
+                        return new Coords(EX, EY - 1);
+                    }
+                    else if (!walls.Contains(Map[EX - 1, EY]) && potX2 > 0)
+                    {
+                        return new Coords(EX - 1, EY);
+                    }
+
                 }
             }
 
@@ -1149,7 +1110,7 @@ namespace Logic
                 }
             }
 
-            if(dodgeNeeded)
+            if (dodgeNeeded)
             {
                 switch (direction)
                 {
@@ -1186,7 +1147,7 @@ namespace Logic
                         }
                         break;
                     case Direction.Up:
-                        if (!CollidedWithWall(oldposX, oldposY+1) &&
+                        if (!CollidedWithWall(oldposX, oldposY + 1) &&
                             Map[oldposX, oldposY + 1] != GameItem.Enemy &&
                             Map[oldposX, oldposY + 1] != GameItem.Player)
                         {
@@ -1323,7 +1284,7 @@ namespace Logic
             }
             else if (CollidedWithWall(posX, posY) && Map[posX, posY] != GameItem.Enemy && Map[posX, posY] != GameItem.Player)
             {
-                
+
                 Coords forBypass = EnemyBypassWall(new Coords(oldposX, oldposY));
 
                 Map[oldposX, oldposY] = GameItem.Floor;
