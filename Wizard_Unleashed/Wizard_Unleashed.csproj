@@ -8,9 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Background\back to main menu.png" />
+    <None Remove="Assets\Background\exit to windows.png" />
     <None Remove="Assets\Background\fantasy_background_cyrodil.png" />
     <None Remove="Assets\Background\level editor.png" />
     <None Remove="Assets\Background\play.png" />
+    <None Remove="Assets\Background\save.png" />
     <None Remove="Assets\Background\title.png" />
     <None Remove="Assets\Fireball\Left\spell_left_01.png" />
     <None Remove="Assets\Fireball\Left\spell_left_02.png" />
@@ -101,6 +104,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Assets\Background\back to main menu.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Background\exit to windows.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Background\fantasy_background_cyrodil.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -108,6 +117,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Background\play.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Background\save.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Background\title.png">

@@ -36,10 +36,11 @@ namespace Wizard_Unleashed.ViewModels
         public void SetUpLogic(ILevelEditorLogic logic)
         { 
             this.logic= logic;
+
         }
 
         public ICommand SaveMapCommand { get; set; }
-
+        
         public LevelEditorViewModel()
         {
             //a logicnak ezt nem kell átadni, mert ő speciel nem kezd ezzel semmit
