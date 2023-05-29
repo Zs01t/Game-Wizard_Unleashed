@@ -364,7 +364,7 @@ namespace Logic
                     }
                     else if (enemy is NormalEnemy)
                     {
-                        NormalEnemyStep(enemy);
+                        NormalEnemyStep(enemy as NormalEnemy);
                     }
                 }
             }
@@ -850,16 +850,25 @@ namespace Logic
                     }
                     //ha mindkettő falba vezetné és mozdulatlan maradna
                     /*
-                    else if (!walls.Contains(Map[EX - 1,EY]) && (EX - 1 > 0))
+                    else if (!walls.Contains(Map[EX - 1,EY]) && (EX - 1 > 0) && walls.Contains(Map[EX, EY - 1]))
                     {
                         return new Coords(EX - 1, EY);
-                    }*/
-                    /*
-                    else if (!walls.Contains(Map[EX, EY - 1]) && (EY - 1 > 0))
+                    }
+                    
+                    else if (!walls.Contains(Map[EX, EY - 1]) && (EY - 1 > 0) && walls.Contains(Map[EX - 1, EY]))
                     {
                         return new Coords(EX, EY - 1);
                     }
+                    else if(!walls.Contains(Map[EX - 1, EY + 1]) && walls.Contains(Map[EX + 1, EY - 1]))
+                    {
+                        return new Coords(EX - 1,EY + 1);
+                    }
+                    else if (walls.Contains(Map[EX - 1, EY + 1]) && !walls.Contains(Map[EX + 1, EY - 1]))
+                    {
+                        return new Coords(EX + 1, EY - 1);
+                    }
                     */
+
 
                 }
                 //enemy playertől balra és lefelé van, EX-- és EY++ irányba kéne mennie, jobbra felfelé
@@ -1040,7 +1049,7 @@ namespace Logic
         }
 
         // nem fordul elő, hogy éppenhogy belemozog amior átlósan akarna menni???
-        private void NormalEnemyStep(Enemy enemy)
+        private void NormalEnemyStep(NormalEnemy enemy)
         {
             int oldposX = enemy.Position.X;
             int oldposY = enemy.Position.Y;
@@ -1128,7 +1137,7 @@ namespace Logic
                 }
             }
 
-            if (dodgeNeeded)
+            if (dodgeNeeded && enemy.canDodge()) //5 másodpercenként dodgeolhat
             {
                 switch (direction)
                 {

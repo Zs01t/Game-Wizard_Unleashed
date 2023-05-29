@@ -1,5 +1,6 @@
 ﻿using Logic;
 using Models;
+using Models.Enemies;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -96,6 +97,10 @@ namespace Wizard_Unleashed
         private void DT_Tick(object? sender, EventArgs e)
         {
             logic.TimeStep();
+            foreach (NormalEnemy enemy in logic.Enemies) //enemy dodgeolásához kell
+            {
+                enemy.timeSinceLastDodge += dT.Interval.TotalSeconds;
+            }
             gameDisplay.InvalidateVisual();
             timeSinceLastMove += dT.Interval.TotalSeconds;
         }
