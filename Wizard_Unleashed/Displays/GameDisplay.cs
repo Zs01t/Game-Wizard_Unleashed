@@ -53,6 +53,7 @@ namespace Wizard_Unleashed
             {
                 foreach (var spell in logic.Spells)
                 {
+                    //nem szép, a Spell osztályban csak ezért létrehoztam egy bool értéket, ami hát eléggé meh...
                     if (!spell.IsImageAssigned)
                     {
                         spellObjects.Add(new ProjectileObject(spell, @"Assets\Fireball"));
@@ -66,7 +67,7 @@ namespace Wizard_Unleashed
 
         protected override void OnRender(DrawingContext drawingContext)
         {
-
+            //ez a függvény felel azért, hogy amikor egy új fireball-t kérünk a logictól, akkor ahhoz létrehozzon egy új spellObjectet a spellObjects tömbben
             this.AddSpell();
             base.OnRender(drawingContext);
             if (logic != null)
@@ -90,40 +91,45 @@ namespace Wizard_Unleashed
 
 
 
-
+               
                 for (int i = 0; i < logic.Map.GetLength(0); i++)
                 {
                     for (int j = 0; j < logic.Map.GetLength(1); j++)
                     {
-                        ImageBrush brush = new ImageBrush();
-
-                        switch (logic.Map[i, j])
+                        //ezzel jelentősen lerövidíthető ez a switch-case szörnyűség
+                        ImageBrush brush = null;
+                        if (logic.Map[i, j] != GameItem.Player && logic.Map[i, j] != GameItem.Enemy && logic.Map[i,j] != GameItem.Spell)
                         {
-
-                            case GameItem.Wall:brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\wall.png", UriKind.RelativeOrAbsolute)));break;
-                            case GameItem.Floor: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\floor.png", UriKind.RelativeOrAbsolute))); break;
-
-                            case GameItem.Door: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\door.png", UriKind.RelativeOrAbsolute))); break;
-                            case GameItem.IronBar: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\ironBar.png", UriKind.RelativeOrAbsolute))); break;
-                            case GameItem.IronBarTop: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\ironBarTop.png", UriKind.RelativeOrAbsolute))); break;
-
-                            case GameItem.UnderLeftCornerWall: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\underLeftCornerWall.png", UriKind.RelativeOrAbsolute))); break;
-                            case GameItem.UnderWall: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\underWall.png", UriKind.RelativeOrAbsolute))); break;
-                            case GameItem.UnderRightCornerWall: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\underRightCornerWall.png", UriKind.RelativeOrAbsolute))); break;
-                            case GameItem.LeftSideWall: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\leftSideWall.png", UriKind.RelativeOrAbsolute))); break;
-                            case GameItem.MiddleWall: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\middleWall.png", UriKind.RelativeOrAbsolute))); break;
-                            case GameItem.RightSideWall: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\rightSideWall.png", UriKind.RelativeOrAbsolute))); break;
-                            case GameItem.UpperCornerLeftWall: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\upperCornerLeftWall.png", UriKind.RelativeOrAbsolute))); break;
-                            case GameItem.UpperWall: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\upperWall.png", UriKind.RelativeOrAbsolute))); break;
-                            case GameItem.UpperCornerRightWall: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\upperCornerRightWall.png", UriKind.RelativeOrAbsolute))); break;
-                            case GameItem.LeftUpperCornerPiece: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\LeftUpperCornerPiece.png", UriKind.RelativeOrAbsolute))); break;
-                            case GameItem.LeftLowerCornerPiece: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\LeftLowerCornerPiece.png", UriKind.RelativeOrAbsolute))); break;
-                            case GameItem.RightLowerCornerPiece: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\RightLowerCornerPiece.png", UriKind.RelativeOrAbsolute))); break;
-                            case GameItem.RightUpperCornerPiece: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\RightUpperCornerPiece.png", UriKind.RelativeOrAbsolute))); break;
-
-
-                            default:break;
+                            brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\" + logic.Map[i, j].ToString() + ".png", UriKind.RelativeOrAbsolute)));
                         }
+
+                        //switch (logic.Map[i, j])
+                        //{
+
+                        //    case GameItem.Wall:brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\wall.png", UriKind.RelativeOrAbsolute)));break;
+                        //    case GameItem.Floor: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\floor.png", UriKind.RelativeOrAbsolute))); break;
+
+                        //    case GameItem.Door: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\door.png", UriKind.RelativeOrAbsolute))); break;
+                        //    case GameItem.IronBar: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\ironBar.png", UriKind.RelativeOrAbsolute))); break;
+                        //    case GameItem.IronBarTop: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\ironBarTop.png", UriKind.RelativeOrAbsolute))); break;
+
+                        //    case GameItem.UnderLeftCornerWall: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\underLeftCornerWall.png", UriKind.RelativeOrAbsolute))); break;
+                        //    case GameItem.UnderWall: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\underWall.png", UriKind.RelativeOrAbsolute))); break;
+                        //    case GameItem.UnderRightCornerWall: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\underRightCornerWall.png", UriKind.RelativeOrAbsolute))); break;
+                        //    case GameItem.LeftSideWall: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\leftSideWall.png", UriKind.RelativeOrAbsolute))); break;
+                        //    case GameItem.MiddleWall: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\middleWall.png", UriKind.RelativeOrAbsolute))); break;
+                        //    case GameItem.RightSideWall: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\rightSideWall.png", UriKind.RelativeOrAbsolute))); break;
+                        //    case GameItem.UpperCornerLeftWall: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\upperCornerLeftWall.png", UriKind.RelativeOrAbsolute))); break;
+                        //    case GameItem.UpperWall: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\upperWall.png", UriKind.RelativeOrAbsolute))); break;
+                        //    case GameItem.UpperCornerRightWall: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\upperCornerRightWall.png", UriKind.RelativeOrAbsolute))); break;
+                        //    case GameItem.LeftUpperCornerPiece: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\LeftUpperCornerPiece.png", UriKind.RelativeOrAbsolute))); break;
+                        //    case GameItem.LeftLowerCornerPiece: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\LeftLowerCornerPiece.png", UriKind.RelativeOrAbsolute))); break;
+                        //    case GameItem.RightLowerCornerPiece: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\RightLowerCornerPiece.png", UriKind.RelativeOrAbsolute))); break;
+                        //    case GameItem.RightUpperCornerPiece: brush = new ImageBrush(new BitmapImage(new Uri(@"Assets\Tiles\RightUpperCornerPiece.png", UriKind.RelativeOrAbsolute))); break;
+
+
+                        //    default:break;
+                        //}
 
                         if (logic.Map[i, j] == GameItem.Player)
                         {
@@ -154,6 +160,8 @@ namespace Wizard_Unleashed
                         
 
                     }
+                    //új pálya betöltésekor ennek ki kell ürülnie, ez a logicban megtörténik, de itt is meg kell csinálni
+                    //valahogy függővé kéne tenni a kettőt, mert ez így nem valami jó megoldás
                     if (logic.mapChanged)
                     {
                         EnemyListAfterMapChanged();
@@ -196,6 +204,7 @@ namespace Wizard_Unleashed
             }
         }
 
+        //pályaváltáskor újra le kell kérni az enemyket, úgy hogy az előző pályán lévőket törli mind a logicban (a logic intézi), mind itt, az enemyObjects listában
         public void EnemyListAfterMapChanged()
         {
             enemyObjects = new List<EntityObject>();

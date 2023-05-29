@@ -21,6 +21,7 @@ namespace Logic
 
         private string ConvertTileToString(Tile tile)
         {
+            //ezt lehetne dinamikussá tenni, de az enumok nem alkalmasak erre...
             switch (tile.TileType)
             {
 
@@ -75,10 +76,7 @@ namespace Logic
                     save += "\n";
             }
 
-            // ...\Wizard_Unleashed_Reloaded\Wizard_Unleashed\bin\Debug\net5.0-windows\Levels
-            //A fentebb írt mappába menti el a fájlt, nem túl szép de ez van
-            //Azért töröltem ki a Level mappát, mert amikor oda mentettem szintet, akkor ott külön manuálisan be kellett volna állítani, hogy Content Always Copy legyen
-            //A szinteket olyan néven mentem el, hogy megadom a szint számát az alapján, hogy hány .lvl fájlt talált az adott mappában
+            //ez most már lokáció függetlenül a megfelelő helyre menti a pályákat
             int levelCount = 0;
 
             string lvlPath = Directory.GetCurrentDirectory().Replace("Wizard_Unleashed\\bin\\Debug\\net5.0-windows", "Logic\\Levels\\");
@@ -101,6 +99,75 @@ namespace Logic
             {
                 File.WriteAllText(lvlPath + @"\L" + levelCount + ".lvl", save);
             }
+
+
+            //TODO: ennél nem működik a képlétrehozás, egy nagy zöld négyzetet hoz létre, hiába illesztem össze a képeket
+
+            //egy képként elmentjük az egész pályát, így rendernél nem kell minden egyes statikus objektumot újragenerálni
+            //BitmapFrame[,] frames = new BitmapFrame[TileMap.GetLength(0), TileMap.GetLength(1)];
+            //for (int i = 0; i < TileMap.GetLength(0); i++)
+            //{
+            //    for (int j = 0; j < TileMap.GetLength(1); j++)
+            //    {
+
+            //        Uri uri = FindCorrectImage(TileMap[i, j].Name);
+            //        BitmapFrame tmp = BitmapDecoder.Create(uri, BitmapCreateOptions.IgnoreImageCache, BitmapCacheOption.OnLoad).Frames.First();
+            //        frames[i, j] = tmp ;
+
+            //    }
+            //}
+
+
+            //Uri FindCorrectImage(string name)
+            //{
+            //    return new Uri("C:\\Users\\bekef\\Source\\Repos\\Zs01t\\Wizard_Unleashed_Reloaded\\Wizard_Unleashed\\Assets\\Tiles\\" + name + ".png", UriKind.RelativeOrAbsolute);
+            //}
+
+            ////feltételezzük, hogy mindegyik kép ugyanakkora
+            //int imageWidth = frames[0, 0].PixelWidth;
+            //int imageHeight = frames[0, 0].PixelHeight;
+
+            ////egy DrawingVisual component-re rárajzoljuk a frameket
+            //DrawingVisual drawingVisual = new DrawingVisual();
+            //using (DrawingContext drawingContext = drawingVisual.RenderOpen())
+            //{
+            //    for (int i = 0; i < TileMap.GetLength(0); i++)
+            //    {
+            //        for (int j = 0; j < TileMap.GetLength(1); j++)
+            //        {
+            //            drawingContext.DrawImage(frames[i, j], new Rect(j * imageWidth, i * imageHeight, imageWidth, imageHeight));
+            //        }
+            //    }
+
+            //    //ezt a DrawingVisual-t egy BitmapSource-á alakítjuk
+
+            //    RenderTargetBitmap bmp = new RenderTargetBitmap(imageWidth * frames.GetLength(1), imageHeight * frames.GetLength(0), 96, 96, PixelFormats.Pbgra32);
+            //    bmp.Render(drawingVisual);
+
+            //    PngBitmapEncoder encoder = new PngBitmapEncoder();
+            //    encoder.Frames.Add(BitmapFrame.Create(bmp));
+
+            //    //elmentjük a képet
+
+            //    string mapImageName = lvlPath;
+            //    if (levelCount < 10)
+            //    {
+            //        mapImageName += @"\L0" + levelCount + ".png";
+
+            //    }
+            //    else
+            //    {
+            //        mapImageName += @"\L" + levelCount + ".png";
+            //    }
+
+
+
+            //    using (FileStream stream = File.Create(mapImageName))
+
+            //        encoder.Save(stream);
+
+            //}
+
         }
 
         public void PlaceItemIntoGrid(double mousePosX, double mousePosY, Tile SelectedTile)

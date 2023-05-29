@@ -113,6 +113,7 @@ namespace Logic
 
         private GameItem ConvertToEnum(char v)
         {
+            //ezt lehetne dinamikussá tenni
             switch (v)
             {
 
