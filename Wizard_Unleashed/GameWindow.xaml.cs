@@ -59,7 +59,7 @@ namespace Wizard_Unleashed
 
             logic.PlayerDead += this.PlayerDead;
             logic.NoMoreLevel += NoMoreLevel;
-
+ 
             
         }
 
@@ -122,14 +122,14 @@ namespace Wizard_Unleashed
                 }
                 
             }
+           
+ 
             
 
 
 
-            
-            
 
-            
+
             //ebben nem vagyok biztos, hogy ez jót tesz -Zs
             gameDisplay.InvalidateVisual();
         }

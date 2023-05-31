@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Level Editor"  Loaded="Window_Loaded" SizeChanged="Window_SizeChanged" KeyDown="Window_KeyDown" WindowState="Maximized" WindowStyle="None">
     <Window.Background>
-        <ImageBrush ImageSource="\Assets\Background\fantasy_background_cyrodil.png" Stretch="Fill" />
+        <ImageBrush ImageSource="\Assets\Background\fantasy_background_cyrodil.png" Stretch="Fill"  />
     </Window.Background>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -18,6 +18,9 @@
         <Grid x:Name="gameGrid" Grid.Column="1" Width="800" Height="700">
             <local:GameDisplay x:Name="gameDisplay" />
         </Grid>
+        <Label Grid.Column="0"  Height="50" Margin="10" VerticalAlignment="Bottom" BorderThickness="0" Background="Transparent">
+            <Image Source="/Assets/Background/health.png" Width="400" Height="80" HorizontalAlignment="Left" />
+        </Label>
         <Button Grid.Column="0" Height="50"  Margin="10" Click="Button_Click" VerticalAlignment="Bottom" BorderThickness="0" Background="Transparent">
             <Image Source="/Assets/Background/back to main menu.png" />
         </Button>

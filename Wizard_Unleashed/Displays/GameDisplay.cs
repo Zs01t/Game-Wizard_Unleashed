@@ -43,7 +43,7 @@ namespace Wizard_Unleashed
             }
 
             spellObjects = new List<ProjectileObject>();
-            
+
             logic.GameStateChanged += this.GameStateChanged;
         }
 
