@@ -13,11 +13,12 @@ namespace Models
         public Player(Coords Position , int Health, Direction direction) : base(Position, Health, direction)
         {
             timeSinceLastSpell = 1;
-        
+
         }
         public Player()
         {
             timeSinceLastSpell = 1;
+            this.Health = 100; //!!!
         }
 
         public void Injure(int dmg)

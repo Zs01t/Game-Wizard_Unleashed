@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    public abstract class Entity : ObservableObject
+    public abstract class Entity : INotifyPropertyChanged
     {
         public Coords Position { get; set; }
         public Direction Direction { get; set; }

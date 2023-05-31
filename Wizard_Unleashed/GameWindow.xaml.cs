@@ -33,11 +33,13 @@ namespace Wizard_Unleashed
         public GameWindow()
         {
             InitializeComponent();
+            
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             player = new Player();
             logic = new GameLogic(player);
+            this.DataContext = this.logic;
 
             //gameDisplay.SetupModel(new GameLogic(player));
             gameDisplay.SetupModel(logic);

@@ -24,8 +24,7 @@ namespace Logic
 
         public GameLogic(Player player)
         {
-            this.Player = player;
-            Player.Health = 100; //!!!
+            this.Player = player;           
             Spells = new List<Spell>();
             Enemies = new List<Enemy>();
             levels = new Queue<string>();
